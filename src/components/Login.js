@@ -40,7 +40,7 @@ const Login = () => {
 
   return (
     <div style={styles.page}>
-    {/* <ThreeScene /> */}
+    <ThreeScene />
 
     <div style={styles.container}>
       <div style={styles.formBox}>
