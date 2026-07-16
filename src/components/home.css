@@ -1,0 +1,104 @@
+.registration-card{
+    background:#fff;
+    border-radius:14px;
+    padding:18px 22px;
+    margin-bottom:18px;
+    box-shadow:0 4px 15px rgba(0,0,0,.08);
+    border-top:4px solid #0d6efd;
+    width:32%;
+    max-width:850px;
+}
+
+.registration-title{
+    color:#0d6efd;
+    font-size:24px;
+    font-weight:700;
+    display:flex;
+    align-items:center;
+    gap:8px;
+    margin-bottom:18px;
+}
+
+.registration-title::before{
+    content:"👤";
+    font-size:26px;
+    }
+
+.registration-card label{
+    font-size:18px;
+    font-weight:600;
+    color:#030303;
+    margin: 7px;
+}
+
+.registration-card .form-control{
+    height:30px;
+    border-radius:8px;
+    border:px solid #666464;
+    font-size:14px;
+    transition:.25s;
+}
+
+.registration-card .form-control:focus{
+    border-color:#0d6efd;
+    box-shadow:0 0 8px rgba(13,110,253,.15);
+}
+
+.registration-card .row>.col-md-3,
+.registration-card .row>.col-md-6,
+.registration-card .row>.col-md-12{
+    margin-bottom:10px;
+}
+
+.form-btn{
+    min-width:110px;
+    height:40px;
+    border:none;
+    border-radius:8px;
+    color:#fff;
+    font-weight:600;
+    font-size:14px;
+    transition:.25s;
+}
+
+.form-btn:hover{
+    transform:translateY(-2px);
+}
+
+.save-btn{
+    background:#0d6efd;
+    margin: 5px;
+}
+
+.update-btn{
+    background:#198754;
+    margin: 5px;
+}
+
+.clear-btn{
+    background:#dc3545;
+    margin: 5px;
+}
+
+.cancel-btn{
+    background:#6c757d;
+    margin: 5px;
+}
+
+.success-box{
+    background:#edfdf4;
+    border-left:4px solid #198754;
+    padding:10px 15px;
+    border-radius:10px;
+    margin-bottom:15px;
+}
+
+.print-btn{
+    background:#6f42c1;
+    color:#fff;
+}
+
+.print-btn:hover{
+    background:#5a32a3;
+}
+

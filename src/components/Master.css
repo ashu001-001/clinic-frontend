@@ -1,0 +1,131 @@
+.master-menu{
+    display:grid;
+    grid-template-columns:repeat(6,1fr);
+    gap:10px;
+    margin-top:20px;
+    margin-left:20px;
+    margin-right:20px;
+}
+.master-btn{
+    border:none;
+    border-radius:15px;
+    background:linear-gradient(135deg,#0d6efd,#3b82f6);
+    color:#fff;
+    padding:10px 10px;
+    min-height:50px;
+
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+
+    font-size:16px;
+    font-weight:600;
+    cursor:pointer;
+    transition:.3s;
+    box-shadow:0 8px 18px rgba(0,0,0,.15);
+}
+
+
+.master-btn span{
+    
+    font-size:16px;
+    font-weight:600;
+}
+
+.master-btn:hover{
+    transform:translateY(-6px);
+    box-shadow:0 15px 30px rgba(0,0,0,.25);
+}
+.master-btn{
+    position: relative;
+    overflow: hidden;
+    color: #fff;
+    border: none;
+    border-radius: 18px;
+    padding: 10px 10px;
+    font-weight: 700;
+    letter-spacing: .5px;
+
+    box-shadow:
+      0 10px 20px rgba(0,0,0,.20),
+      inset 0 2px 4px rgba(255,255,255,.35),
+      inset 0 -3px 6px rgba(0,0,0,.15);
+
+    transition: all .3s ease;
+}
+
+/* Shine Effect */
+.master-btn::before{
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -120%;
+    width: 60%;
+    height: 100%;
+    background: rgba(255,255,255,.25);
+    transform: skewX(-25deg);
+    transition: .6s;
+}
+
+.master-btn:hover::before{
+    left: 150%;
+}
+
+.master-btn:hover{
+    transform: translateY(-6px) scale(1.03);
+    box-shadow:
+      0 18px 35px rgba(0,0,0,.28),
+      inset 0 2px 4px rgba(255,255,255,.4);
+}
+
+
+
+
+.master-btn:nth-child(1){
+    background: linear-gradient(135deg,#2563eb,#60a5fa);
+}
+
+.master-btn:nth-child(2){
+    background: linear-gradient(135deg,#059669,#34d399);
+}
+
+.master-btn:nth-child(3){
+    background: linear-gradient(135deg,#7c3aed,#c084fc);
+}
+
+.master-btn:nth-child(4){
+    background: linear-gradient(135deg,#ea580c,#fdba74);
+}
+
+.master-btn:nth-child(5){
+    background: linear-gradient(135deg,#dc2626,#fb7185);
+}
+
+.master-btn:nth-child(6){
+    background: linear-gradient(135deg,#0891b2,#67e8f9);
+}
+
+.master-btn:nth-child(7){
+    background: linear-gradient(135deg,#ca8a04,#fde047);
+}
+
+.master-btn:nth-child(8){
+    background: linear-gradient(135deg,#334155,#94a3b8);
+}
+
+.master-btn:nth-child(9){
+    background: linear-gradient(135deg,#db2777,#f9a8d4);
+}
+
+.master-btn:nth-child(10){
+    background: linear-gradient(135deg,#0f766e,#5eead4);
+}
+
+.master-btn:nth-child(11){
+    background: linear-gradient(135deg,#6d28d9,#d8b4fe);
+}
+
+.master-btn:nth-child(12){
+    background: linear-gradient(135deg,#be123c,#fda4af);
+}

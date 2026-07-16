@@ -1,0 +1,13 @@
+.consultation-page{
+    width:210mm;
+    min-height:250mm;
+    margin:auto;
+    background:#fff;
+    padding:30px;
+}
+
+@media print{
+    button{
+        display:none;
+    }
+}

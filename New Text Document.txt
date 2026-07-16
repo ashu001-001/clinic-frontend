@@ -1,0 +1,80 @@
+const styles = {
+  homeContainer: {
+    padding: "20px",
+    background: "#f4f7fb",
+    minHeight: "100vh",
+  },
+
+  customCard: {
+    border: "none",
+    borderRadius: "15px",
+    boxShadow: "0 4px 15px rgba(0,0,0,0.1)",
+    marginBottom: "20px",
+  },
+
+  cardHeader: {
+    background: "#0d6efd",
+    color: "white",
+    fontWeight: "bold",
+    borderRadius: "15px 15px 0 0",
+    padding: "15px",
+  },
+
+  input: {
+    borderRadius: "10px",
+    border: "1px solid #ced4da",
+  },
+
+  saveBtn: {
+    background: "#198754",
+    color: "white",
+    border: "none",
+    borderRadius: "10px",
+    padding: "8px 20px",
+    marginRight: "10px",
+  },
+
+  clearBtn: {
+    background: "#dc3545",
+    color: "white",
+    border: "none",
+    borderRadius: "10px",
+    padding: "8px 20px",
+  },
+
+  profileBtn: {
+    background: "#0dcaf0",
+    color: "white",
+    border: "none",
+    borderRadius: "8px",
+    padding: "5px 12px",
+  },
+
+  table: {
+    background: "#fff",
+    borderRadius: "10px",
+    overflow: "hidden",
+  },
+
+  profileCard: {
+    background: "#fff",
+    borderRadius: "15px",
+    padding: "20px",
+    boxShadow: "0 4px 15px rgba(0,0,0,0.1)",
+    marginTop: "20px",
+  },
+
+  visitCard: {
+    background: "#fff",
+    borderRadius: "15px",
+    padding: "20px",
+    boxShadow: "0 4px 15px rgba(0,0,0,0.1)",
+    marginTop: "20px",
+  },
+
+  label: {
+    fontWeight: "600",
+    marginBottom: "5px",
+    display: "block",
+  },
+};
