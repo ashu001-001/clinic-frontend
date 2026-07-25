@@ -14,6 +14,7 @@ import ConsultationReport from "./components/ConsultationReport";
 import TreatmentReport from "./components/TreatmentReport";
 import BillPrint from "./components/BillPrint";
 import OPDPrint from "./components/OPDPrint";
+import PrescriptionPrint from "./components/PrescriptionPrint";
 
 // Protected Route Component
 const ProtectedRoute = ({ children }) => {
@@ -45,6 +46,8 @@ function App() {
         <Route path="/registration-print/:id" element={ <ProtectedRoute> {" "} <RegistrationPrint /> </ProtectedRoute>} />
 
         <Route path="/consultation-print" element={ <ProtectedRoute> {" "} <ConsultationPrint /> </ProtectedRoute>} />
+
+        <Route path="/prescription-print" element={ <ProtectedRoute> {" "} <PrescriptionPrint /> </ProtectedRoute>} />
 
         <Route path="/patient-report" element={ <ProtectedRoute> {" "} <PatientReport />{" "} </ProtectedRoute> } />
 

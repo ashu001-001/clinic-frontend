@@ -112,20 +112,20 @@ const Masters = () => {
   const loadMarquee = async () => {
     resetForm();
     const res = await axios.get(GETMARQUEE);
-    
+
     setData(res.data.data);
     setMasterType("marquee");
   };
 
-const handleActivate = (id, message) => {
-  localStorage.setItem("activeMarqueeId", id);
-  localStorage.setItem("activeMarqueeText", message);
-};
+  const handleActivate = (id, message) => {
+    localStorage.setItem("activeMarqueeId", id);
+    localStorage.setItem("activeMarqueeText", message);
+  };
 
-const handleDeactivate = () => {
-  localStorage.removeItem("activeMarqueeId");
-  localStorage.removeItem("activeMarqueeText");
-};
+  const handleDeactivate = () => {
+    localStorage.removeItem("activeMarqueeId");
+    localStorage.removeItem("activeMarqueeText");
+  };
 
 
 
@@ -211,10 +211,10 @@ const handleDeactivate = () => {
       }
 
       if (masterType === "marquee") {
-  await axios.post(ADDMARQUEE, {
-    message: name,
-  });
-}
+        await axios.post(ADDMARQUEE, {
+          message: name,
+        });
+      }
 
       alert("Saved Successfully");
 
@@ -266,8 +266,8 @@ const handleDeactivate = () => {
         loadCity();
       }
       if (masterType === "marquee") {
-    loadMarquee();
-}
+        loadMarquee();
+      }
 
     } catch (err) {
       console.log(err);
@@ -280,8 +280,8 @@ const handleDeactivate = () => {
     setEditId(item._id);
 
     if (masterType === "marquee") {
-  setName(item.message);
-}
+      setName(item.message);
+    }
 
     if (masterType === "consultant") {
       setName(item.consultantName);
@@ -404,10 +404,10 @@ const handleDeactivate = () => {
       }
 
       if (masterType === "marquee") {
-  await axios.put(`${UPDATEMARQUEE}${editId}`, {
-    message: name,
-  });
-}
+        await axios.put(`${UPDATEMARQUEE}${editId}`, {
+          message: name,
+        });
+      }
 
       alert("Updated Successfully");
 
@@ -668,8 +668,10 @@ const handleDeactivate = () => {
                     <th>Amount</th>
                   )}
                   <th>Action</th>
+                  {masterType === "marquee" && (
+                    <th>Status</th>
+                  )}
 
-                  <th>Status</th>
                 </tr>
               </thead>
 
@@ -707,7 +709,7 @@ const handleDeactivate = () => {
                     {masterType === "treatment" && (
                       <td>{item.amount}</td>
                     )}
-                  
+
                     <td>
 
                       <button
@@ -718,26 +720,28 @@ const handleDeactivate = () => {
                       </button>
 
                     </td>
-
-                 <td>
-  {localStorage.getItem("activeMarqueeId") === item._id ? (
-    <button
-      className="btn btn-success btn-sm"
-      onClick={() => handleDeactivate()}
-    >
-      Running
-    </button>
-  ) : (
-    <button
-      className="btn btn-primary btn-sm"
-      onClick={() =>
-        handleActivate(item._id, item.message)
-      }
-    >
-      Start
-    </button>
-  )}
-</td>
+{masterType === "marquee" && (
+                    <td>
+                      {localStorage.getItem("activeMarqueeId") === item._id ? 
+                      (
+                        <button
+                          className="btn btn-success btn-sm"
+                          onClick={() => handleDeactivate()}
+                        >
+                          Running
+                        </button>
+                      ) : 
+                      (
+                        <button
+                          className="btn btn-primary btn-sm"
+                          onClick={() =>
+                            handleActivate(item._id, item.message)
+                          }
+                        >
+                          Start
+                        </button>
+                      )}
+                    </td>)}
 
                   </tr>
                 ))}

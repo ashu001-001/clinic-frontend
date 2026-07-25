@@ -138,7 +138,7 @@ const styles = {
     marginBottom: "15px",
   },
   input: {
-  width: "100%",
+  width: "92%",
   padding: "14px",
   borderRadius: "10px",
   border: "1px solid rgba(255,255,255,.2)",

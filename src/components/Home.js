@@ -1023,7 +1023,9 @@ background: "linear-gradient(135deg,#0F2027,#203A43,#2C5364)" ,
                     .filter((item) => {
                       return (
                         item.patientId?.toLowerCase().includes(search.toLowerCase()) ||
-                        item.name?.toLowerCase().includes(search.toLowerCase())
+                        item.name?.toLowerCase().includes(search.toLowerCase()) ||
+                        item.phone?.toLowerCase().includes(search.toLowerCase()) ||
+                        item.surname?.toLowerCase().includes(search.toLowerCase())
                       );
                     })
                     .map((item, index) => (

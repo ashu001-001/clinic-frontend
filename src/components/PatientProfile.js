@@ -24,6 +24,8 @@ const PatientProfile = () => {
 
   const [showDetail, setShowDetail] = useState(false);
 
+  const [showFullHistory, setShowFullHistory] = useState(false);
+
   const [complaintRows, setComplaintRows] = useState([]);
   const [allergyRows, setAllergyRows] = useState([]);
   const [diseaseRows, setDiseaseRows] = useState([]);
@@ -807,11 +809,30 @@ const PatientProfile = () => {
 
               <div className="col-md-3 mb-3">
                 <h4 className="text-primary">Total Visits : {visitHistory.length}</h4>
-                {/* <h4>Last Visit : {visitHistory.length
+                <h4>First Visit : {visitHistory.length
                   ? new Date(
-                      visitHistory[visitHistory.length - 1].visitDate
-                    ).toLocaleDateString()
-                  : "-"}</h4> */}
+                    visitHistory[visitHistory.length - 1].visitDate
+                  ).toLocaleDateString()
+                  : "-"}</h4>
+                <button
+                style={{
+                              background: "#198754",
+                              color: "#fff",
+                              border: "none",
+                              padding: "10px 20px",
+                              borderRadius: "10px",
+                              marginLeft: "0px",
+                              marginBottom: "5px",
+                              boxShadow:
+                                "0 8px 18px rgb(255, 255, 255), inset 0 2px 2px rgba(255,255,255,0.25)",
+
+                              transition: "all .3s ease",
+                            }}
+                  className="btn btn-info btn-sm"
+                  onClick={() => setShowFullHistory(true)}
+                >
+                  Full History
+                </button>
               </div>
             </div>
 
@@ -828,7 +849,11 @@ const PatientProfile = () => {
             border: "none",
             padding: "10px 20px",
             borderRadius: "10px",
-            margin: "12px",
+            margin:"12px",
+            boxShadow:
+              "0 8px 18px rgb(255, 255, 255), inset 0 2px 2px rgba(255,255,255,0.25)",
+
+            transition: "all .3s ease",
           }}
           onClick={() => {
 
@@ -2862,14 +2887,16 @@ const PatientProfile = () => {
                   }}
                 >
                   <div>
-                    <h2 style={{ margin: 0  ,
-                      
+                    <h2 style={{
+                      margin: 0,
+
                     }}>🦷 Dental Sitting</h2>
                     <small>Dental Clinic Management</small>
                   </div>
 
-                  <h4 style={{ margin: 0 ,
-                    fontSize:"20px",
+                  <h4 style={{
+                    margin: 0,
+                    fontSize: "20px",
                   }}>
                     Sitting No : {sittingData.sittingNo}
                   </h4>
@@ -2882,12 +2909,12 @@ const PatientProfile = () => {
                     borderRadius: "15px",
                     padding: "20px",
                     marginBottom: "20px",
-                
+
                   }}
                 >
                   <div className="row">
 
-                    <div  className="col-md-3 mb-3">
+                    <div className="col-md-3 mb-3">
                       <label>Sitting No.       </label>
                       <input style={{
                         borderRadius: "12px",
@@ -2920,22 +2947,22 @@ const PatientProfile = () => {
                       />
                       <label> Next Visit Date </label>
 
-                    <input style={{
-                      borderRadius: "12px",
-                      padding: "10px",
-                      border: "1px solid #dbeafe",
-                      boxShadow: "0 2px 8px rgba(0,0,0,.05)"
-                    }}
-                      type="date"
-                      className="form-control"
-                      value={sittingData.nextVisitDate}
-                      onChange={(e) =>
-                        setSittingData({
-                          ...sittingData,
-                          nextVisitDate: e.target.value
-                        })
-                      }
-                    />
+                      <input style={{
+                        borderRadius: "12px",
+                        padding: "10px",
+                        border: "1px solid #dbeafe",
+                        boxShadow: "0 2px 8px rgba(0,0,0,.05)"
+                      }}
+                        type="date"
+                        className="form-control"
+                        value={sittingData.nextVisitDate}
+                        onChange={(e) =>
+                          setSittingData({
+                            ...sittingData,
+                            nextVisitDate: e.target.value
+                          })
+                        }
+                      />
                     </div>
 
                     <div className="col-md-3 mb-3">
@@ -3053,7 +3080,7 @@ const PatientProfile = () => {
                     width: "625px",
                     borderRadius: "10px",
                     border: "none",
-                    height:"55px"
+                    height: "55px"
                   }}
                     rows={3}
                     className="form-control"
@@ -3535,6 +3562,42 @@ const PatientProfile = () => {
                   color: "#666"
                 }}
               >
+                  <button
+              className="btn"
+              style={{
+                background: "#198754",
+                color: "#fff",
+                border: "none",
+                padding: "10px 15px",
+                borderRadius: "10px",
+                marginBottom: "10px",
+              }}
+              onClick={() => {
+
+                if (!selectedVisit) {
+                  alert("⚠️ Please select a patient visit first.");
+                  return;
+                }
+
+                
+  localStorage.setItem(
+    "consultationData",
+    JSON.stringify({
+      patient,
+      visit: selectedVisit,
+      complaintRows,
+      diseaseRows,
+      allergyRows,
+      investigationRows,
+      procedureRows,
+      surgeryRows,
+      prescriptionRows,
+    })
+  );
+
+                navigate("/prescription-print");
+              }}
+            > PRINT </button>
 
                 <span>
                   🩺 Follow Doctor Instructions Carefully
@@ -4795,8 +4858,133 @@ const PatientProfile = () => {
 
         )}
 
+        {showFullHistory && (
 
+          <div
+            style={{
+              position: "fixed",
+              inset: 0,
+              background: "rgba(0,0,0,.55)",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              zIndex: 9999,
+            }}
+          >
 
+            <div
+              className="history-container"
+              style={{
+                maxHeight: "90vh",
+                overflowY: "auto",
+                width: "90%",
+              }}
+            >
+
+              <div className="history-top">
+
+                <h3 className="history-title">
+                  📚 Complete Patient History
+                </h3>
+
+                <button
+                  className="history-close"
+                  onClick={() => setShowFullHistory(false)}
+                >
+                  ✕
+                </button>
+
+              </div>
+
+              {visitHistory.map((visit, index) => (
+
+                <div
+                  key={visit._id}
+                  style={{
+                    border: "1px solid #ddd",
+                    borderRadius: "10px",
+                    marginBottom: "15px",
+                    padding: "10px",
+                    background: "#fff",
+                  }}
+                >
+
+                  <h4
+                    style={{
+                      marginBottom: "10px",
+                      color: "#0056b3",
+                    }}
+                  >
+                    Visit #{visit.visitno || index + 1}
+                  </h4>
+
+                  <div className="history-grid">
+
+                    <div className="history-box">
+                      <div className="history-header">😣 Complaints</div>
+                      <div className="history-body">
+                        {visit.complaints?.length
+                          ? visit.complaints.map(x => x.complaintName).join(", ")
+                          : "No Complaint"}
+                      </div>
+                    </div>
+
+                    <div className="history-box">
+                      <div className="history-header">🩺 Diseases</div>
+                      <div className="history-body">
+                        {visit.diseases?.length
+                          ? visit.diseases.map(x => x.diseaseName).join(", ")
+                          : "No Disease"}
+                      </div>
+                    </div>
+
+                    <div className="history-box">
+                      <div className="history-header">🤧 Allergies</div>
+                      <div className="history-body">
+                        {visit.allergies?.length
+                          ? visit.allergies.map(x => x.allergyName).join(", ")
+                          : "No Allergy"}
+                      </div>
+                    </div>
+
+                    <div className="history-box">
+                      <div className="history-header">🔬 Investigations</div>
+                      <div className="history-body">
+                        {visit.investigations?.length
+                          ? visit.investigations.map(x => x.investigationName).join(", ")
+                          : "No Investigation"}
+                      </div>
+                    </div>
+
+                    <div className="history-box">
+                      <div className="history-header">🦷 Procedures</div>
+                      <div className="history-body">
+                        {visit.procedures?.length
+                          ? visit.procedures.map(x => x.procedureName).join(", ")
+                          : "-"}
+                      </div>
+                    </div>
+
+                    <div className="history-box">
+                      <div className="history-header">👨‍⚕️ Surgery</div>
+                      <div className="history-body">
+                        {visit.surgeries?.length
+                          ? visit.surgeries.map(x => x.surgeryName).join(", ")
+                          : "-"}
+                      </div>
+                    </div>
+
+                  </div>
+
+                </div>
+
+              ))}
+
+            </div>
+
+          </div>
+
+        )}
 
         <div
           style={{
