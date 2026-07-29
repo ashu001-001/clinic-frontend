@@ -14,8 +14,6 @@ import { ADDSITTING, GETALLSITTING, GETSITTING, UPDATESITTING } from "./Constant
 import "./PatientProfile.css";
 
 
-
-
 const PatientProfile = () => {
 
   const { id } = useParams();
@@ -32,7 +30,7 @@ const PatientProfile = () => {
   const [investigationRows, setInvestigationRows] = useState([]);
   const [procedureRows, setProcedureRows] = useState([]);
   const [surgeryRows, setSurgeryRows] = useState([]);
-
+  const [showVitals, setShowVitals] = useState(false);
 
   const [visitHistory, setVisitHistory] = useState([]);
   const [selectedVisit, setSelectedVisit] = useState(null);
@@ -48,17 +46,9 @@ const PatientProfile = () => {
   const [treatments, setTreatments] = useState([]);
   const [treatmentRows, setTreatmentRows] = useState([]);
   const [medicines, setMedicines] = useState([]);
-
   const [activeCard, setActiveCard] = useState("");
-
   const [billId, setBillId] = useState(null);
-
-
-
-
-
   const [sittingId, setSittingId] = useState(null);
-
   const [sittingHistory, setSittingHistory] = useState([]);
 
   const [sittingData, setSittingData] = useState({
@@ -76,8 +66,6 @@ const PatientProfile = () => {
     remark: "",
   });
 
-
-
   const addWorkDone = () => {
 
     if (!workDone.treatment) return;
@@ -93,9 +81,6 @@ const PatientProfile = () => {
     });
 
   };
-
-
-
 
   const handleSittingSave = async () => {
 
@@ -179,7 +164,6 @@ const PatientProfile = () => {
 
   };
 
-
   const getSittingHistory = async (visitId) => {
     try {
       const res = await axios.get(GETSITTING + visitId);
@@ -193,20 +177,12 @@ const PatientProfile = () => {
     }
   };
 
-
-
-
-
-
   const navigate = useNavigate();
 
   const totalAmount = treatmentRows.reduce(
     (sum, item) => sum + Number(item.amount || 0),
     0
   );
-
-
-
 
   const [billData, setBillData] = useState({
     discount: 0,
@@ -336,6 +312,8 @@ const PatientProfile = () => {
   };
 
   const loadVisit = (visit) => {
+
+    console.log(visit.complaints);
     setSelectedVisit(visit);
     getSittingHistory(visit._id);
     getBillByVisit(visit._id);
@@ -344,6 +322,15 @@ const PatientProfile = () => {
       consultant: visit.consultant?._id || "",
       consultantCharge: visit.consultantCharge || 0,
       notes: visit.notes || "",
+
+      vitals: [{
+  weight: "",
+  bp: "",
+  temp: "",
+  pulse: "",
+  spo2: "",
+  bsl: "",
+}],
     });
 
     setComplaintRows(visit.complaints || []);
@@ -354,11 +341,7 @@ const PatientProfile = () => {
     setSurgeryRows(visit.surgeries || []);
     setPrescriptionRows(visit.prescription || []);
 
-
-    // Form open ho jaye
     setShowVisitForm(true);
-
-    // Agar chaho to consultant card open ho
 
   };
 
@@ -397,19 +380,35 @@ const PatientProfile = () => {
     consultant: "",
     consultantCharge: "",
     complaint: "",
+    complaintDays: "",
+    complaintDuration: "Days",
     disease: "",
+    diseaseDays: "",
+    diseaseDuration: "Days",
     allergy: "",
     investigation: "",
     procedure: "",
     surgery: "",
+    surgeryDays: "",
+    surgeryDuration: "Days",
     treatment: "",
     treatmentAmount: "",
     medicine: "",
     dosage: "",
     days: "",
+    quantity: "",
+    nextVisitDate: "",
     notes: "",
+    vitals: [{
+  weight: "",
+  bp: "",
+  temp: "",
+  pulse: "",
+  spo2: "",
+  bsl: "",
+}],
+  
   });
-
 
   const addMedicine = () => {
 
@@ -421,6 +420,8 @@ const PatientProfile = () => {
         medicine: visitData.medicine,
         dosage: visitData.dosage,
         days: Number(visitData.days),
+        quantity: Number(visitData.quantity),
+        nextVisitDate: visitData.nextVisitDate,
       },
     ]);
 
@@ -429,9 +430,82 @@ const PatientProfile = () => {
       medicine: "",
       dosage: "",
       days: "",
+      quantity: "",
+      nextVisitDate: "",
     });
   };
 
+  const addComplaint = () => {
+    const selected = complaints.find(
+      x => x._id === visitData.complaint
+    );
+    console.log(selected);
+
+    if (!selected) return;
+
+    setComplaintRows([
+      ...complaintRows,
+      {
+        ...selected,
+        days: visitData.complaintDays,
+        duration: visitData.complaintDuration,
+      }
+    ]);
+
+    setVisitData({
+      ...visitData,
+      complaint: "",
+      complaintDays: "",
+      complaintDuration: "Days",
+    });
+  };
+
+  const addDisease = () => {
+    const selected = diseases.find(
+      x => x._id === visitData.disease
+    );
+
+    if (!selected) return;
+
+    setDiseaseRows([
+      ...diseaseRows,
+      {
+        ...selected,
+        days: visitData.diseaseDays,
+        duration: visitData.diseaseDuration,
+      }
+    ]);
+
+    setVisitData({
+      ...visitData,
+      disease: "",
+      diseaseDays: "",
+      diseaseDuration: "Days",
+    });
+  };
+
+  const addSurgery = () => {
+    const selected = surgeries.find(
+      x => x._id === visitData.surgery
+    );
+
+    if (!selected) return;
+
+    setSurgeryRows([
+      ...surgeryRows,
+      {
+        ...selected,
+        days: visitData.surgeryDays,
+        duration: visitData.surgeryDuration,
+      }
+    ]);
+    setVisitData({
+      ...visitData,
+      surgery: "",
+      surgeryDays: "",
+      surgeryDuration: "Days",
+    });
+  };
 
   const addTreatment = () => {
 
@@ -447,8 +521,7 @@ const PatientProfile = () => {
         treatment: selected.treatmentName,
         date: new Date(),
         amount: selected.amount,
-      },
-    ]);
+      },]);
 
     setVisitData({
       ...visitData,
@@ -471,16 +544,32 @@ const PatientProfile = () => {
         consultantCharge: Number(
           visitData.consultantCharge || 0
         ),
+        complaints: complaintRows.map(x => ({
+          complaint: x.complaint?._id || x._id,
+          days: Number(x.days || 0),
+          duration: x.duration,
+        })),
 
-        complaints: complaintRows.map(x => x._id),
-        diseases: diseaseRows.map(x => x._id),
+        diseases: diseaseRows.map(x => ({
+          disease: x._id,
+          days: Number(x.days || 0),
+          duration: x.duration,
+        })),
+
+        surgeries: surgeryRows.map(x => ({
+          surgery: x._id,
+          days: Number(x.days || 0),
+          duration: x.duration,
+        })),
+
         allergies: allergyRows.map(x => x._id),
         investigations: investigationRows.map(x => x._id),
         procedures: procedureRows.map(x => x._id),
-        surgeries: surgeryRows.map(x => x._id),
 
         prescription: prescriptionRows,
         treatment: treatmentRows,
+
+        vitals: visitData.vitals,
 
         notes: visitData.notes || "",
       };
@@ -508,26 +597,34 @@ const PatientProfile = () => {
   const handleVisitUpdate = async (visitId) => {
 
     try {
-
       const payload = {
         patientId: patient._id,
         visitno: selectedVisit.visitno,
-
         consultant: visitData.consultant,
         consultantCharge: Number(
           visitData.consultantCharge || 0
         ),
-
-        complaints: complaintRows.map(x => x._id),
-        diseases: diseaseRows.map(x => x._id),
+        complaints: complaintRows.map(x => ({
+          complaint: x.complaint?._id || x._id,
+          days: Number(x.days || 0),
+          duration: x.duration,
+        })),
+        diseases: diseaseRows.map(x => ({
+          disease: x.disease?._id || x._id,
+          days: Number(x.days || 0),
+          duration: x.duration,
+        })),
+        surgeries: surgeryRows.map(x => ({
+          surgery: x.surgery?._id || x._id,
+          days: Number(x.days || 0),
+          duration: x.duration,
+        })),
         allergies: allergyRows.map(x => x._id),
         investigations: investigationRows.map(x => x._id),
         procedures: procedureRows.map(x => x._id),
-        surgeries: surgeryRows.map(x => x._id),
-
         prescription: prescriptionRows,
         treatment: treatmentRows,
-
+        vitals: visitData.vitals,
         notes: visitData.notes || "",
       };
 
@@ -535,85 +632,61 @@ const PatientProfile = () => {
         `${UPDATEVISIT}/${visitId}`,
         payload
       );
-
       console.log(res.data);
-
       alert("Visit Updated Successfully");
-
       getPatientHistory();
       setSelectedVisit(res.data);
-
     } catch (err) {
-
       console.log(err.response?.data);
-
       alert(err.response?.data?.msg || "Error Updating Visit");
-
     }
-
   };
-
 
   const getConsultants = async () => {
     const res = await axios.get(GETCONSULTANT);
     setConsultants(res.data);
   };
-
   const getComplaints = async () => {
     const res = await axios.get(GETCOMPLAINT);
     setComplaints(res.data);
   };
-
   const getDiseases = async () => {
     const res = await axios.get(GETDISEASE);
     setDiseases(res.data);
   };
-
   const getAllergies = async () => {
     const res = await axios.get(GETALLERGY);
     setAllergies(res.data);
   };
-
   const getInvestigations = async () => {
     const res = await axios.get(GETINVESTIGATION);
     setInvestigations(res.data);
   };
-
   const getProcedures = async () => {
     const res = await axios.get(GETPROCEDURE);
     setProcedures(res.data);
   };
-
   const getSurgeries = async () => {
     const res = await axios.get(GETSURGERY);
     setSurgeries(res.data);
   };
-
   const getMedicines = async () => {
     const res = await axios.get(GETPRESCRIPTION);
-
     setMedicines(res.data);
   };
-
   const getTreatments = async () => {
     const res = await axios.get(GETTREATMENT);
     setTreatments(res.data);
   };
-
   const treatmentTotal = treatmentRows.reduce(
     (sum, item) => sum + Number(item.amount || 0),
     0
   );
-
-
   const subTotal = treatmentTotal;
-
   const grandTotal =
     subTotal - Number(billData.discount || 0);
-
   const balance =
     grandTotal - Number(billData.paidAmount || 0);
-
   const resetVisitForm = () => {
     setSelectedVisit(null);
 
@@ -621,19 +694,38 @@ const PatientProfile = () => {
       consultant: "",
       consultantCharge: "",
       complaint: "",
+      complaintDays: "",
+      complaintDuration: "Days",
+
       disease: "",
+      diseaseDays: "",
+      diseaseDuration: "Days",
+
+      surgery: "",
+      surgeryDays: "",
+      surgeryDuration: "Days",
+
       allergy: "",
       investigation: "",
       procedure: "",
-      surgery: "",
       treatment: "",
       treatmentAmount: "",
       medicine: "",
       dosage: "",
       days: "",
+      quantity: "",
+      nextVisitDate: "",
       notes: "",
-    });
 
+      vitals: [{
+  weight: "",
+  bp: "",
+  temp: "",
+  pulse: "",
+  spo2: "",
+  bsl: "",
+}],
+    });
     setComplaintRows([]);
     setDiseaseRows([]);
     setAllergyRows([]);
@@ -672,9 +764,6 @@ const PatientProfile = () => {
     })
   };
 
-
-
-
   const getPatient = async () => {
     try {
       const res = await axios.get(`${PROFILE}/${id}`);
@@ -691,14 +780,10 @@ const PatientProfile = () => {
   const getPatientHistory = async () => {
     try {
       const res = await axios.get(`${GETVISIT}${id}`);
-
       setVisitHistory(res.data);
-
     } catch (err) {
       console.log(err);
     }
-
-
   };
 
   useEffect(() => {
@@ -713,8 +798,6 @@ const PatientProfile = () => {
     getSurgeries();
     getMedicines();
     getTreatments();
-
-
 
   }, []);
 
@@ -741,13 +824,15 @@ const PatientProfile = () => {
               padding: "25px",
               boxShadow: "0 4px 15px rgba(0,0,0,0.1)",
               marginBottom: "20px",
-              width: "35%"
+              width: "35%",
+              height: "51vh",
             }}
           >
             <h2
               style={{
                 color: "#0d6efd",
                 marginBottom: "20px",
+                marginTop: "-14px",
 
               }}
             >
@@ -756,21 +841,64 @@ const PatientProfile = () => {
 
             <div className="row">
 
-              <div className="col-md-6">
-                <p><strong>Patient ID :</strong> {patient.patientId}</p>
-                <p><strong>Name :</strong> {patient.name}</p>
-                <p><strong>Age :</strong> {patient.age}</p>
-                <p><strong>Gender :</strong> {patient.gender}</p>
-              </div>
+              <div>
+                <p style={{ display: "flex", marginBottom: "8px" }}>
+                  <strong style={{ width: "120px" }}>Patient ID </strong>
+                  <span style={{ width: "15px" }}>:</span>
+                  <span>{patient.patientId}</span>
+                </p>
 
-              <div className="col-md-6">
-                <p><strong>Phone :</strong> {patient.phone}</p>
-                <p><strong>Address :</strong> {patient.address}</p>
-                <p>
-                  <strong>Registration :</strong>{" "}
-                  {patient.createdAt
-                    ? new Date(patient.createdAt).toLocaleDateString()
-                    : "-"}
+                <p style={{ display: "flex", marginBottom: "8px" }}>
+                  <strong style={{ width: "120px" }}>Name </strong>
+                  <span style={{ width: "15px" }}>:</span>
+                  <span>{patient.name} {" "}{patient.surname}</span>
+                </p>
+
+                <p style={{ display: "flex", marginBottom: "8px" }}>
+                  <strong style={{ width: "120px" }}>Age </strong>
+                  <span style={{ width: "15px" }}>:</span>
+                  <span>{patient.age}</span>
+                </p>
+
+                <p style={{ display: "flex", marginBottom: "8px" }}>
+                  <strong style={{ width: "120px" }}>Gender </strong>
+                  <span style={{ width: "15px" }}>:</span>
+                  <span>{patient.gender}</span>
+                </p>
+
+                <p style={{ display: "flex", marginBottom: "8px" }}>
+                  <strong style={{ width: "120px" }}>Phone </strong>
+                  <span style={{ width: "15px" }}>:</span>
+                  <span>{patient.phone}</span>
+                </p>
+
+                <p style={{ display: "flex", marginBottom: "8px" }}>
+                  <strong style={{ width: "120px" }}>Address </strong>
+                  <span style={{ width: "15px" }}>:</span>
+                  <textarea value={patient.address || ""}
+                    readOnly
+                    rows={3}
+                    style={{
+                      flex: 1,
+                      resize: "none",
+                      border: "1px solid #ddd",
+                      borderRadius: "6px",
+                      padding: "8px",
+                      background: "#f8f9fa",
+                      overflowY: "auto"
+                    }}
+                  />
+
+                </p>
+
+                <p style={{ display: "flex", marginBottom: "8px" }}>
+                  <strong style={{ width: "120px" }}>Registration </strong>
+                  <span style={{ width: "15px" }}>:</span>
+                  <span>
+                    {patient.createdAt
+                      ? new Date(patient.createdAt).toLocaleDateString()
+                      : "-"}
+                  </span>
                 </p>
               </div>
 
@@ -815,19 +943,19 @@ const PatientProfile = () => {
                   ).toLocaleDateString()
                   : "-"}</h4>
                 <button
-                style={{
-                              background: "#198754",
-                              color: "#fff",
-                              border: "none",
-                              padding: "10px 20px",
-                              borderRadius: "10px",
-                              marginLeft: "0px",
-                              marginBottom: "5px",
-                              boxShadow:
-                                "0 8px 18px rgb(255, 255, 255), inset 0 2px 2px rgba(255,255,255,0.25)",
+                  style={{
+                    background: "#198754",
+                    color: "#fff",
+                    border: "none",
+                    padding: "10px 20px",
+                    borderRadius: "10px",
+                    marginLeft: "0px",
+                    marginBottom: "5px",
+                    boxShadow:
+                      "0 8px 18px rgb(255, 255, 255), inset 0 2px 2px rgba(255,255,255,0.25)",
 
-                              transition: "all .3s ease",
-                            }}
+                    transition: "all .3s ease",
+                  }}
                   className="btn btn-info btn-sm"
                   onClick={() => setShowFullHistory(true)}
                 >
@@ -849,7 +977,7 @@ const PatientProfile = () => {
             border: "none",
             padding: "10px 20px",
             borderRadius: "10px",
-            margin:"12px",
+            margin: "12px",
             boxShadow:
               "0 8px 18px rgb(255, 255, 255), inset 0 2px 2px rgba(255,255,255,0.25)",
 
@@ -881,6 +1009,8 @@ const PatientProfile = () => {
                 medicine: "",
                 dosage: "",
                 days: "",
+                quantity: "",
+                nextVisitDate: "",
                 notes: "",
               });
 
@@ -953,13 +1083,6 @@ const PatientProfile = () => {
                 🦠 Disease
               </button>
 
-              {/* <button
-    className={`visit-btn ${activeCard==="treatment"?"active":""}`}
-    onClick={() => setActiveCard("treatment")}
-  >
-    💉 Treatment
-  </button> */}
-
               <button
                 className={`visit-btn ${activeCard === "prescription" ? "active" : ""}`}
                 onClick={() => setActiveCard("prescription")}
@@ -993,6 +1116,13 @@ const PatientProfile = () => {
                 onClick={() => setActiveCard("notes")}
               >
                 📒 Notes
+              </button>
+
+              <button
+                className={`visit-btn ${activeCard === "showVitals" ? "active" : ""}`}
+                onClick={() => setActiveCard("vitals")}
+              >
+                🩺 Vitals
               </button>
 
             </div>
@@ -1030,7 +1160,7 @@ const PatientProfile = () => {
               <div
                 style={{
                   width: "900px",
-                  maxWidth: "35%",
+                  maxWidth: "40%",
                   maxHeight: "90vh",
                   overflowY: "auto",
                   background: "#fff",
@@ -1103,17 +1233,38 @@ const PatientProfile = () => {
                       ))}
                     </select>
 
+
+                    <input
+                      type="number"
+                      className="form-control"
+                      placeholder="Days"
+                      value={visitData.complaintDays}
+                      onChange={(e) =>
+                        setVisitData({
+                          ...visitData,
+                          complaintDays: e.target.value,
+                        })
+                      }
+                    />
+
+                    <select
+                      className="form-control"
+                      value={visitData.complaintDuration}
+                      onChange={(e) =>
+                        setVisitData({
+                          ...visitData,
+                          complaintDuration: e.target.value,
+                        })
+                      }
+                    >
+                      <option value="Days">Days</option>
+                      <option value="Months">Months</option>
+                      <option value="Years">Years</option>
+                    </select>
+
                     <button
                       className="btn btn-success"
-                      onClick={() =>
-                        addRow(
-                          complaints,
-                          visitData.complaint,
-                          complaintRows,
-                          setComplaintRows,
-                          "complaint"
-                        )
-                      }
+                      onClick={addComplaint}
                     >
                       Add
                     </button>
@@ -1129,6 +1280,8 @@ const PatientProfile = () => {
                   <thead className="table-primary">
                     <tr>
                       <th>Complaint</th>
+                      <th>Days</th>
+                      <th>Duration</th>
                       <th width="100">Action</th>
                     </tr>
                   </thead>
@@ -1139,7 +1292,7 @@ const PatientProfile = () => {
 
                       <tr>
                         <td
-                          colSpan="2"
+                          colSpan="4"
                           className="text-center text-muted"
                         >
                           No Complaint Added
@@ -1152,7 +1305,13 @@ const PatientProfile = () => {
 
                         <tr key={index}>
 
-                          <td>{row.complaintName}</td>
+                          <td>
+                            {row.complaint?.complaintName || row.complaintName}
+                          </td>
+
+                          <td>{row.days}</td>
+
+                          <td>{row.duration}</td>
 
                           <td>
                             <button
@@ -1541,7 +1700,6 @@ const PatientProfile = () => {
                 }}
               >
 
-                {/* Close Button */}
                 <button
                   onClick={() => setActiveCard(null)}
                   style={{
@@ -1573,7 +1731,7 @@ const PatientProfile = () => {
                 <div className="row">
 
                   <div
-                    className="col-md-8"
+                    className="col-md-12"
                     style={{
                       display: "flex",
                       gap: "10px",
@@ -1603,17 +1761,37 @@ const PatientProfile = () => {
                       ))}
                     </select>
 
+                    <input
+                      type="number"
+                      className="form-control"
+                      placeholder="Days"
+                      value={visitData.diseaseDays}
+                      onChange={(e) =>
+                        setVisitData({
+                          ...visitData,
+                          diseaseDays: e.target.value,
+                        })
+                      }
+                    />
+
+                    <select
+                      className="form-control"
+                      value={visitData.diseaseDuration}
+                      onChange={(e) =>
+                        setVisitData({
+                          ...visitData,
+                          diseaseDuration: e.target.value,
+                        })
+                      }
+                    >
+                      <option value="Days">Days</option>
+                      <option value="Months">Months</option>
+                      <option value="Years">Years</option>
+                    </select>
+
                     <button
                       className="btn btn-success"
-                      onClick={() =>
-                        addRow(
-                          diseases,
-                          visitData.disease,
-                          diseaseRows,
-                          setDiseaseRows,
-                          "disease"
-                        )
-                      }
+                      onClick={addDisease}
                     >
                       Add
                     </button>
@@ -1629,6 +1807,8 @@ const PatientProfile = () => {
                   <thead className="table-primary">
                     <tr>
                       <th>Disease</th>
+                      <th>Days</th>
+                      <th>Duration</th>
                       <th width="100">Action</th>
                     </tr>
                   </thead>
@@ -1639,7 +1819,7 @@ const PatientProfile = () => {
 
                       <tr>
                         <td
-                          colSpan="2"
+                          colSpan="4"
                           className="text-center text-muted"
                         >
                           No Disease Added
@@ -1652,7 +1832,13 @@ const PatientProfile = () => {
 
                         <tr key={index}>
 
-                          <td>{row.diseaseName}</td>
+                          <td>
+                            {row.disease?.diseaseName || row.diseaseName}
+                          </td>
+
+                          <td>{row.days}</td>
+
+                          <td>{row.duration}</td>
 
                           <td>
 
@@ -2108,8 +2294,6 @@ const PatientProfile = () => {
                 }}
               >
 
-                {/* Close Button */}
-
                 <button
                   onClick={() => setActiveCard(null)}
                   style={{
@@ -2141,7 +2325,7 @@ const PatientProfile = () => {
                 <div className="row">
 
                   <div
-                    className="col-md-8"
+                    className="col-md-12"
                     style={{
                       display: "flex",
                       gap: "10px",
@@ -2173,17 +2357,37 @@ const PatientProfile = () => {
                       ))}
                     </select>
 
+                    <input
+                      type="number"
+                      className="form-control"
+                      placeholder="Days"
+                      value={visitData.surgeryDays}
+                      onChange={(e) =>
+                        setVisitData({
+                          ...visitData,
+                          surgeryDays: e.target.value,
+                        })
+                      }
+                    />
+
+                    <select
+                      className="form-control"
+                      value={visitData.surgeryDuration}
+                      onChange={(e) =>
+                        setVisitData({
+                          ...visitData,
+                          surgeryDuration: e.target.value,
+                        })
+                      }
+                    >
+                      <option value="Days">Days</option>
+                      <option value="Months">Months</option>
+                      <option value="Years">Years</option>
+                    </select>
+
                     <button
                       className="btn btn-success"
-                      onClick={() =>
-                        addRow(
-                          surgeries,
-                          visitData.surgery,
-                          surgeryRows,
-                          setSurgeryRows,
-                          "surgery"
-                        )
-                      }
+                      onClick={addSurgery}
                     >
                       Add
                     </button>
@@ -2197,12 +2401,12 @@ const PatientProfile = () => {
                 <table className="table table-bordered table-hover">
 
                   <thead className="table-primary">
-
                     <tr>
                       <th>Surgery</th>
+                      <th>Days</th>
+                      <th>Duration</th>
                       <th width="100">Action</th>
                     </tr>
-
                   </thead>
 
                   <tbody>
@@ -2213,7 +2417,7 @@ const PatientProfile = () => {
                         <tr>
 
                           <td
-                            colSpan="2"
+                            colSpan="4"
                             className="text-center text-muted"
                           >
                             No Surgery Added
@@ -2227,7 +2431,13 @@ const PatientProfile = () => {
 
                           <tr key={index}>
 
-                            <td>{row.surgeryName}</td>
+                            <td>
+                              {row.surgery?.surgeryName || row.surgeryName}
+                            </td>
+
+                            <td>{row.days}</td>
+
+                            <td>{row.duration}</td>
 
                             <td>
 
@@ -2273,7 +2483,7 @@ const PatientProfile = () => {
 
 
 
-        {
+           {
           activeCard === "prescription" && (
 
             <div
@@ -2391,7 +2601,19 @@ const PatientProfile = () => {
                           days: e.target.value,
                         })
                       }
+                    /><input
+                      type="number"
+                      className="form-control"
+                      placeholder="Quantity"
+                      value={visitData.quantity}
+                      onChange={(e) =>
+                        setVisitData({
+                          ...visitData,
+                          quantity: e.target.value,
+                        })
+                      }
                     />
+
 
                     <button
                       className="btn btn-success"
@@ -2414,6 +2636,7 @@ const PatientProfile = () => {
                       <th>Medicine</th>
                       <th>Dosage</th>
                       <th>Days</th>
+                      <th>Qty</th>
                       <th width="100">Action</th>
                     </tr>
 
@@ -2451,6 +2674,8 @@ const PatientProfile = () => {
                           <td>{row.dosage}</td>
 
                           <td>{row.days}</td>
+
+                          <td>{row.quantity}</td>
 
                           <td>
 
@@ -2812,6 +3037,208 @@ const PatientProfile = () => {
 
           )
         }
+
+
+
+
+
+
+
+
+
+
+        {
+  activeCard === "vitals" && (
+
+    <div
+      style={{
+        position: "fixed",
+        top: 0,
+        left: 0,
+        width: "100%",
+        height: "100vh",
+        background: "rgba(0,0,0,0.5)",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        zIndex: 9999,
+      }}
+    >
+
+      <div
+        style={{
+          width: "900px",
+          maxWidth: "55%",
+          background: "#fff",
+          borderRadius: "15px",
+          padding: "25px",
+          boxShadow: "0 15px 40px rgba(0,0,0,.35)",
+          position: "relative",
+        }}
+      >
+
+        <button
+          onClick={() => setActiveCard("")}
+          style={{
+            position: "absolute",
+            top: "12px",
+            right: "18px",
+            border: "none",
+            background: "transparent",
+            fontSize: "28px",
+            cursor: "pointer",
+            color: "#dc3545",
+            fontWeight: "bold",
+          }}
+        >
+          ×
+        </button>
+
+        <h3
+          style={{
+            color: "#0d6efd",
+            marginBottom: "20px",
+            borderBottom: "2px solid #eee",
+            paddingBottom: "10px",
+          }}
+        >
+          🩺 Vitals
+        </h3>
+
+        <div className="row g-3">
+
+          <div className="col-md-4">
+            <label>Weight (Kg)</label>
+            <input
+              type="number"
+              className="form-control"
+              value={visitData.vitals?.[0]?.weight || ""}
+              onChange={(e) =>
+                setVisitData({
+                  ...visitData,
+                  vitals: [{
+                    ...visitData.vitals?.[0],
+                    weight: e.target.value
+                  }]
+                })
+              }
+            />
+          </div>
+
+          <div className="col-md-4">
+            <label>BP</label>
+            <input
+              type="text"
+              className="form-control"
+              placeholder="120/80"
+              value={visitData.vitals?.[0]?.bp || ""}
+              onChange={(e) =>
+                setVisitData({
+                  ...visitData,
+                  vitals: [{
+                    ...visitData.vitals?.[0],
+                    bp: e.target.value
+                  }]
+                })
+              }
+            />
+          </div>
+
+          <div className="col-md-4">
+            <label>Temperature</label>
+            <input
+              type="number"
+              className="form-control"
+              value={visitData.vitals?.[0]?.temp || ""}
+              onChange={(e) =>
+                setVisitData({
+                  ...visitData,
+                  vitals: [{
+                    ...visitData.vitals?.[0],
+                    temp: e.target.value
+                  }]
+                })
+              }
+            />
+          </div>
+
+          <div className="col-md-4">
+            <label>Pulse</label>
+            <input
+              type="number"
+              className="form-control"
+              value={visitData.vitals?.[0]?.pulse || ""}
+              onChange={(e) =>
+                setVisitData({
+                  ...visitData,
+                  vitals: [{
+                    ...visitData.vitals?.[0],
+                    pulse: e.target.value
+                  }]
+                })
+              }
+            />
+          </div>
+
+          <div className="col-md-4">
+            <label>SPO2</label>
+            <input
+              type="number"
+              className="form-control"
+              value={visitData.vitals?.[0]?.spo2 || ""}
+              onChange={(e) =>
+                setVisitData({
+                  ...visitData,
+                  vitals: [{
+                    ...visitData.vitals?.[0],
+                    spo2: e.target.value
+                  }]
+                })
+              }
+            />
+          </div>
+
+          <div className="col-md-4">
+            <label>BSL</label>
+            <input
+              type="number"
+              className="form-control"
+              value={visitData.vitals?.[0]?.bsl || ""}
+              onChange={(e) =>
+                setVisitData({
+                  ...visitData,
+                  vitals: [{
+                    ...visitData.vitals?.[0],
+                    bsl: e.target.value
+                  }]
+                })
+              }
+            />
+          </div>
+
+        </div>
+
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "flex-end",
+            marginTop: "20px",
+          }}
+        >
+          <button
+            className="btn btn-success"
+            onClick={() => setActiveCard("")}
+          >
+            ✔ Done
+          </button>
+        </div>
+
+      </div>
+
+    </div>
+
+  )
+}
 
 
 
@@ -3462,6 +3889,7 @@ const PatientProfile = () => {
                     <th>Medicine</th>
                     <th style={{ width: "20%" }}>Dosage</th>
                     <th style={{ width: "15%" }}>Days</th>
+                    <th style={{ width: "15%" }}>Quantity</th>
 
                   </tr>
 
@@ -3521,6 +3949,14 @@ const PatientProfile = () => {
                             {item.days} Days
                           </td>
 
+                          <td
+                            style={{
+                              textAlign: "center",
+                              fontWeight: "500"
+                            }}
+                          >
+                            {item.quantity}                           </td>
+
                         </tr>
 
                       ))
@@ -3562,42 +3998,42 @@ const PatientProfile = () => {
                   color: "#666"
                 }}
               >
-                  <button
-              className="btn"
-              style={{
-                background: "#198754",
-                color: "#fff",
-                border: "none",
-                padding: "10px 15px",
-                borderRadius: "10px",
-                marginBottom: "10px",
-              }}
-              onClick={() => {
+                <button
+                  className="btn"
+                  style={{
+                    background: "#198754",
+                    color: "#fff",
+                    border: "none",
+                    padding: "10px 15px",
+                    borderRadius: "10px",
+                    marginBottom: "10px",
+                  }}
+                  onClick={() => {
 
-                if (!selectedVisit) {
-                  alert("⚠️ Please select a patient visit first.");
-                  return;
-                }
+                    if (!selectedVisit) {
+                      alert("⚠️ Please select a patient visit first.");
+                      return;
+                    }
 
-                
-  localStorage.setItem(
-    "consultationData",
-    JSON.stringify({
-      patient,
-      visit: selectedVisit,
-      complaintRows,
-      diseaseRows,
-      allergyRows,
-      investigationRows,
-      procedureRows,
-      surgeryRows,
-      prescriptionRows,
-    })
-  );
 
-                navigate("/prescription-print");
-              }}
-            > PRINT </button>
+                    localStorage.setItem(
+                      "consultationData",
+                      JSON.stringify({
+                        patient,
+                        visit: selectedVisit,
+                        complaintRows,
+                        diseaseRows,
+                        allergyRows,
+                        investigationRows,
+                        procedureRows,
+                        surgeryRows,
+                        prescriptionRows,
+                      })
+                    );
+
+                    navigate("/prescription-print");
+                  }}
+                > PRINT </button>
 
                 <span>
                   🩺 Follow Doctor Instructions Carefully
@@ -4799,7 +5235,7 @@ const PatientProfile = () => {
                   <div className="history-header">😣 Complaints</div>
                   <div className="history-body">
                     {complaintRows.length
-                      ? complaintRows.map(x => x.complaintName).join(", ")
+                      ? complaintRows.map(x => x.complaint?.complaintName || x.complaintName).join(", ")
                       : "No Complaint"}
                   </div>
                 </div>
@@ -4808,7 +5244,7 @@ const PatientProfile = () => {
                   <div className="history-header">🩺 Diseases</div>
                   <div className="history-body">
                     {diseaseRows.length
-                      ? diseaseRows.map(x => x.diseaseName).join(", ")
+                      ? diseaseRows.map(x => x.disease?.diseaseName || x.diseaseName).join(", ")
                       : "No Disease"}
                   </div>
                 </div>
@@ -4837,7 +5273,7 @@ const PatientProfile = () => {
 
                     {procedureRows.length
                       ? procedureRows.map(x => x.procedureName).join(", ")
-                      : "-"}
+                      : "No Procedure"}
                   </div>
                 </div>
 
@@ -4845,8 +5281,8 @@ const PatientProfile = () => {
                   <div className="history-header">👨‍⚕️ Surgery</div>
                   <div className="history-body">
                     {surgeryRows.length
-                      ? surgeryRows.map(x => x.surgeryName).join(", ")
-                      : "-"}
+                      ? surgeryRows.map(x => x.surgery?.surgeryName || x.surgeryName).join(", ")
+                      : "No Surgery"}
                   </div>
                 </div>
 
@@ -4877,7 +5313,7 @@ const PatientProfile = () => {
               style={{
                 maxHeight: "90vh",
                 overflowY: "auto",
-                width: "90%",
+                width: "60%",
               }}
             >
 
@@ -4924,7 +5360,7 @@ const PatientProfile = () => {
                       <div className="history-header">😣 Complaints</div>
                       <div className="history-body">
                         {visit.complaints?.length
-                          ? visit.complaints.map(x => x.complaintName).join(", ")
+                          ? complaintRows.map(x => x.complaint?.complaintName).join(", ")
                           : "No Complaint"}
                       </div>
                     </div>
@@ -4933,7 +5369,7 @@ const PatientProfile = () => {
                       <div className="history-header">🩺 Diseases</div>
                       <div className="history-body">
                         {visit.diseases?.length
-                          ? visit.diseases.map(x => x.diseaseName).join(", ")
+                          ? visit.diseases.map(x => x.disease?.diseaseName).join(", ")
                           : "No Disease"}
                       </div>
                     </div>
@@ -4961,7 +5397,7 @@ const PatientProfile = () => {
                       <div className="history-body">
                         {visit.procedures?.length
                           ? visit.procedures.map(x => x.procedureName).join(", ")
-                          : "-"}
+                          : "No Procedure"}
                       </div>
                     </div>
 
@@ -4969,8 +5405,8 @@ const PatientProfile = () => {
                       <div className="history-header">👨‍⚕️ Surgery</div>
                       <div className="history-body">
                         {visit.surgeries?.length
-                          ? visit.surgeries.map(x => x.surgeryName).join(", ")
-                          : "-"}
+                          ? visit.surgeries.map(x => x.surgery?.surgeryName).join(", ")
+                          : "No Surgery"}
                       </div>
                     </div>
 

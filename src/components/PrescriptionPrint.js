@@ -95,7 +95,7 @@ const {
       <td><b>Complaints</b></td>
       <td>
         {complaintRows?.length
-          ? complaintRows.map(x => x.complaintName).join(", ")
+          ? complaintRows.map(x => x.complaint?.complaintName).join(", ")
           : "No Complaint"}
       </td>
     </tr>
@@ -104,7 +104,7 @@ const {
       <td><b>Diseases</b></td>
       <td>
         {diseaseRows?.length
-          ? diseaseRows.map(x => x.diseaseName).join(", ")
+          ? diseaseRows.map(x => x.disease?.diseaseName).join(", ")
           : "No Disease"}
       </td>
     </tr>
@@ -140,7 +140,7 @@ const {
       <td><b>Surgery</b></td>
       <td>
         {surgeryRows?.length
-          ? surgeryRows.map(x => x.surgeryName).join(", ")
+          ? surgeryRows.map(x => x.surgery?.surgeryName).join(", ")
           : "-"}
       </td>
     </tr>

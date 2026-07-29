@@ -12,6 +12,7 @@ import { GETREFERENCE, GETCITY, } from "./Constant";
 
 const Home = () => {
   const [formData, setFormData] = useState({
+    prefix:"",
     name: "",
     surname: "",
     fatherName: "",
@@ -272,6 +273,7 @@ const marqueeText =
     setPatientId("");
 
     setFormData({
+      prefix:"",
       name: "",
       surname: "",
       fatherName: "",
@@ -307,6 +309,7 @@ const marqueeText =
       setPatientId("");
 
       setFormData({
+        prefix:"",
         name: "",
         surname: "",
         fatherName: "",
@@ -400,6 +403,21 @@ const marqueeText =
                       marginleft: "10px"
                     }}
                   >Name</label>
+                   <select  style={{
+                    width:"70px",
+                    height:"37px"
+                  }}
+                    name="prefix"
+                    className="form-control"
+                    value={formData.prefix}
+                    onChange={handleChange}
+                    required
+                  >
+                    <option value="Mr.">Mr.</option>
+                    <option value="Mrs">Mrs.</option>
+                    <option value="Master">Master</option>
+                  </select>
+
                   <input
                     type="text"
                     name="name"
@@ -603,6 +621,7 @@ const marqueeText =
                           setPatientId("");
 
                           setFormData({
+                            prefix:"",
                             name: "",
                             surname: "",
                             fatherName: "",
@@ -949,6 +968,13 @@ background: "linear-gradient(135deg,#0F2027,#203A43,#2C5364)" ,
                       textAlign: "center",
                     }}
                   >Patient ID</th>
+                   <th
+                    style={{
+                      padding: "12px",
+                      whiteSpace: "nowrap",
+                      textAlign: "center",
+                    }}
+                  >Prefix</th>
                   <th
                     style={{
                       padding: "12px",
@@ -1054,6 +1080,7 @@ background: "linear-gradient(135deg,#0F2027,#203A43,#2C5364)" ,
 
 
                             setFormData({
+                              prefix:item.prefix || "",
                               name: item.name || "",
                               age: item.age || "",
                               gender: item.gender || "",
@@ -1071,6 +1098,12 @@ background: "linear-gradient(135deg,#0F2027,#203A43,#2C5364)" ,
                         >
                           {item.patientId}
                         </td>
+                         <td
+                          style={{
+                            verticalAlign: "middle",
+                            textAlign: "center",
+                          }}
+                        >{item.prefix}</td>
                         <td
                           style={{
                             verticalAlign: "middle",
