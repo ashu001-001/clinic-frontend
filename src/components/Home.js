@@ -9,6 +9,8 @@ import {
   GETPROCEDURE, GETTREATMENT, GETSURGERY
 } from "./Constant"
 import { GETREFERENCE, GETCITY, } from "./Constant";
+import { FaMicrophone, FaMicrophoneSlash } from "react-icons/fa";
+import { executeAssistantCommand } from "../assistant/AssistantEngine";
 
 const Home = () => {
   const [formData, setFormData] = useState({
@@ -51,6 +53,18 @@ const Home = () => {
   const [states, setStates] = useState([]);
 
   const [time, setTime] = useState(new Date());
+  const [listening, setListening] = useState(false);
+const [voiceText, setVoiceText] = useState("");
+
+const SpeechRecognition =
+  window.SpeechRecognition || window.webkitSpeechRecognition;
+
+const recognition = SpeechRecognition
+  ? new SpeechRecognition()
+  : null;
+
+  const [showAssistant, setShowAssistant] = useState(false);
+const [command, setCommand] = useState("");
 
 
   const [todayConsultationCount, setTodayConsultationCount] = useState(0);
@@ -133,6 +147,42 @@ const marqueeText =
       console.log(err);
     }
   };
+
+
+  const startListening = () => {
+  if (!recognition) {
+    alert("Speech Recognition Browser me support nahi karta.");
+    return;
+  }
+
+  recognition.lang = "hi-IN";
+  recognition.continuous = false;
+  recognition.interimResults = false;
+
+  recognition.start();
+
+  setListening(true);
+
+  recognition.onresult = (event) => {
+    const text = event.results[0][0].transcript;
+
+    console.log("Voice :", text);
+
+    setVoiceText(text);
+
+    setListening(false);
+  };
+
+  recognition.onerror = (err) => {
+    console.log(err);
+
+    setListening(false);
+  };
+
+  recognition.onend = () => {
+    setListening(false);
+  };
+};
 
 
   const navigate = useNavigate();
@@ -288,6 +338,149 @@ const marqueeText =
       stateName: "",
     });
   };
+
+  const selectPatientByName = (name) => {
+
+  const patient = patients.find((p) =>
+    `${p.name} ${p.surname || ""}`
+      .toLowerCase()
+      .trim()
+      .includes(name.toLowerCase())
+  );
+
+  if (!patient) {
+    alert("Patient Not Found");
+    return;
+  }
+
+  setSelectedPatient(patient);
+
+  setPatientId(patient.patientId);
+
+  setFormData({
+    prefix: patient.prefix || "",
+    name: patient.name || "",
+    surname: patient.surname || "",
+    fatherName: patient.fatherName || "",
+    age: patient.age || "",
+    gender: patient.gender || "",
+    phone: patient.phone || "",
+    address: patient.address || "",
+    stateName: patient.stateName || "",
+    cityName: patient.cityName || "",
+    referenceBy: patient.referenceBy || "",
+  });
+
+  setIsEdit(true);
+
+  alert(`${patient.name} Selected`);
+};
+
+const executeCommand = (text) => {
+
+  text = text.toLowerCase().trim();
+
+  // ---------- SELECT PATIENT ----------
+
+  if (
+    text.includes("select") ||
+    text.includes("open") ||
+    text.includes("edit") ||
+    text.includes("data") ||
+    text.includes("profile")
+  ) {
+
+    const patient = patients.find((p) => {
+
+      const fullName =
+        `${p.name} ${p.surname || ""}`.toLowerCase();
+
+      return text.includes(fullName) ||
+             text.includes(p.name.toLowerCase());
+
+    });
+
+    if (patient) {
+
+      setSelectedPatient(patient);
+
+      setPatientId(patient.patientId);
+
+      setFormData({
+        prefix: patient.prefix || "",
+        name: patient.name || "",
+        surname: patient.surname || "",
+        fatherName: patient.fatherName || "",
+        age: patient.age || "",
+        gender: patient.gender || "",
+        phone: patient.phone || "",
+        address: patient.address || "",
+        stateName: patient.stateName || "",
+        cityName: patient.cityName || "",
+        referenceBy: patient.referenceBy || "",
+      });
+
+      setIsEdit(true);
+
+      return;
+    }
+
+  }
+
+  // ---------- CLEAR ----------
+
+  if (
+    text.includes("clear") ||
+    text.includes("new patient")
+  ) {
+
+    handleClear();
+
+    setSelectedPatient(null);
+
+    setIsEdit(false);
+
+    return;
+  }
+
+  // ---------- UPDATE ----------
+
+  if (
+    text.includes("update")
+  ) {
+
+    handleUpdate();
+
+    return;
+  }
+
+  
+};
+
+
+const runCommand = () => {
+
+  executeAssistantCommand({
+
+    command,
+
+    patients,
+
+    setSelectedPatient,
+
+    setPatientId,
+
+    setFormData,
+
+    setIsEdit,
+
+    navigate,
+
+  });
+
+  setCommand("");
+
+};
 
 
   const handleUpdate = async () => {
@@ -1193,6 +1386,113 @@ background: "linear-gradient(135deg,#0F2027,#203A43,#2C5364)" ,
 
         </div>
       </div>
+      <div
+  onClick={startListening}
+  style={{
+    position: "absolute",
+    right: "30px",
+    bottom: "30px",
+    width: "70px",
+    height: "70px",
+    borderRadius: "50%",
+    background: listening ? "#dc3545" : "#0d6efd",
+    color: "#fff",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    cursor: "pointer",
+    fontSize: "30px",
+    boxShadow: "0 10px 25px rgba(0,0,0,.3)",
+    transition: ".3s",
+  }}
+>
+  {listening ? <FaMicrophoneSlash /> : <FaMicrophone />}
+</div>
+
+{voiceText && (
+  <div
+    style={{
+      position: "fixed",
+      bottom: "120px",
+      right: "30px",
+      margin:"50px",
+      background: "#fff",
+      padding: "150px",
+      borderRadius: "10px",
+      width: "320px",
+      boxShadow: "0 5px 20px rgba(0,0,0,.2)",
+      zIndex: 999600,
+    }}
+  >
+    <b>You Said :</b>
+
+    <br />
+
+    {voiceText}
+  </div>
+)}
+
+{/* Floating Assistant */}
+
+<div
+  onClick={() => setShowAssistant(!showAssistant)}
+  style={{
+    position: "fixed",
+    right: "25px",
+    bottom: "25px",
+    width: "65px",
+    height: "65px",
+    borderRadius: "50%",
+    background: "#0d6efd",
+    color: "#fff",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    fontSize: "30px",
+    cursor: "pointer",
+    zIndex: 99999,
+    boxShadow: "0 8px 20px rgba(0,0,0,.3)"
+  }}
+>
+ 🤖
+</div>
+
+{showAssistant && (
+  <div
+    style={{
+      position: "fixed",
+      right: "25px",
+      bottom: "100px",
+      width: "330px",
+      background: "#fff",
+      borderRadius: "12px",
+      padding: "15px",
+      boxShadow: "0 10px 30px rgba(0,0,0,.25)",
+      zIndex: 99999
+    }}
+  >
+    <h5>Dental Assistant</h5>
+
+    <input
+      className="form-control"
+      placeholder="Type Command..."
+      value={command}
+      onChange={(e) => setCommand(e.target.value)}
+      onKeyDown={(e) => {
+        if (e.key === "Enter") {
+          runCommand();
+        }
+      }}
+    />
+
+    <button
+      className="btn btn-primary mt-3 w-100"
+      onClick={runCommand}
+    >
+      Run Command
+    </button>
+  </div>
+)}
 
     </>
   );
