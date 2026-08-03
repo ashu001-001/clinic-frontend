@@ -1,5 +1,5 @@
 import axios from "axios";
-import { ASSISTANT } from "../components/Constant";
+
 
 export const executeAssistantCommand = async ({
   command,
@@ -11,7 +11,7 @@ export const executeAssistantCommand = async ({
   navigate,
 }) => {
   try {
-    const res = await axios.post(ASSISTANT, {
+    const res = await axios.post("https://dental-web-lvx0.onrender.com/assistant", {
   command,
   patients,
 });

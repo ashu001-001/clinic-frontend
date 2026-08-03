@@ -99,5 +99,3 @@ export const UPDATECITY = BASE_URL + "updateCity/";
 export const UPDATEREFERENCE = BASE_URL + "updatereference/";
 
 
-
-export const ASSISTANT = BASE_URL + "assistant";
