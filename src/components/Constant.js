@@ -100,3 +100,4 @@ export const UPDATEREFERENCE = BASE_URL + "updatereference/";
 
 
 
+export const ASSISTANT = BASE_URL + "assistant";

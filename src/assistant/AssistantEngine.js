@@ -1,4 +1,7 @@
-export const executeAssistantCommand = ({
+import axios from "axios";
+import { ASSISTANT } from "../components/Constant";
+
+export const executeAssistantCommand = async ({
   command,
   patients,
   setSelectedPatient,
@@ -7,99 +10,158 @@ export const executeAssistantCommand = ({
   setIsEdit,
   navigate,
 }) => {
+  try {
+    const res = await axios.post(ASSISTANT, {
+  command,
+  patients,
+});
 
-  const text = command.toLowerCase().trim();
+    const action = res.data;
 
-  //--------------------------------------------------
-  // SELECT PATIENT
-  //--------------------------------------------------
+    console.log("Assistant Action =>", action);
 
-  const patient = patients.find((p) => {
+    // ---------------- SELECT PATIENT ----------------
 
-    const fullName =
-      `${p.name} ${p.surname || ""}`.toLowerCase().trim();
+    if (action.action === "select_patient") {
+      const patient = patients.find(
+        (p) => p.patientId === action.patientId
+      );
 
-    return (
-      text.includes(fullName) ||
-      text.includes(p.name.toLowerCase())
-    );
+      if (!patient) {
+        alert("Patient not found");
+        return;
+      }
 
-  });
+      setSelectedPatient(patient);
+      setPatientId(patient.patientId);
 
-  if (patient) {
+      setFormData({
+        prefix: patient.prefix || "",
+        name: patient.name || "",
+        surname: patient.surname || "",
+        fatherName: patient.fatherName || "",
+        age: patient.age || "",
+        gender: patient.gender || "",
+        phone: patient.phone || "",
+        address: patient.address || "",
+        cityName: patient.cityName || "",
+        stateName: patient.stateName || "",
+        referenceBy: patient.referenceBy || "",
+      });
 
-    setSelectedPatient(patient);
-
-    setPatientId(patient.patientId);
-
-    setFormData({
-      prefix: patient.prefix || "",
-      name: patient.name || "",
-      surname: patient.surname || "",
-      fatherName: patient.fatherName || "",
-      age: patient.age || "",
-      gender: patient.gender || "",
-      phone: patient.phone || "",
-      address: patient.address || "",
-      stateName: patient.stateName || "",
-      cityName: patient.cityName || "",
-      referenceBy: patient.referenceBy || "",
-    });
-
-    setIsEdit(true);
-
-  }
-
-  //--------------------------------------------------
-  // PROFILE
-  //--------------------------------------------------
-
-  if (
-    patient &&
-    (
-      text.includes("profile") ||
-      text.includes("open profile") ||
-      text.includes("profile kholo")
-    )
-  ) {
-
-    navigate(`/patient/${patient._id}`);
-
-    return;
-
-  }
-
-  //--------------------------------------------------
-  // UPDATE GENDER
-  //--------------------------------------------------
-
-  if (
-    patient &&
-    text.includes("gender")
-  ) {
-
-    let gender = "";
-
-    if (text.includes("male"))
-      gender = "Male";
-
-    if (text.includes("female"))
-      gender = "Female";
-
-    if (text.includes("other"))
-      gender = "Other";
-
-    if (gender !== "") {
-
-      setFormData((prev) => ({
-        ...prev,
-        gender,
-      }));
+      setIsEdit(true);
 
       return;
-
     }
 
-  }
+    // ---------------- OPEN PROFILE ----------------
 
+    if (action.action === "open_profile") {
+      const patient = patients.find(
+        (p) => p.patientId === action.patientId
+      );
+
+      if (!patient) {
+        alert("Patient not found");
+        return;
+      }
+
+      navigate(`/patient/${patient._id}`);
+
+      return;
+    }
+
+    
+// ---------------- CLEAR FORM ----------------
+
+if (action.action === "clear_form") {
+
+  setSelectedPatient(null);
+
+  setPatientId("");
+
+  setFormData({
+    prefix: "",
+    name: "",
+    surname: "",
+    fatherName: "",
+    age: "",
+    gender: "",
+    phone: "",
+    address: "",
+    cityName: "",
+    stateName: "",
+    referenceBy: "",
+  });
+
+  setIsEdit(false);
+
+  return;
+}
+
+// ---------------- CANCEL EDIT ----------------
+
+if (action.action === "cancel_edit") {
+
+  setSelectedPatient(null);
+
+  setPatientId("");
+
+  setFormData({
+    prefix: "",
+    name: "",
+    surname: "",
+    fatherName: "",
+    age: "",
+    gender: "",
+    phone: "",
+    address: "",
+    cityName: "",
+    stateName: "",
+    referenceBy: "",
+  });
+
+  setIsEdit(false);
+
+  return;
+}
+
+    // ---------------- UPDATE FIELD ----------------
+
+    if (action.action === "update_field") {
+      const patient = patients.find(
+        (p) => p.patientId === action.patientId
+      );
+
+      if (!patient) {
+        alert("Patient not found");
+        return;
+      }
+
+      setSelectedPatient(patient);
+      setPatientId(patient.patientId);
+
+      setFormData({
+        prefix: patient.prefix || "",
+        name: patient.name || "",
+        surname: patient.surname || "",
+        fatherName: patient.fatherName || "",
+        age: patient.age || "",
+        gender: patient.gender || "",
+        phone: patient.phone || "",
+        address: patient.address || "",
+        cityName: patient.cityName || "",
+        stateName: patient.stateName || "",
+        referenceBy: patient.referenceBy || "",
+        [action.field]: action.value,
+      });
+
+      setIsEdit(true);
+
+      return;
+    }
+  } catch (err) {
+    console.log(err);
+    alert("Assistant Error");
+  }
 };

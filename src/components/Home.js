@@ -163,15 +163,29 @@ const marqueeText =
 
   setListening(true);
 
-  recognition.onresult = (event) => {
-    const text = event.results[0][0].transcript;
+recognition.onresult = async (event) => {
 
-    console.log("Voice :", text);
+  const text = event.results[0][0].transcript;
 
-    setVoiceText(text);
+  console.log("Voice :", text);
 
-    setListening(false);
-  };
+  setVoiceText(text);
+
+  setCommand(text);
+
+  setListening(false);
+
+  await executeAssistantCommand({
+    command: text,
+    patients,
+    setSelectedPatient,
+    setPatientId,
+    setFormData,
+    setIsEdit,
+    navigate,
+  });
+
+};
 
   recognition.onerror = (err) => {
     console.log(err);
@@ -323,7 +337,7 @@ const marqueeText =
     setPatientId("");
 
     setFormData({
-      prefix:"",
+      prefix:"Mr.",
       name: "",
       surname: "",
       fatherName: "",
@@ -502,7 +516,7 @@ const runCommand = () => {
       setPatientId("");
 
       setFormData({
-        prefix:"",
+        prefix:"Mr.",
         name: "",
         surname: "",
         fatherName: "",
@@ -1395,7 +1409,7 @@ background: "linear-gradient(135deg,#0F2027,#203A43,#2C5364)" ,
     width: "70px",
     height: "70px",
     borderRadius: "50%",
-    background: listening ? "#dc3545" : "#0d6efd",
+    background: listening ? "#dc3545" : "#0dac27",
     color: "#fff",
     display: "flex",
     justifyContent: "center",
