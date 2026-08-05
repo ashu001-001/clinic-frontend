@@ -18,43 +18,50 @@ export const executeAssistantCommand = async ({
   selectedPatient,
 });
 
-    const action = res.data;
+
+
+    const action = res.data;    
+
+
+  const loadPatient = (patient) => {
+  setSelectedPatient(patient);
+
+  setPatientId(patient.patientId);
+
+  setFormData({
+    prefix: patient.prefix || "Mr.",
+    name: patient.name || "",
+    surname: patient.surname || "",
+    fatherName: patient.fatherName || "",
+    age: patient.age || "",
+    gender: patient.gender || "",
+    phone: patient.phone || "",
+    address: patient.address || "",
+    cityName: patient.cityName || "",
+    stateName: patient.stateName || "",
+    referenceBy: patient.referenceBy || "",
+  });
+
+  setIsEdit(true);
+};
 
     console.log("Assistant Action =>", action);
 
     // ---------------- SELECT PATIENT ----------------
+if (action.action === "select_patient") {
+  const patient = patients.find(
+    (p) => p.patientId === action.patientId
+  );
 
-    if (action.action === "select_patient") {
-      const patient = patients.find(
-        (p) => p.patientId === action.patientId
-      );
+  if (!patient) {
+    alert("Patient not found");
+    return;
+  }
 
-      if (!patient) {
-        alert("Patient not found");
-        return;
-      }
+  loadPatient(patient);
 
-      setSelectedPatient(patient);
-      setPatientId(patient.patientId);
-
-      setFormData({
-        prefix: patient.prefix || "",
-        name: patient.name || "",
-        surname: patient.surname || "",
-        fatherName: patient.fatherName || "",
-        age: patient.age || "",
-        gender: patient.gender || "",
-        phone: patient.phone || "",
-        address: patient.address || "",
-        cityName: patient.cityName || "",
-        stateName: patient.stateName || "",
-        referenceBy: patient.referenceBy || "",
-      });
-
-      setIsEdit(true);
-
-      return;
-    }
+  return;
+}
 
     // ---------------- OPEN PROFILE ----------------
 
@@ -83,7 +90,7 @@ if (action.action === "clear_form") {
   setPatientId("");
 
   setFormData({
-    prefix: "",
+   prefix:"Mr.",
     name: "",
     surname: "",
     fatherName: "",
@@ -110,7 +117,7 @@ if (action.action === "cancel_edit") {
   setPatientId("");
 
   setFormData({
-    prefix: "",
+    prefix:"Mr.",
     name: "",
     surname: "",
     fatherName: "",
@@ -130,40 +137,49 @@ if (action.action === "cancel_edit") {
 
     // ---------------- UPDATE FIELD ----------------
 
-    if (action.action === "update_field") {
-      const patient = patients.find(
-        (p) => p.patientId === action.patientId
-      );
+  if (action.action === "update_field") {
+  const patient = patients.find(
+    (p) => p.patientId === action.patientId
+  );
 
-      if (!patient) {
-        alert("Patient not found");
-        return;
-      }
+  if (!patient) {
+    alert("Patient not found");
+    return;
+  }
 
-      setSelectedPatient(patient);
-      setPatientId(patient.patientId);
+  loadPatient(patient);
 
-      setFormData({
-        prefix: patient.prefix || "",
-        name: patient.name || "",
-        surname: patient.surname || "",
-        fatherName: patient.fatherName || "",
-        age: patient.age || "",
-        gender: patient.gender || "",
-        phone: patient.phone || "",
-        address: patient.address || "",
-        cityName: patient.cityName || "",
-        stateName: patient.stateName || "",
-        referenceBy: patient.referenceBy || "",
-        [action.field]: action.value,
-      });
+  setFormData((prev) => ({
+    ...prev,
+    [action.field]: action.value,
+  }));
 
-      setIsEdit(true);
+  return;
+}
+if (action.action === "update_multiple_fields") {
+  const patient = patients.find(
+    (p) => p.patientId === action.patientId
+  );
 
-      return;
-    }
+  if (!patient) {
+    alert("Patient not found");
+    return;
+  }
+
+  loadPatient(patient);
+
+  setFormData((prev) => ({
+    ...prev,
+    ...action.fields,
+  }));
+
+  return;
+}
+alert("Command not understood.");
+
   } catch (err) {
     console.log(err);
-    alert("Assistant Error");
+    alert(err.response?.data?.msg || "Assistant Error");
   }
 };
+

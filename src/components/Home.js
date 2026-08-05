@@ -1423,26 +1423,82 @@ background: "linear-gradient(135deg,#0F2027,#203A43,#2C5364)" ,
   {listening ? <FaMicrophoneSlash /> : <FaMicrophone />}
 </div>
 
-{voiceText && (
+<div
+  onClick={startListening}
+  style={{
+    position: "fixed",
+    right: "30px",
+    bottom: "30px",
+    width: "75px",
+    height: "75px",
+    borderRadius: "50%",
+    background: listening ? "#ff3b30" : "#0dac27",
+    color: "#fff",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    cursor: "pointer",
+    fontSize: "32px",
+    zIndex: 999999,
+    boxShadow: listening
+      ? "0 0 30px rgba(255,59,48,.8)"
+      : "0 10px 25px rgba(0,0,0,.35)",
+    transition: "all .3s ease",
+    transform: listening ? "scale(1.1)" : "scale(1)",
+  }}
+>
+  {listening ? <FaMicrophoneSlash /> : <FaMicrophone />}
+</div>
+
+{listening && (
   <div
     style={{
       position: "fixed",
-      bottom: "120px",
-      right: "30px",
-      margin:"50px",
-      background: "#fff",
-      padding: "150px",
-      borderRadius: "10px",
-      width: "320px",
-      boxShadow: "0 5px 20px rgba(0,0,0,.2)",
-      zIndex: 999600,
+      inset: 0,
+      background: "rgba(0,0,0,.45)",
+      backdropFilter: "blur(5px)",
+      display: "flex",
+      flexDirection: "column",
+      justifyContent: "center",
+      alignItems: "center",
+      zIndex: 999998,
     }}
   >
-    <b>You Said :</b>
+    <div
+      style={{
+        width: "130px",
+        height: "130px",
+        borderRadius: "50%",
+        background: "#0d6efd",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        color: "#fff",
+        fontSize: "55px",
+        animation: "pulse 1.2s infinite",
+      }}
+    >
+      🎤
+    </div>
 
-    <br />
+    <h2
+      style={{
+        color: "#fff",
+        marginTop: "25px",
+        fontWeight: "700",
+      }}
+    >
+      Listening...
+    </h2>
 
-    {voiceText}
+    <p
+      style={{
+        color: "#ddd",
+        fontSize: "18px",
+      }}
+    >
+      Speak your command
+    </p>
   </div>
 )}
 
