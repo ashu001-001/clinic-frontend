@@ -4,6 +4,7 @@ import axios from "axios";
 export const executeAssistantCommand = async ({
   command,
   patients,
+  selectedPatient,
   setSelectedPatient,
   setPatientId,
   setFormData,
@@ -14,6 +15,7 @@ export const executeAssistantCommand = async ({
     const res = await axios.post("https://dental-web-lvx0.onrender.com/assistant", {
   command,
   patients,
+  selectedPatient,
 });
 
     const action = res.data;
