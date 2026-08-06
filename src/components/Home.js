@@ -14,7 +14,7 @@ import { executeAssistantCommand } from "../assistant/AssistantEngine";
 
 const Home = () => {
   const [formData, setFormData] = useState({
-    prefix:"",
+    prefix: "",
     name: "",
     surname: "",
     fatherName: "",
@@ -54,25 +54,25 @@ const Home = () => {
 
   const [time, setTime] = useState(new Date());
   const [listening, setListening] = useState(false);
-const [voiceText, setVoiceText] = useState("");
+  const [voiceText, setVoiceText] = useState("");
 
-const SpeechRecognition =
-  window.SpeechRecognition || window.webkitSpeechRecognition;
+  const SpeechRecognition =
+    window.SpeechRecognition || window.webkitSpeechRecognition;
 
-const recognition = SpeechRecognition
-  ? new SpeechRecognition()
-  : null;
+  const recognition = SpeechRecognition
+    ? new SpeechRecognition()
+    : null;
 
   const [showAssistant, setShowAssistant] = useState(false);
-const [command, setCommand] = useState("");
+  const [command, setCommand] = useState("");
 
 
   const [todayConsultationCount, setTodayConsultationCount] = useState(0);
   const [todayConsultationAmount, setTodayConsultationAmount] = useState(0);
 
-const marqueeText =
-  localStorage.getItem("activeMarqueeText") ||
-  "Welcome to Ashu Dental Clinic. We care for your smile!";
+  const marqueeText =
+    localStorage.getItem("activeMarqueeText") ||
+    "Welcome to Ashu Dental Clinic. We care for your smile!";
 
   const [todayPatients, setTodayPatients] = useState(0);
   const [todayConsultations, setTodayConsultations] = useState(0);
@@ -137,7 +137,7 @@ const marqueeText =
         total += Number(bill.finalAmount || 0);
       });
 
-      
+
 
 
 
@@ -149,69 +149,69 @@ const marqueeText =
   };
 
   useEffect(() => {
-  console.log("Current Selected Patient", selectedPatient);
-}, [selectedPatient]);
+    console.log("Current Selected Patient", selectedPatient);
+  }, [selectedPatient]);
 
 
   const startListening = () => {
-  if (!recognition) {
-    alert("Speech Recognition Browser me support nahi karta.");
-    return;
-  }
+    if (!recognition) {
+      alert("Speech Recognition Browser me support nahi karta.");
+      return;
+    }
 
-  recognition.lang = "hi-IN";
-  recognition.continuous = false;
-  recognition.interimResults = false;
+    recognition.lang = "hi-IN";
+    recognition.continuous = false;
+    recognition.interimResults = false;
 
-  recognition.start();
+    recognition.start();
 
-  setListening(true);
+    setListening(true);
 
-recognition.onresult = async (event) => {
+    recognition.onresult = async (event) => {
 
-  const text = event.results[0][0].transcript;
+      const text = event.results[0][0].transcript;
 
-  console.log("Voice :", text);
+      console.log("Voice :", text);
 
-  setVoiceText(text);
+      setVoiceText(text);
 
-  setCommand(text);
+      setCommand(text);
 
-  setListening(false);
+      setListening(false);
 
-  await executeAssistantCommand({
-    command: text,
-    patients,
-    setSelectedPatient,
-    setPatientId,
-    setFormData,
-    setIsEdit,
-    navigate,
-  });
+      await executeAssistantCommand({
+        command: text,
+        patients,
+        setSelectedPatient,
+        setPatientId,
+        setFormData,
+        setIsEdit,
+        navigate,
+      });
 
-};
+    };
 
-  recognition.onerror = (err) => {
-    console.log(err);
+    recognition.onerror = (err) => {
+      console.log(err);
 
-    setListening(false);
+      setListening(false);
+    };
+
+    recognition.onend = () => {
+      setListening(false);
+    };
   };
-
-  recognition.onend = () => {
-    setListening(false);
-  };
-};
 
 
   const navigate = useNavigate();
 
   useEffect(() => {
-  const timer = setInterval(() => {
-    setTime(new Date());
-  }, 1000);
+    const timer = setInterval(() => {
+      setTime(new Date());
+    }, 1000);
 
-  return () => clearInterval(timer);
-}, []);
+    return () => clearInterval(timer);
+  }, []);
 
   const handleCityChange = (e) => {
     const city = e.target.value;
@@ -341,7 +341,7 @@ recognition.onresult = async (event) => {
     setPatientId("");
 
     setFormData({
-      prefix:"Mr.",
+      prefix: "Mr.",
       name: "",
       surname: "",
       fatherName: "",
@@ -359,146 +359,146 @@ recognition.onresult = async (event) => {
 
   const selectPatientByName = (name) => {
 
-  const patient = patients.find((p) =>
-    `${p.name} ${p.surname || ""}`
-      .toLowerCase()
-      .trim()
-      .includes(name.toLowerCase())
-  );
+    const patient = patients.find((p) =>
+      `${p.name} ${p.surname || ""}`
+        .toLowerCase()
+        .trim()
+        .includes(name.toLowerCase())
+    );
 
-  if (!patient) {
-    alert("Patient Not Found");
-    return;
-  }
+    if (!patient) {
+      alert("Patient Not Found");
+      return;
+    }
 
-  setSelectedPatient(patient);
+    setSelectedPatient(patient);
 
-  setPatientId(patient.patientId);
+    setPatientId(patient.patientId);
 
-  setFormData({
-    prefix: patient.prefix || "",
-    name: patient.name || "",
-    surname: patient.surname || "",
-    fatherName: patient.fatherName || "",
-    age: patient.age || "",
-    gender: patient.gender || "",
-    phone: patient.phone || "",
-    address: patient.address || "",
-    stateName: patient.stateName || "",
-    cityName: patient.cityName || "",
-    referenceBy: patient.referenceBy || "",
-  });
-
-  setIsEdit(true);
-
-  alert(`${patient.name} Selected`);
-};
-
-const executeCommand = (text) => {
-
-  text = text.toLowerCase().trim();
-
-  // ---------- SELECT PATIENT ----------
-
-  if (
-    text.includes("select") ||
-    text.includes("open") ||
-    text.includes("edit") ||
-    text.includes("data") ||
-    text.includes("profile")
-  ) {
-
-    const patient = patients.find((p) => {
-
-      const fullName =
-        `${p.name} ${p.surname || ""}`.toLowerCase();
-
-      return text.includes(fullName) ||
-             text.includes(p.name.toLowerCase());
-
+    setFormData({
+      prefix: patient.prefix || "",
+      name: patient.name || "",
+      surname: patient.surname || "",
+      fatherName: patient.fatherName || "",
+      age: patient.age || "",
+      gender: patient.gender || "",
+      phone: patient.phone || "",
+      address: patient.address || "",
+      stateName: patient.stateName || "",
+      cityName: patient.cityName || "",
+      referenceBy: patient.referenceBy || "",
     });
 
-    if (patient) {
+    setIsEdit(true);
 
-      setSelectedPatient(patient);
+    alert(`${patient.name} Selected`);
+  };
 
-      setPatientId(patient.patientId);
+  const executeCommand = (text) => {
 
-      setFormData({
-        prefix: patient.prefix || "",
-        name: patient.name || "",
-        surname: patient.surname || "",
-        fatherName: patient.fatherName || "",
-        age: patient.age || "",
-        gender: patient.gender || "",
-        phone: patient.phone || "",
-        address: patient.address || "",
-        stateName: patient.stateName || "",
-        cityName: patient.cityName || "",
-        referenceBy: patient.referenceBy || "",
+    text = text.toLowerCase().trim();
+
+    // ---------- SELECT PATIENT ----------
+
+    if (
+      text.includes("select") ||
+      text.includes("open") ||
+      text.includes("edit") ||
+      text.includes("data") ||
+      text.includes("profile")
+    ) {
+
+      const patient = patients.find((p) => {
+
+        const fullName =
+          `${p.name} ${p.surname || ""}`.toLowerCase();
+
+        return text.includes(fullName) ||
+          text.includes(p.name.toLowerCase());
+
       });
 
-      setIsEdit(true);
+      if (patient) {
+
+        setSelectedPatient(patient);
+
+        setPatientId(patient.patientId);
+
+        setFormData({
+          prefix: patient.prefix || "",
+          name: patient.name || "",
+          surname: patient.surname || "",
+          fatherName: patient.fatherName || "",
+          age: patient.age || "",
+          gender: patient.gender || "",
+          phone: patient.phone || "",
+          address: patient.address || "",
+          stateName: patient.stateName || "",
+          cityName: patient.cityName || "",
+          referenceBy: patient.referenceBy || "",
+        });
+
+        setIsEdit(true);
+
+        return;
+      }
+
+    }
+
+    // ---------- CLEAR ----------
+
+    if (
+      text.includes("clear") ||
+      text.includes("new patient")
+    ) {
+
+      handleClear();
+
+      setSelectedPatient(null);
+
+      setIsEdit(false);
 
       return;
     }
 
-  }
+    // ---------- UPDATE ----------
 
-  // ---------- CLEAR ----------
+    if (
+      text.includes("update")
+    ) {
 
-  if (
-    text.includes("clear") ||
-    text.includes("new patient")
-  ) {
+      handleUpdate();
 
-    handleClear();
-
-    setSelectedPatient(null);
-
-    setIsEdit(false);
-
-    return;
-  }
-
-  // ---------- UPDATE ----------
-
-  if (
-    text.includes("update")
-  ) {
-
-    handleUpdate();
-
-    return;
-  }
-
-  
-};
+      return;
+    }
 
 
-const runCommand = () => {
+  };
 
-  executeAssistantCommand({
 
-    command,
+  const runCommand = () => {
 
-    patients,
+    executeAssistantCommand({
 
-    setSelectedPatient,
+      command,
 
-    setPatientId,
+      patients,
 
-    setFormData,
+      setSelectedPatient,
 
-    setIsEdit,
+      setPatientId,
 
-    navigate,
+      setFormData,
 
-  });
+      setIsEdit,
 
-  setCommand("");
+      navigate,
 
-};
+    });
+
+    setCommand("");
+
+  };
 
 
   const handleUpdate = async () => {
@@ -520,7 +520,7 @@ const runCommand = () => {
       setPatientId("");
 
       setFormData({
-        prefix:"Mr.",
+        prefix: "Mr.",
         name: "",
         surname: "",
         fatherName: "",
@@ -561,15 +561,23 @@ const runCommand = () => {
 
       }} className="container mt-4">
 
-        <div style={{
-          display: "flex",
-          justifyContent: "space-between",
-        }}>
+        <div
+className="home-top-section"
+style={{
+display:"flex",
+justifyContent:"space-between",
+gap:"20px",
+alignItems:"flex-start"
+}}
+>
 
-          <div style={{
-            width: "590px"
-          }}
-            className="registration-card">
+          <div
+            className="registration-card"
+            style={{
+              width: "100%",
+              maxWidth: "590px"
+            }}
+          >
             <h2 className="registration-title">Patient Registration</h2>
 
             {patientId && (
@@ -614,9 +622,9 @@ const runCommand = () => {
                       marginleft: "10px"
                     }}
                   >Name</label>
-                   <select  style={{
-                    width:"70px",
-                    height:"37px"
+                  <select style={{
+                    width: "70px",
+                    height: "37px"
                   }}
                     name="prefix"
                     className="form-control"
@@ -832,7 +840,7 @@ const runCommand = () => {
                           setPatientId("");
 
                           setFormData({
-                            prefix:"",
+                            prefix: "",
                             name: "",
                             surname: "",
                             fatherName: "",
@@ -904,9 +912,9 @@ const runCommand = () => {
                   padding: "12px 15px",
                   borderRadius: "12px",
                   fontWeight: "700",
-                  fontSize:"18px",
+                  fontSize: "18px",
                   boxShadow: "0 8px 18px rgb(255, 255, 255), inset 0 2px 2px rgba(255,255,255,0.25)",
-                              transition: "all .3s ease",
+                  transition: "all .3s ease",
                   marginTop: "10px",
                 }}
               >
@@ -916,6 +924,7 @@ const runCommand = () => {
               </div>
             )}
             <div
+              className="dashboard-cards"
               style={{
                 display: "grid",
                 gridTemplateColumns: "repeat(3,1fr)",
@@ -937,7 +946,7 @@ const runCommand = () => {
                   boxShadow: "0 10px 20px rgba(0,0,0,.15)",
                   height: "20vh",
                   boxShadow: "0 8px 18px rgb(255, 255, 255), inset 0 2px 2px rgba(255,255,255,0.25)",
-                              transition: "all .3s ease",
+                  transition: "all .3s ease",
                 }}
               >
 
@@ -960,7 +969,7 @@ const runCommand = () => {
                   boxShadow: "0 10px 20px rgba(0,0,0,.15)",
                   height: "20vh",
                   boxShadow: "0 8px 18px rgb(255, 255, 255), inset 0 2px 2px rgba(255,255,255,0.25)",
-                              transition: "all .3s ease",
+                  transition: "all .3s ease",
                 }}
               >
 
@@ -983,7 +992,7 @@ const runCommand = () => {
                   boxShadow: "0 10px 20px rgba(0,0,0,.15)",
                   height: "20vh",
                   boxShadow: "0 8px 18px rgb(255, 255, 255), inset 0 2px 2px rgba(255,255,255,0.25)",
-                              transition: "all .3s ease", 
+                  transition: "all .3s ease",
                 }}
               >
 
@@ -1005,7 +1014,7 @@ const runCommand = () => {
                   boxShadow: "0 10px 20px rgba(0,0,0,.15)",
                   height: "20vh",
                   boxShadow: "0 8px 18px rgb(255, 255, 255), inset 0 2px 2px rgba(255,255,255,0.25)",
-                              transition: "all .3s ease",
+                  transition: "all .3s ease",
                 }}
               >
 
@@ -1015,7 +1024,7 @@ const runCommand = () => {
                 </h5>
 
                 <h2>₹{todayConsultationAmount}</h2>
-               
+
 
 
               </div>
@@ -1033,7 +1042,7 @@ const runCommand = () => {
                   boxShadow: "0 10px 20px rgba(0,0,0,.15)",
                   height: "20vh",
                   boxShadow: "0 8px 18px rgb(255, 255, 255), inset 0 2px 2px rgba(255,255,255,0.25)",
-                              transition: "all .3s ease",
+                  transition: "all .3s ease",
                 }}
               >
 
@@ -1047,47 +1056,50 @@ const runCommand = () => {
 
 
               <div
-  style={{
-background: "linear-gradient(135deg,#0F2027,#203A43,#2C5364)" ,
-    color: "#fff",
-    borderRadius: "18px",
-    padding: "20px",
-    boxShadow: "0 10px 20px rgba(0,0,0,.15)",
-    height: "20vh",
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "center",
-    alignItems: "center",
-    boxShadow: "0 8px 18px rgb(255, 255, 255), inset 0 2px 2px rgba(255,255,255,0.25)",
-                              transition: "all .3s ease",
-  }}
->
-  <h5 style={{ fontSize: "18px",
-    marginTop:"45px"
-   }}>{time.toLocaleDateString("en-GB", {
-  day: "2-digit",
-  month: "long",
-  year: "numeric",
-})}</h5>
+                style={{
+                  background: "linear-gradient(135deg,#0F2027,#203A43,#2C5364)",
+                  color: "#fff",
+                  borderRadius: "18px",
+                  padding: "20px",
+                  boxShadow: "0 10px 20px rgba(0,0,0,.15)",
+                  height: "20vh",
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  boxShadow: "0 8px 18px rgb(255, 255, 255), inset 0 2px 2px rgba(255,255,255,0.25)",
+                  transition: "all .3s ease",
+                }}
+              >
+                <h5 style={{
+                  fontSize: "18px",
+                  marginTop: "45px"
+                }}>{time.toLocaleDateString("en-GB", {
+                  day: "2-digit",
+                  month: "long",
+                  year: "numeric",
+                })}</h5>
 
-  <h3 style={{ fontSize: "23px",
-    margin:"-10px"
-   }}>
-    {time.toLocaleTimeString()}
-  </h3>
+                <h3 style={{
+                  fontSize: "23px",
+                  margin: "-10px"
+                }}>
+                  {time.toLocaleTimeString()}
+                </h3>
 
-  <h6 style={{ fontSize: "18px",
-   }}>
-    {time.toLocaleDateString("en-US", {
-      weekday: "long",
-    })}
-  </h6>
-</div>
+                <h6 style={{
+                  fontSize: "18px",
+                }}>
+                  {time.toLocaleDateString("en-US", {
+                    weekday: "long",
+                  })}
+                </h6>
+              </div>
 
 
 
             </div>
-            
+
           </div>
 
         </div>
@@ -1179,7 +1191,7 @@ background: "linear-gradient(135deg,#0F2027,#203A43,#2C5364)" ,
                       textAlign: "center",
                     }}
                   >Patient ID</th>
-                   <th
+                  <th
                     style={{
                       padding: "12px",
                       whiteSpace: "nowrap",
@@ -1291,7 +1303,7 @@ background: "linear-gradient(135deg,#0F2027,#203A43,#2C5364)" ,
 
 
                             setFormData({
-                              prefix:item.prefix || "",
+                              prefix: item.prefix || "",
                               name: item.name || "",
                               age: item.age || "",
                               gender: item.gender || "",
@@ -1309,7 +1321,7 @@ background: "linear-gradient(135deg,#0F2027,#203A43,#2C5364)" ,
                         >
                           {item.patientId}
                         </td>
-                         <td
+                        <td
                           style={{
                             verticalAlign: "middle",
                             textAlign: "center",
@@ -1405,141 +1417,141 @@ background: "linear-gradient(135deg,#0F2027,#203A43,#2C5364)" ,
         </div>
       </div>
       <div
-  onClick={startListening}
-  style={{
-    position: "absolute",
-    right: "30px",
-    bottom: "30px",
-    width: "70px",
-    height: "70px",
-    borderRadius: "50%",
-    background: listening ? "#dc3545" : "#0dac27",
-    color: "#fff",
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    cursor: "pointer",
-    fontSize: "30px",
-    boxShadow: "0 10px 25px rgba(0,0,0,.3)",
-    transition: ".3s",
-  }}
->
-  {listening ? <FaMicrophoneSlash /> : <FaMicrophone />}
-</div>
+        onClick={startListening}
+        style={{
+          position: "absolute",
+          right: "30px",
+          bottom: "30px",
+          width: "70px",
+          height: "70px",
+          borderRadius: "50%",
+          background: listening ? "#dc3545" : "#0dac27",
+          color: "#fff",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          cursor: "pointer",
+          fontSize: "30px",
+          boxShadow: "0 10px 25px rgba(0,0,0,.3)",
+          transition: ".3s",
+        }}
+      >
+        {listening ? <FaMicrophoneSlash /> : <FaMicrophone />}
+      </div>
 
-{listening && (
-  <div
-    style={{
-      position: "fixed",
-      inset: 0,
-      background: "rgba(0,0,0,.45)",
-      backdropFilter: "blur(5px)",
-      display: "flex",
-      flexDirection: "column",
-      justifyContent: "center",
-      alignItems: "center",
-      zIndex: 999998,
-    }}
-  >
-    <div
-      style={{
-        width: "130px",
-        height: "130px",
-        borderRadius: "50%",
-        background: "#0d6efd",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        color: "#fff",
-        fontSize: "55px",
-        animation: "pulse 1.2s infinite",
-      }}
-    >
-      🎤
-    </div>
+      {listening && (
+        <div
+          style={{
+            position: "fixed",
+            inset: 0,
+            background: "rgba(0,0,0,.45)",
+            backdropFilter: "blur(5px)",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            alignItems: "center",
+            zIndex: 999998,
+          }}
+        >
+          <div
+            style={{
+              width: "130px",
+              height: "130px",
+              borderRadius: "50%",
+              background: "#0d6efd",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              color: "#fff",
+              fontSize: "55px",
+              animation: "pulse 1.2s infinite",
+            }}
+          >
+            🎤
+          </div>
 
-    <h2
-      style={{
-        color: "#fff",
-        marginTop: "25px",
-        fontWeight: "700",
-      }}
-    >
-      Listening...
-    </h2>
+          <h2
+            style={{
+              color: "#fff",
+              marginTop: "25px",
+              fontWeight: "700",
+            }}
+          >
+            Listening...
+          </h2>
 
-    <p
-      style={{
-        color: "#ddd",
-        fontSize: "18px",
-      }}
-    >
-      Speak your command
-    </p>
-  </div>
-)}
+          <p
+            style={{
+              color: "#ddd",
+              fontSize: "18px",
+            }}
+          >
+            Speak your command
+          </p>
+        </div>
+      )}
 
-{/* Floating Assistant */}
+      {/* Floating Assistant */}
 
-<div
-  onClick={() => setShowAssistant(!showAssistant)}
-  style={{
-    position: "fixed",
-    right: "25px",
-    bottom: "25px",
-    width: "65px",
-    height: "65px",
-    borderRadius: "50%",
-    background: "#0d6efd",
-    color: "#fff",
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    fontSize: "30px",
-    cursor: "pointer",
-    zIndex: 99999,
-    boxShadow: "0 8px 20px rgba(0,0,0,.3)"
-  }}
->
- 🤖
-</div>
+      <div
+        onClick={() => setShowAssistant(!showAssistant)}
+        style={{
+          position: "fixed",
+          right: "25px",
+          bottom: "25px",
+          width: "65px",
+          height: "65px",
+          borderRadius: "50%",
+          background: "#0d6efd",
+          color: "#fff",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          fontSize: "30px",
+          cursor: "pointer",
+          zIndex: 99999,
+          boxShadow: "0 8px 20px rgba(0,0,0,.3)"
+        }}
+      >
+        🤖
+      </div>
 
-{showAssistant && (
-  <div
-    style={{
-      position: "fixed",
-      right: "25px",
-      bottom: "100px",
-      width: "330px",
-      background: "#fff",
-      borderRadius: "12px",
-      padding: "15px",
-      boxShadow: "0 10px 30px rgba(0,0,0,.25)",
-      zIndex: 99999
-    }}
-  >
-    <h5>Dental Assistant</h5>
+      {showAssistant && (
+        <div
+          style={{
+            position: "fixed",
+            right: "25px",
+            bottom: "100px",
+            width: "330px",
+            background: "#fff",
+            borderRadius: "12px",
+            padding: "15px",
+            boxShadow: "0 10px 30px rgba(0,0,0,.25)",
+            zIndex: 99999
+          }}
+        >
+          <h5>Dental Assistant</h5>
 
-    <input
-      className="form-control"
-      placeholder="Type Command..."
-      value={command}
-      onChange={(e) => setCommand(e.target.value)}
-      onKeyDown={(e) => {
-        if (e.key === "Enter") {
-          runCommand();
-        }
-      }}
-    />
+          <input
+            className="form-control"
+            placeholder="Type Command..."
+            value={command}
+            onChange={(e) => setCommand(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                runCommand();
+              }
+            }}
+          />
 
-    <button
-      className="btn btn-primary mt-3 w-100"
-      onClick={runCommand}
-    >
-      Run Command
-    </button>
-  </div>
-)}
+          <button
+            className="btn btn-primary mt-3 w-100"
+            onClick={runCommand}
+          >
+            Run Command
+          </button>
+        </div>
+      )}
 
     </>
   );
