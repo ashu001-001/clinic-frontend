@@ -317,23 +317,23 @@ const PatientProfile = () => {
     setSelectedVisit(visit);
     getSittingHistory(visit._id);
     getBillByVisit(visit._id);
-   setVisitData({
-  consultant: visit.consultant?._id || "",
-  consultantCharge: visit.consultantCharge || 0,
-  notes: visit.notes || "",
+    setVisitData({
+      consultant: visit.consultant?._id || "",
+      consultantCharge: visit.consultantCharge || 0,
+      notes: visit.notes || "",
 
-  vitals:
-    visit.vitals && visit.vitals.length > 0
-      ? visit.vitals
-      : [{
-          weight: "",
-          bp: "",
-          temp: "",
-          pulse: "",
-          spo2: "",
-          bsl: "",
-        }],
-});
+      vitals:
+        visit.vitals && visit.vitals.length > 0
+          ? visit.vitals
+          : [{
+            weight: "",
+            bp: "",
+            temp: "",
+            pulse: "",
+            spo2: "",
+            bsl: "",
+          }],
+    });
 
     setComplaintRows(visit.complaints || []);
     setDiseaseRows(visit.diseases || []);
@@ -379,7 +379,7 @@ const PatientProfile = () => {
 
 
   const [visitData, setVisitData] = useState({
-    
+
     consultant: "",
     consultantCharge: "",
     complaint: "",
@@ -403,14 +403,14 @@ const PatientProfile = () => {
     nextVisitDate: "",
     notes: "",
     vitals: [{
-  weight: "",
-  bp: "",
-  temp: "",
-  pulse: "",
-  spo2: "",
-  bsl: "",
-}],
-  
+      weight: "",
+      bp: "",
+      temp: "",
+      pulse: "",
+      spo2: "",
+      bsl: "",
+    }],
+
   });
 
   const addMedicine = () => {
@@ -721,13 +721,13 @@ const PatientProfile = () => {
       notes: "",
 
       vitals: [{
-  weight: "",
-  bp: "",
-  temp: "",
-  pulse: "",
-  spo2: "",
-  bsl: "",
-}],
+        weight: "",
+        bp: "",
+        temp: "",
+        pulse: "",
+        spo2: "",
+        bsl: "",
+      }],
     });
     setComplaintRows([]);
     setDiseaseRows([]);
@@ -2486,7 +2486,7 @@ const PatientProfile = () => {
 
 
 
-           {
+        {
           activeCard === "prescription" && (
 
             <div
@@ -3051,223 +3051,223 @@ const PatientProfile = () => {
 
 
         {
-  activeCard === "vitals" && (
+          activeCard === "vitals" && (
 
-    <div
-      style={{
-        position: "fixed",
-        top: 0,
-        left: 0,
-        width: "100%",
-        height: "100vh",
-        background: "rgba(0,0,0,0.5)",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        zIndex: 9999,
-      }}
-    >
+            <div
+              style={{
+                position: "fixed",
+                top: 0,
+                left: 0,
+                width: "100%",
+                height: "100vh",
+                background: "rgba(0,0,0,0.5)",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                zIndex: 9999,
+              }}
+            >
 
-      <div
-        style={{
-          width: "900px",
-          maxWidth: "55%",
-          background: "#fff",
-          borderRadius: "15px",
-          padding: "25px",
-          boxShadow: "0 15px 40px rgba(0,0,0,.35)",
-          position: "relative",
-        }}
-      >
+              <div
+                style={{
+                  width: "900px",
+                  maxWidth: "55%",
+                  background: "#fff",
+                  borderRadius: "15px",
+                  padding: "25px",
+                  boxShadow: "0 15px 40px rgba(0,0,0,.35)",
+                  position: "relative",
+                }}
+              >
 
-        <button
-          onClick={() => setActiveCard("")}
-          style={{
-            position: "absolute",
-            top: "12px",
-            right: "18px",
-            border: "none",
-            background: "transparent",
-            fontSize: "28px",
-            cursor: "pointer",
-            color: "#dc3545",
-            fontWeight: "bold",
-          }}
-        >
-          ×
-        </button>
+                <button
+                  onClick={() => setActiveCard("")}
+                  style={{
+                    position: "absolute",
+                    top: "12px",
+                    right: "18px",
+                    border: "none",
+                    background: "transparent",
+                    fontSize: "28px",
+                    cursor: "pointer",
+                    color: "#dc3545",
+                    fontWeight: "bold",
+                  }}
+                >
+                  ×
+                </button>
 
-        <h3
-          style={{
-            color: "#0d6efd",
-            marginBottom: "20px",
-            borderBottom: "2px solid #eee",
-            paddingBottom: "10px",
-          }}
-        >
-          🩺 Vitals
-        </h3>
+                <h3
+                  style={{
+                    color: "#0d6efd",
+                    marginBottom: "20px",
+                    borderBottom: "2px solid #eee",
+                    paddingBottom: "10px",
+                  }}
+                >
+                  🩺 Vitals
+                </h3>
 
-        <div className="row g-3">
+                <div className="row g-3">
 
-          <div className="col-md-4">
-            <label style={{
+                  <div className="col-md-4">
+                    <label style={{
                       width: "100px",
                       display: "inline-block",
                       fontWeight: "600"
                     }}>Weight (Kg)</label>
-            <input
-              type="number"
-              className="form-control"
-              value={visitData.vitals?.[0]?.weight || ""}
-              onChange={(e) =>
-                setVisitData({
-                  ...visitData,
-                  vitals: [{
-                    ...visitData.vitals?.[0],
-                    weight: e.target.value
-                  }]
-                })
-              }
-            />
-          </div>
+                    <input
+                      type="number"
+                      className="form-control"
+                      value={visitData.vitals?.[0]?.weight || ""}
+                      onChange={(e) =>
+                        setVisitData({
+                          ...visitData,
+                          vitals: [{
+                            ...visitData.vitals?.[0],
+                            weight: e.target.value
+                          }]
+                        })
+                      }
+                    />
+                  </div>
 
-          <div className="col-md-4">
-            <label style={{
+                  <div className="col-md-4">
+                    <label style={{
                       width: "100px",
                       display: "inline-block",
                       fontWeight: "600"
                     }}>BP</label>
-            <input
-              type="text"
-              className="form-control"
-              placeholder="120/80"
-              value={visitData.vitals?.[0]?.bp || ""}
-              onChange={(e) =>
-                setVisitData({
-                  ...visitData,
-                  vitals: [{
-                    ...visitData.vitals?.[0],
-                    bp: e.target.value
-                  }]
-                })
-              }
-            />
-          </div>
+                    <input
+                      type="text"
+                      className="form-control"
+                      placeholder="120/80"
+                      value={visitData.vitals?.[0]?.bp || ""}
+                      onChange={(e) =>
+                        setVisitData({
+                          ...visitData,
+                          vitals: [{
+                            ...visitData.vitals?.[0],
+                            bp: e.target.value
+                          }]
+                        })
+                      }
+                    />
+                  </div>
 
-          <div className="col-md-4">
-            <label 
-            style={{
-                      width: "100px",
-                      display: "inline-block",
-                      fontWeight: "600"
-                    }}
-            >Temperature</label>
-            <input
-              type="number"
-              className="form-control"
-              value={visitData.vitals?.[0]?.temp || ""}
-              onChange={(e) =>
-                setVisitData({
-                  ...visitData,
-                  vitals: [{
-                    ...visitData.vitals?.[0],
-                    temp: e.target.value
-                  }]
-                })
-              }
-            />
-          </div>
+                  <div className="col-md-4">
+                    <label
+                      style={{
+                        width: "100px",
+                        display: "inline-block",
+                        fontWeight: "600"
+                      }}
+                    >Temperature</label>
+                    <input
+                      type="number"
+                      className="form-control"
+                      value={visitData.vitals?.[0]?.temp || ""}
+                      onChange={(e) =>
+                        setVisitData({
+                          ...visitData,
+                          vitals: [{
+                            ...visitData.vitals?.[0],
+                            temp: e.target.value
+                          }]
+                        })
+                      }
+                    />
+                  </div>
 
-          <div className="col-md-4">
-            <label style={{
+                  <div className="col-md-4">
+                    <label style={{
                       width: "100px",
                       display: "inline-block",
                       fontWeight: "600"
                     }}>Pulse</label>
-            <input
-              type="number"
-              className="form-control"
-              value={visitData.vitals?.[0]?.pulse || ""}
-              onChange={(e) =>
-                setVisitData({
-                  ...visitData,
-                  vitals: [{
-                    ...visitData.vitals?.[0],
-                    pulse: e.target.value
-                  }]
-                })
-              }
-            />
-          </div>
+                    <input
+                      type="number"
+                      className="form-control"
+                      value={visitData.vitals?.[0]?.pulse || ""}
+                      onChange={(e) =>
+                        setVisitData({
+                          ...visitData,
+                          vitals: [{
+                            ...visitData.vitals?.[0],
+                            pulse: e.target.value
+                          }]
+                        })
+                      }
+                    />
+                  </div>
 
-          <div className="col-md-4">
-            <label style={{
+                  <div className="col-md-4">
+                    <label style={{
                       width: "100px",
                       display: "inline-block",
                       fontWeight: "600"
                     }}>SPO2</label>
-            <input
-              type="number"
-              className="form-control"
-              value={visitData.vitals?.[0]?.spo2 || ""}
-              onChange={(e) =>
-                setVisitData({
-                  ...visitData,
-                  vitals: [{
-                    ...visitData.vitals?.[0],
-                    spo2: e.target.value
-                  }]
-                })
-              }
-            />
-          </div>
+                    <input
+                      type="number"
+                      className="form-control"
+                      value={visitData.vitals?.[0]?.spo2 || ""}
+                      onChange={(e) =>
+                        setVisitData({
+                          ...visitData,
+                          vitals: [{
+                            ...visitData.vitals?.[0],
+                            spo2: e.target.value
+                          }]
+                        })
+                      }
+                    />
+                  </div>
 
-          <div className="col-md-4">
-            <label style={{
+                  <div className="col-md-4">
+                    <label style={{
                       width: "100px",
                       display: "inline-block",
                       fontWeight: "600"
                     }}>BSL</label>
-            <input
-              type="number"
-              className="form-control"
-              value={visitData.vitals?.[0]?.bsl || ""}
-              onChange={(e) =>
-                setVisitData({
-                  ...visitData,
-                  vitals: [{
-                    ...visitData.vitals?.[0],
-                    bsl: e.target.value
-                  }]
-                })
-              }
-            />
-          </div>
+                    <input
+                      type="number"
+                      className="form-control"
+                      value={visitData.vitals?.[0]?.bsl || ""}
+                      onChange={(e) =>
+                        setVisitData({
+                          ...visitData,
+                          vitals: [{
+                            ...visitData.vitals?.[0],
+                            bsl: e.target.value
+                          }]
+                        })
+                      }
+                    />
+                  </div>
 
-        </div>
+                </div>
 
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "flex-end",
-            marginTop: "20px",
-          }}
-        >
-          <button
-            className="btn btn-success"
-            onClick={() => setActiveCard("")}
-          >
-            ✔ Done
-          </button>
-        </div>
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "flex-end",
+                    marginTop: "20px",
+                  }}
+                >
+                  <button
+                    className="btn btn-success"
+                    onClick={() => setActiveCard("")}
+                  >
+                    ✔ Done
+                  </button>
+                </div>
 
-      </div>
+              </div>
 
-    </div>
+            </div>
 
-  )
-}
+          )
+        }
 
 
 
@@ -3727,21 +3727,21 @@ const PatientProfile = () => {
                   return;
                 }
 
-               localStorage.setItem(
-  "consultationData",
-  JSON.stringify({
-    patient,
-    visit: selectedVisit,
-    complaintRows,
-    diseaseRows,
-    allergyRows,
-    investigationRows,
-    procedureRows,
-    surgeryRows,
-    prescriptionRows,
-    vitals: visitData.vitals,
-  })
-);
+                localStorage.setItem(
+                  "consultationData",
+                  JSON.stringify({
+                    patient,
+                    visit: selectedVisit,
+                    complaintRows,
+                    diseaseRows,
+                    allergyRows,
+                    investigationRows,
+                    procedureRows,
+                    surgeryRows,
+                    prescriptionRows,
+                    vitals: visitData.vitals,
+                  })
+                );
 
                 navigate("/consultation-print");
               }}
@@ -3906,78 +3906,78 @@ const PatientProfile = () => {
               </div>
 
               <div style={{
-                marginBottom:"10px"
-              }}> 
-                 <h3
-                    style={{
-                      margin: 0,
-                      color: "#198754",
-                      fontWeight: "700"
-                    }}
-                  >
-                    Vitals
-                  </h3>
-<div
-  style={{
-    background: "#f8f9fa",
-    border: "1px solid #dee2e6",
-    borderRadius: "10px",
-    padding: "15px",
-    marginBottom: "20px",
-  }}
->
-  <div className="row">
-   
-    {visitData.vitals?.[0]?.weight && (
-      <div style={{ display: "flex", marginBottom: "3px" }}>
-        <strong style={{width:"111px"}}>Weight</strong>
-        <strong style={{width:"10px"}}> : </strong>
-        {visitData.vitals[0].weight} Kg
-      </div>
-    )}
+                marginBottom: "10px"
+              }}>
+                <h3
+                  style={{
+                    margin: 0,
+                    color: "#198754",
+                    fontWeight: "700"
+                  }}
+                >
+                  Vitals
+                </h3>
+                <div
+                  style={{
+                    background: "#f8f9fa",
+                    border: "1px solid #dee2e6",
+                    borderRadius: "10px",
+                    padding: "15px",
+                    marginBottom: "20px",
+                  }}
+                >
+                  <div className="row">
 
-    {visitData.vitals?.[0]?.bp && (
-      <div style={{ display: "flex", marginBottom: "3px" }}>
-        <strong style={{width:"111px"}}>BP</strong>
-        <strong style={{width:"10px"}}> : </strong>
-        {visitData.vitals[0].bp}
-      </div>
-    )}
+                    {visitData.vitals?.[0]?.weight && (
+                      <div style={{ display: "flex", marginBottom: "3px" }}>
+                        <strong style={{ width: "111px" }}>Weight</strong>
+                        <strong style={{ width: "10px" }}> : </strong>
+                        {visitData.vitals[0].weight} Kg
+                      </div>
+                    )}
 
-    {visitData.vitals?.[0]?.temp && (
-      <div style={{ display: "flex", marginBottom: "3px" }}>
-        <strong style={{width:"111px"}}>Temperature </strong>
-        <strong style={{width:"10px"}}> : </strong>
-         {visitData.vitals[0].temp} °F
-      </div>
-    )}
+                    {visitData.vitals?.[0]?.bp && (
+                      <div style={{ display: "flex", marginBottom: "3px" }}>
+                        <strong style={{ width: "111px" }}>BP</strong>
+                        <strong style={{ width: "10px" }}> : </strong>
+                        {visitData.vitals[0].bp}
+                      </div>
+                    )}
 
-    {visitData.vitals?.[0]?.pulse && (
-       <div style={{ display: "flex", marginBottom: "3px" }}>
-        <strong style={{width:"111px"}}>Pulse </strong>
-        <strong style={{width:"10px"}}> : </strong>
-        {visitData.vitals[0].pulse} bpm
-      </div>
-    )}
+                    {visitData.vitals?.[0]?.temp && (
+                      <div style={{ display: "flex", marginBottom: "3px" }}>
+                        <strong style={{ width: "111px" }}>Temperature </strong>
+                        <strong style={{ width: "10px" }}> : </strong>
+                        {visitData.vitals[0].temp} °F
+                      </div>
+                    )}
 
-    {visitData.vitals?.[0]?.spo2 && (
-       <div style={{ display: "flex", marginBottom: "3px" }}>
-        <strong style={{width:"111px"}}> SPO₂ </strong>
-        <strong style={{width:"10px"}}> : </strong>
-        {visitData.vitals[0].spo2} %
-      </div>
-    )}
+                    {visitData.vitals?.[0]?.pulse && (
+                      <div style={{ display: "flex", marginBottom: "3px" }}>
+                        <strong style={{ width: "111px" }}>Pulse </strong>
+                        <strong style={{ width: "10px" }}> : </strong>
+                        {visitData.vitals[0].pulse} bpm
+                      </div>
+                    )}
 
-    {visitData.vitals?.[0]?.bsl && (
-      <div style={{ display: "flex", marginBottom: "3px" }}>
-        <strong style={{width:"111px"}}> BSL </strong>
-        <strong style={{width:"10px"}}> : </strong>
-         {visitData.vitals[0].bsl} mg/dL
-      </div>
-    )}
+                    {visitData.vitals?.[0]?.spo2 && (
+                      <div style={{ display: "flex", marginBottom: "3px" }}>
+                        <strong style={{ width: "111px" }}> SPO₂ </strong>
+                        <strong style={{ width: "10px" }}> : </strong>
+                        {visitData.vitals[0].spo2} %
+                      </div>
+                    )}
 
-  </div>
-</div>
+                    {visitData.vitals?.[0]?.bsl && (
+                      <div style={{ display: "flex", marginBottom: "3px" }}>
+                        <strong style={{ width: "111px" }}> BSL </strong>
+                        <strong style={{ width: "10px" }}> : </strong>
+                        {visitData.vitals[0].bsl} mg/dL
+                      </div>
+                    )}
+
+                  </div>
+                </div>
 
               </div>
 

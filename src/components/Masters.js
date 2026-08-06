@@ -128,6 +128,13 @@ const Masters = () => {
   };
 
 
+  const handleClose = () => {
+  setMasterType("");
+  resetForm();
+  setData([]);
+};
+
+
 
   const resetForm = () => {
 
@@ -529,18 +536,69 @@ const Masters = () => {
           </div>
         </div>
 
-        {masterType && (
+
+       {masterType && (
+
+         <div
+              style={{
+                position: "fixed",
+                top: 0,
+                left: 0,
+                width: "100%",
+                height: "100vh",
+                background: "rgba(0,0,0,0.5)",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                zIndex: 9999,
+              }}
+            >
+
+        <div
+  style={{
+    background: "#fff",
+    borderRadius: "20px",
+    padding: "20px",
+    boxShadow: "0 4px 15px rgba(0, 0, 0, 0.1)",
+    margin: "20px",
+    width:"90vh"
+  }}
+  className="card mt-4 shadow"
+>
+            <div
+  style={{
+    display: "flex",
+    justifyContent: "flex-end",
+    marginBottom: "10px",
+  }}
+>
+  <button
+    onClick={handleClose}
+    style={{
+      width: "35px",
+      height: "35px",
+      border: "none",
+      borderRadius: "50%",
+      background: "#dc3545",
+      color: "#fff",
+      fontSize: "20px",
+      fontWeight: "bold",
+      cursor: "pointer",
+    }}
+  >
+    ×
+  </button>
+</div>
+
+             {masterType && (
           <div style={{
             background: "#fff",
             borderRadius: "15px",
-            padding: "20px",
-            boxShadow:
-              "0 4px 15px rgba(0, 0, 0, 0.1)",
-            margin: "20px",
-
           }} className="card shadow">
 
-            <div className="card-header">
+            <div style={{
+              marginTop:"-50px"
+            }}>
               <h4>{masterType.toUpperCase()} MASTER</h4>
             </div>
 
@@ -564,10 +622,10 @@ const Masters = () => {
                   </div>
                 )}
                 <label style={{
-                      width: "120px",
-                      display: "inline-block",
-                      fontWeight: "600"
-                    }}>Name</label>
+                  width: "120px",
+                  display: "inline-block",
+                  fontWeight: "600"
+                }}>Name</label>
 
                 <input
                   type="text"
@@ -584,10 +642,10 @@ const Masters = () => {
                 <div className="mb-3">
 
                   <label style={{
-                      width: "120px",
-                      display: "inline-block",
-                      fontWeight: "600"
-                    }}>Consultant Fee</label>
+                    width: "120px",
+                    display: "inline-block",
+                    fontWeight: "600"
+                  }}>Consultant Fee</label>
 
                   <input
                     type="number"
@@ -605,10 +663,10 @@ const Masters = () => {
                 <div className="mb-3">
 
                   <label style={{
-                      width: "120px",
-                      display: "inline-block",
-                      fontWeight: "600"
-                    }}>Amount</label>
+                    width: "120px",
+                    display: "inline-block",
+                    fontWeight: "600"
+                  }}>Amount</label>
 
                   <input
                     type="number"
@@ -622,7 +680,10 @@ const Masters = () => {
                 </div>
               )}
 
-              <button
+  
+              <button style={{
+                marginRight:"10px"
+              }}
                 className={editId ? "btn btn-warning" : "btn btn-primary"}
                 onClick={editId ? handleUpdate : handleSave}
               >
@@ -648,22 +709,20 @@ const Masters = () => {
 
           </div>
         )}
-
-        <div style={{
-          background: "#fff",
-          borderRadius: "20px",
-          padding: "20px",
-          boxShadow:
-            "0 4px 15px rgba(0, 0, 0, 0.1)",
-          margin: "20px",
-        }}
-          className="card mt-4 shadow">
+        <hr></hr>
 
           <div className="card-header">
             <h4>Master List</h4>
           </div>
 
           <div className="card-body">
+
+            <div
+  style={{
+    maxHeight: "50vh",
+    overflowY: "auto",
+  }}
+>
 
             <table className="table table-hover table-striped align-middle">
 
@@ -736,39 +795,48 @@ const Masters = () => {
                       </button>
 
                     </td>
-{masterType === "marquee" && (
-                    <td>
-                      {localStorage.getItem("activeMarqueeId") === item._id ? 
-                      (
-                        <button
-                          className="btn btn-success btn-sm"
-                          onClick={() => handleDeactivate()}
-                        >
-                          Running
-                        </button>
-                      ) : 
-                      (
-                        <button
-                          className="btn btn-primary btn-sm"
-                          onClick={() =>
-                            handleActivate(item._id, item.message)
-                          }
-                        >
-                          Start
-                        </button>
-                      )}
-                    </td>)}
+                    {masterType === "marquee" && (
+                      <td>
+                        {localStorage.getItem("activeMarqueeId") === item._id ?
+                          (
+                            <button
+                              className="btn btn-success btn-sm"
+                              onClick={() => handleDeactivate()}
+                            >
+                              Running
+                            </button>
+                          ) :
+                          (
+                            <button
+                              className="btn btn-primary btn-sm"
+                              onClick={() =>
+                                handleActivate(item._id, item.message)
+                              }
+                            >
+                              Start
+                            </button>
+                          )}
+                      </td>)}
 
                   </tr>
                 ))}
 
               </tbody>
 
+             
+
             </table>
+
+            </div>
 
           </div>
 
         </div>
+
+        </div>
+       )}
+
+
 
       </div>
     </>
@@ -776,3 +844,5 @@ const Masters = () => {
 };
 
 export default Masters;
+
+
