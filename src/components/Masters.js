@@ -726,7 +726,12 @@ const Masters = () => {
 
             <table className="table table-hover table-striped align-middle">
 
-              <thead>
+              <thead style={{
+                position:"sticky",
+                top:"0",
+                zindex: 10,
+                background:"rgb(31, 182, 89)",
+              }}>
                 <tr>
                   <th>S.No</th>
                   <th>Name</th>
