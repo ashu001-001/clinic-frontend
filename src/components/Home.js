@@ -148,6 +148,10 @@ const marqueeText =
     }
   };
 
+  useEffect(() => {
+  console.log("Current Selected Patient", selectedPatient);
+}, [selectedPatient]);
+
 
   const startListening = () => {
   if (!recognition) {
@@ -1418,33 +1422,6 @@ background: "linear-gradient(135deg,#0F2027,#203A43,#2C5364)" ,
     fontSize: "30px",
     boxShadow: "0 10px 25px rgba(0,0,0,.3)",
     transition: ".3s",
-  }}
->
-  {listening ? <FaMicrophoneSlash /> : <FaMicrophone />}
-</div>
-
-<div
-  onClick={startListening}
-  style={{
-    position: "fixed",
-    right: "30px",
-    bottom: "30px",
-    width: "75px",
-    height: "75px",
-    borderRadius: "50%",
-    background: listening ? "#ff3b30" : "#0dac27",
-    color: "#fff",
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    cursor: "pointer",
-    fontSize: "32px",
-    zIndex: 999999,
-    boxShadow: listening
-      ? "0 0 30px rgba(255,59,48,.8)"
-      : "0 10px 25px rgba(0,0,0,.35)",
-    transition: "all .3s ease",
-    transform: listening ? "scale(1.1)" : "scale(1)",
   }}
 >
   {listening ? <FaMicrophoneSlash /> : <FaMicrophone />}

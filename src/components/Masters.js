@@ -549,7 +549,11 @@ const Masters = () => {
               <div className="mb-3">
                 {masterType === "city" && (
                   <div className="mb-3">
-                    <label>State Name</label>
+                    <label style={{
+                      width: "120px",
+                      display: "inline-block",
+                      fontWeight: "600"
+                    }}>State Name</label>
 
                     <input
                       type="text"
@@ -559,7 +563,11 @@ const Masters = () => {
                     />
                   </div>
                 )}
-                <label>Name</label>
+                <label style={{
+                      width: "120px",
+                      display: "inline-block",
+                      fontWeight: "600"
+                    }}>Name</label>
 
                 <input
                   type="text"
@@ -575,7 +583,11 @@ const Masters = () => {
               {masterType === "consultant" && (
                 <div className="mb-3">
 
-                  <label>Consultant Fee</label>
+                  <label style={{
+                      width: "120px",
+                      display: "inline-block",
+                      fontWeight: "600"
+                    }}>Consultant Fee</label>
 
                   <input
                     type="number"
@@ -592,7 +604,11 @@ const Masters = () => {
               {masterType === "treatment" && (
                 <div className="mb-3">
 
-                  <label>Amount</label>
+                  <label style={{
+                      width: "120px",
+                      display: "inline-block",
+                      fontWeight: "600"
+                    }}>Amount</label>
 
                   <input
                     type="number"

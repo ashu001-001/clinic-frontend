@@ -1,13 +1,12 @@
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-
 const PrescriptionPrint = () => {
 
   const navigate = useNavigate();
 
   const data = JSON.parse(
-  localStorage.getItem("consultationData")
+  localStorage.getItem("consultationData")  
 );
 
 if (!data) {
@@ -24,6 +23,7 @@ const {
   procedureRows,
   surgeryRows,
   prescriptionRows,
+  vitals,
 } = data;
 
   return (
@@ -147,6 +147,50 @@ const {
 
   </tbody>
 </table>
+
+{vitals?.[0] &&
+Object.values(vitals[0]).some(
+  (v) => v !== "" && v !== null && v !== undefined
+) && (
+  <>
+    <h3>Vitals</h3>
+
+    <div
+      style={{
+        display: "flex",
+        flexWrap: "wrap",
+        gap: "30px",
+        marginBottom: "20px",
+        border: "1px solid #000",
+        padding: "10px",
+      }}
+    >
+      {vitals[0].weight && (
+        <div><b>Weight:</b> {vitals[0].weight} Kg</div>
+      )}
+
+      {vitals[0].bp && (
+        <div><b>BP:</b> {vitals[0].bp}</div>
+      )}
+
+      {vitals[0].temp && (
+        <div><b>Temp:</b> {vitals[0].temp} °F</div>
+      )}
+
+      {vitals[0].pulse && (
+        <div><b>Pulse:</b> {vitals[0].pulse} bpm</div>
+      )}
+
+      {vitals[0].spo2 && (
+        <div><b>SPO₂:</b> {vitals[0].spo2}%</div>
+      )}
+
+      {vitals[0].bsl && (
+        <div><b>BSL:</b> {vitals[0].bsl} mg/dL</div>
+      )}
+    </div>
+  </>
+)}
 
 <h3>Prescription</h3>
 

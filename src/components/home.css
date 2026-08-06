@@ -7,6 +7,7 @@
     border-top:4px solid #0d6efd;
     width:32%;
     max-width:850px;
+    min-width:320px;
 }
 
 .registration-title{
@@ -118,5 +119,100 @@
         transform:scale(1);
         box-shadow:0 0 0 0 rgba(13,110,253,0);
     }
+
+}
+/* ================= Responsive ================= */
+
+/* Large Laptop */
+@media (max-width: 1400px) {
+
+  .registration-card{
+    width:45%;
+  }
+
+}
+
+/* Laptop */
+@media (max-width: 1200px) {
+
+  .registration-card{
+    width:55%;
+  }
+
+}
+
+/* Tablet */
+@media (max-width: 992px) {
+
+  .registration-card{
+    width:80%;
+    margin:auto;
+    margin-bottom:20px;
+    padding:18px;
+  }
+
+  .registration-title{
+    font-size:22px;
+  }
+
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+
+  .registration-card{
+    width:95%;
+    padding:15px;
+  }
+
+  .registration-title{
+    font-size:20px;
+    justify-content:center;
+    text-align:center;
+  }
+
+  .registration-card label{
+    font-size:15px;
+  }
+
+  .registration-card .form-control{
+    height:40px;
+    font-size:15px;
+  }
+
+  .form-btn{
+    width:100%;
+    margin:6px 0;
+    height:42px;
+  }
+
+}
+
+/* Small Mobile */
+@media (max-width: 480px) {
+
+  .registration-card{
+    width:100%;
+    border-radius:10px;
+    padding:12px;
+  }
+
+  .registration-title{
+    font-size:18px;
+  }
+
+  .registration-card label{
+    font-size:14px;
+  }
+
+  .registration-card .form-control{
+    font-size:14px;
+    height:38px;
+  }
+
+  .form-btn{
+    font-size:14px;
+    height:40px;
+  }
 
 }

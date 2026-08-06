@@ -317,21 +317,23 @@ const PatientProfile = () => {
     setSelectedVisit(visit);
     getSittingHistory(visit._id);
     getBillByVisit(visit._id);
-    setVisitData({
-      ...visitData,
-      consultant: visit.consultant?._id || "",
-      consultantCharge: visit.consultantCharge || 0,
-      notes: visit.notes || "",
+   setVisitData({
+  consultant: visit.consultant?._id || "",
+  consultantCharge: visit.consultantCharge || 0,
+  notes: visit.notes || "",
 
-      vitals: [{
-  weight: "",
-  bp: "",
-  temp: "",
-  pulse: "",
-  spo2: "",
-  bsl: "",
-}],
-    });
+  vitals:
+    visit.vitals && visit.vitals.length > 0
+      ? visit.vitals
+      : [{
+          weight: "",
+          bp: "",
+          temp: "",
+          pulse: "",
+          spo2: "",
+          bsl: "",
+        }],
+});
 
     setComplaintRows(visit.complaints || []);
     setDiseaseRows(visit.diseases || []);
@@ -377,6 +379,7 @@ const PatientProfile = () => {
 
 
   const [visitData, setVisitData] = useState({
+    
     consultant: "",
     consultantCharge: "",
     complaint: "",
@@ -3108,7 +3111,11 @@ const PatientProfile = () => {
         <div className="row g-3">
 
           <div className="col-md-4">
-            <label>Weight (Kg)</label>
+            <label style={{
+                      width: "100px",
+                      display: "inline-block",
+                      fontWeight: "600"
+                    }}>Weight (Kg)</label>
             <input
               type="number"
               className="form-control"
@@ -3126,7 +3133,11 @@ const PatientProfile = () => {
           </div>
 
           <div className="col-md-4">
-            <label>BP</label>
+            <label style={{
+                      width: "100px",
+                      display: "inline-block",
+                      fontWeight: "600"
+                    }}>BP</label>
             <input
               type="text"
               className="form-control"
@@ -3145,7 +3156,13 @@ const PatientProfile = () => {
           </div>
 
           <div className="col-md-4">
-            <label>Temperature</label>
+            <label 
+            style={{
+                      width: "100px",
+                      display: "inline-block",
+                      fontWeight: "600"
+                    }}
+            >Temperature</label>
             <input
               type="number"
               className="form-control"
@@ -3163,7 +3180,11 @@ const PatientProfile = () => {
           </div>
 
           <div className="col-md-4">
-            <label>Pulse</label>
+            <label style={{
+                      width: "100px",
+                      display: "inline-block",
+                      fontWeight: "600"
+                    }}>Pulse</label>
             <input
               type="number"
               className="form-control"
@@ -3181,7 +3202,11 @@ const PatientProfile = () => {
           </div>
 
           <div className="col-md-4">
-            <label>SPO2</label>
+            <label style={{
+                      width: "100px",
+                      display: "inline-block",
+                      fontWeight: "600"
+                    }}>SPO2</label>
             <input
               type="number"
               className="form-control"
@@ -3199,7 +3224,11 @@ const PatientProfile = () => {
           </div>
 
           <div className="col-md-4">
-            <label>BSL</label>
+            <label style={{
+                      width: "100px",
+                      display: "inline-block",
+                      fontWeight: "600"
+                    }}>BSL</label>
             <input
               type="number"
               className="form-control"
@@ -3698,13 +3727,21 @@ const PatientProfile = () => {
                   return;
                 }
 
-                localStorage.setItem(
-                  "consultationData",
-                  JSON.stringify({
-                    patient,
-                    visit: selectedVisit,
-                  })
-                );
+               localStorage.setItem(
+  "consultationData",
+  JSON.stringify({
+    patient,
+    visit: selectedVisit,
+    complaintRows,
+    diseaseRows,
+    allergyRows,
+    investigationRows,
+    procedureRows,
+    surgeryRows,
+    prescriptionRows,
+    vitals: visitData.vitals,
+  })
+);
 
                 navigate("/consultation-print");
               }}
@@ -3868,6 +3905,82 @@ const PatientProfile = () => {
 
               </div>
 
+              <div style={{
+                marginBottom:"10px"
+              }}> 
+                 <h3
+                    style={{
+                      margin: 0,
+                      color: "#198754",
+                      fontWeight: "700"
+                    }}
+                  >
+                    Vitals
+                  </h3>
+<div
+  style={{
+    background: "#f8f9fa",
+    border: "1px solid #dee2e6",
+    borderRadius: "10px",
+    padding: "15px",
+    marginBottom: "20px",
+  }}
+>
+  <div className="row">
+   
+    {visitData.vitals?.[0]?.weight && (
+      <div style={{ display: "flex", marginBottom: "3px" }}>
+        <strong style={{width:"111px"}}>Weight</strong>
+        <strong style={{width:"10px"}}> : </strong>
+        {visitData.vitals[0].weight} Kg
+      </div>
+    )}
+
+    {visitData.vitals?.[0]?.bp && (
+      <div style={{ display: "flex", marginBottom: "3px" }}>
+        <strong style={{width:"111px"}}>BP</strong>
+        <strong style={{width:"10px"}}> : </strong>
+        {visitData.vitals[0].bp}
+      </div>
+    )}
+
+    {visitData.vitals?.[0]?.temp && (
+      <div style={{ display: "flex", marginBottom: "3px" }}>
+        <strong style={{width:"111px"}}>Temperature </strong>
+        <strong style={{width:"10px"}}> : </strong>
+         {visitData.vitals[0].temp} °F
+      </div>
+    )}
+
+    {visitData.vitals?.[0]?.pulse && (
+       <div style={{ display: "flex", marginBottom: "3px" }}>
+        <strong style={{width:"111px"}}>Pulse </strong>
+        <strong style={{width:"10px"}}> : </strong>
+        {visitData.vitals[0].pulse} bpm
+      </div>
+    )}
+
+    {visitData.vitals?.[0]?.spo2 && (
+       <div style={{ display: "flex", marginBottom: "3px" }}>
+        <strong style={{width:"111px"}}> SPO₂ </strong>
+        <strong style={{width:"10px"}}> : </strong>
+        {visitData.vitals[0].spo2} %
+      </div>
+    )}
+
+    {visitData.vitals?.[0]?.bsl && (
+      <div style={{ display: "flex", marginBottom: "3px" }}>
+        <strong style={{width:"111px"}}> BSL </strong>
+        <strong style={{width:"10px"}}> : </strong>
+         {visitData.vitals[0].bsl} mg/dL
+      </div>
+    )}
+
+  </div>
+</div>
+
+              </div>
+
               <table
                 className="table"
                 style={{
@@ -4028,6 +4141,7 @@ const PatientProfile = () => {
                         procedureRows,
                         surgeryRows,
                         prescriptionRows,
+                        vitals: visitData.vitals,
                       })
                     );
 
