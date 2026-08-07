@@ -216,3 +216,155 @@
   }
 
 }
+
+/* ---------- Responsive ---------- */
+
+*{
+    box-sizing:border-box;
+}
+
+.home-top-section{
+    display:flex;
+    justify-content:space-between;
+    gap:20px;
+}
+
+.registration-card{
+    width:100%;
+    max-width:590px;
+}
+
+.search-box{
+    width:450px;
+}
+
+@media(max-width:768px){
+
+.container{
+    padding:10px !important;
+}
+
+.home-top-section{
+    flex-direction:column;
+}
+
+.registration-card{
+    width:100% !important;
+    max-width:100% !important;
+}
+
+.dashboard-cards{
+    display:none !important;
+}
+
+.search-box{
+    width:100% !important;
+}
+
+.table-responsive{
+    font-size:13px;
+}
+
+.form-control{
+    font-size:15px;
+}
+
+button{
+    width:100%;
+    margin-bottom:10px;
+}
+
+.marquee{
+    display:none;
+}
+
+}
+
+@media(max-width:768px){
+.marquee-box{
+display:none;
+}
+}
+
+@media(max-width:768px){
+
+.floating-mic{
+    right:15px;
+    bottom:90px;
+}
+
+.floating-ai{
+    right:15px;
+    bottom:15px;
+}
+
+}
+.name-row{
+    display:flex;
+    gap:10px;
+    align-items:center;
+}
+
+.name-row select{
+    width:80px;
+    flex-shrink:0;
+}
+
+.name-row input{
+    flex:1;
+    min-width:0;
+}
+
+input[name="address"]{
+    width:100% !important;
+}
+
+@media(max-width:768px){
+
+label{
+    width:100% !important;
+    display:block !important;
+    margin-bottom:5px;
+}
+
+}
+
+@media(max-width:768px){
+
+.name-row{
+    flex-wrap:wrap;
+}
+
+.name-row select{
+    width:100%;
+}
+
+.name-row input{
+    width:100%;
+}
+
+}
+
+@media(max-width:768px){
+
+.col-md-3,
+.col-md-6,
+.col-md-12{
+    width:100% !important;
+}
+
+}
+@media(max-width:768px){
+
+.text-center{
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+}
+
+.text-center button{
+    width:100%;
+    margin:0 !important;
+}
+
+}

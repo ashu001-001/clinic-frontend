@@ -609,11 +609,7 @@ alignItems:"flex-start"
                   />
                 </div>
 
-                <div style={{
-                  display: "flex",
-                  gap: "15px",
-                }}
-                  className="col-md-6 mb-3">
+                <div className="col-md-6 mb-3 name-row" >
                   <label
                     style={{
                       width: "75px",
@@ -747,7 +743,6 @@ alignItems:"flex-start"
                     className="form-control"
                     value={formData.address}
                     onChange={handleChange}
-                    style={{ width: "403px" }}
                   />
                 </div>
 
@@ -900,7 +895,7 @@ alignItems:"flex-start"
 
 
 
-          <div>
+          <div className="marquee-box">
 
             {/* Marquee Section */}
             {marqueeText && (
@@ -1136,7 +1131,7 @@ alignItems:"flex-start"
 
             <input
               type="text"
-              className="form-control"
+              className="search-box"
               placeholder="🔍 Search Patient ID / Name"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
@@ -1416,7 +1411,7 @@ alignItems:"flex-start"
 
         </div>
       </div>
-      <div
+      <div className="floating-mic"
         onClick={startListening}
         style={{
           position: "absolute",
@@ -1440,7 +1435,7 @@ alignItems:"flex-start"
       </div>
 
       {listening && (
-        <div
+        <div 
           style={{
             position: "fixed",
             inset: 0,
@@ -1493,7 +1488,7 @@ alignItems:"flex-start"
 
       {/* Floating Assistant */}
 
-      <div
+      <div className="floating-ai"
         onClick={() => setShowAssistant(!showAssistant)}
         style={{
           position: "fixed",
