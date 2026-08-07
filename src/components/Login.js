@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { LOGIN } from "./Constant";
 import ThreeScene from "./ThreeScene";
+import "./Login.css";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -43,7 +44,10 @@ const Login = () => {
     <ThreeScene />
 
     <div style={styles.container}>
-      <div style={styles.formBox}>
+      <div
+className="login-box"
+style={styles.formBox}
+>
         <h1 style={styles.title}>Login</h1>
 
         <form style={styles.form} onSubmit={handleLogin} method="post">
@@ -76,19 +80,20 @@ const Login = () => {
             />
           </div>
 
-          <input
-  type="submit"
-  value="LOGIN"
-  style={{
-    padding: "14px",
-    borderRadius: "10px",
-    border: "none",
-    background: "#00bfff",
-    color: "#fff",
-    fontWeight: "bold",
-    cursor: "pointer",
-    fontSize: "16px"
-  }}
+       <input
+type="submit"
+value="LOGIN"
+style={{
+width:"100%",
+padding:"15px",
+fontSize:"17px",
+borderRadius:"10px",
+border:"none",
+background:"#00bfff",
+color:"#fff",
+fontWeight:"bold",
+cursor:"pointer"
+}}
 />
         </form>
         
@@ -105,23 +110,24 @@ const styles = {
   height: "100vh",
   overflow: "hidden",
 },
-  container: {
-  position: "absolute",
-  inset: 0,
-  display: "flex",
-  justifyContent: "center",
-  alignItems: "center",
-  zIndex: 10,
+ container:{
+    position:"absolute",
+    inset:0,
+    display:"flex",
+    justifyContent:"center",
+    alignItems:"center",
+    padding:"20px"
 },
-  formBox: {
+formBox: {
   background: "rgba(255,255,255,0.08)",
   backdropFilter: "blur(18px)",
-  border: "1px solid rgba(255,255,255,0.15)",
+  border: "1px solid rgba(255,255,255,.15)",
   borderRadius: "20px",
-  padding: "35px",
-  width: "400px",
+  padding: "30px",
+  width: "90%",
+  maxWidth: "400px",
+  minWidth: "280px",
   boxShadow: "0 0 50px rgba(0,150,255,.35)",
-  zIndex: 20,
 },
   title: {
     fontSize: "24px",
@@ -137,14 +143,16 @@ const styles = {
   inputContainer: {
     marginBottom: "15px",
   },
-  input: {
-  width: "92%",
-  padding: "14px",
-  borderRadius: "10px",
-  border: "1px solid rgba(255,255,255,.2)",
-  background: "rgba(255,255,255,.08)",
-  color: "#fff",
-  fontSize: "16px",
+ input:{
+    width:"100%",
+    boxSizing:"border-box",
+    padding:"15px",
+    fontSize:"16px",
+    borderRadius:"10px",
+    border:"1px solid rgba(255,255,255,.25)",
+    background:"rgba(255,255,255,.08)",
+    color:"#fff",
+    outline:"none"
 },
   button: {
     backgroundColor: "#ff6b81",
@@ -169,6 +177,11 @@ const styles = {
     textDecoration: "underline",
     cursor: "pointer",
   },
+  page:{
+    minHeight:"100vh",
+    width:"100%",
+    overflow:"hidden"
+}
 };
 
 export default Login;
