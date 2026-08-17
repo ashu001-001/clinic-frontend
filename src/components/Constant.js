@@ -11,6 +11,9 @@ const BASE_URL = "https://dental-web-lvx0.onrender.com/";
 // ✅ IMP API Endpoints
 
 export const LOGIN = BASE_URL + "login";                               //  Login page
+export const CHANGE_PASSWORD = BASE_URL + "change-password";
+
+export const GETLICENSE = BASE_URL + "license";
 
 export const HOME = BASE_URL + "home";                                 // Home Page   
 export const ABOUT = BASE_URL + "about";                               // About Page

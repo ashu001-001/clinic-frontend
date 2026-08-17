@@ -1,147 +1,446 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 import Header from "./Header";
+import ChangePassword from "./ChangePassword";
+import { GETLICENSE } from "./Constant";
+import "./About.css";
 
 function About() {
+  const [license, setLicense] = useState(null);
+  const [licenseLoading, setLicenseLoading] = useState(true);
+  const [showPasswordModal, setShowPasswordModal] = useState(false);
+
+  useEffect(() => {
+    loadLicense();
+  }, []);
+
+  const loadLicense = async () => {
+    try {
+      const res = await axios.get(GETLICENSE);
+      setLicense(res.data);
+    } catch (error) {
+      console.log("License Error:", error);
+      setLicense(null);
+    } finally {
+      setLicenseLoading(false);
+    }
+  };
+
   return (
     <>
       <Header />
 
-      <div style={styles.container}>
-        <div style={styles.contentBox}>
+      <div className="about-page">
+        <div className="about-container">
 
-          <h1 style={styles.heading}>
-            Dental Clinic Management System
-          </h1>
+          {/* ================= HERO ================= */}
 
-          <p style={styles.paragraph}>
-            Welcome to our Dental Clinic Management System, a complete
-            solution designed to simplify patient management, visit
-            tracking, treatment records, prescriptions, billing, and
-            clinic operations. The system helps dentists and clinic staff
-            manage daily activities efficiently while maintaining accurate
-            patient records.
-          </p>
+          <div className="about-hero">
 
-          <p style={styles.paragraph}>
-            The application allows registration of new patients, management
-            of existing patients, recording visit history, consultant
-            details, diseases, allergies, investigations, procedures,
-            surgeries, prescriptions, and treatments. Every patient visit
-            is stored securely and can be accessed instantly whenever the
-            patient returns to the clinic.
-          </p>
+            <div className="hero-content">
 
-          <p style={styles.paragraph}>
-            With powerful master modules and visit management features,
-            clinic staff can reduce paperwork and focus more on patient
-            care. The system also supports consultation charges, treatment
-            charges, visit history tracking, and future reporting modules
-            for better clinic administration.
-          </p>
+              <div className="about-badge">
+                🦷 CLINIC MANAGEMENT SOFTWARE
+              </div>
 
-          <div style={styles.taskExampleBox}>
-            <h2 style={styles.subHeading}>
-              Clinic Features
-            </h2>
+              <h1>
+                Dental Clinic
+                <span> Management System</span>
+              </h1>
 
-            <ul style={styles.taskList}>
+              <p>
+                A complete solution for managing patients, visits,
+                treatments, prescriptions, billing and daily clinic
+                operations.
+              </p>
 
-              <li style={styles.taskItem}>
-                👤 Patient Registration & Profile Management
-              </li>
+            </div>
 
-              <li style={styles.taskItem}>
-                📋 Complete Patient Visit History
-              </li>
+            <div className="about-logo-box">
 
-              <li style={styles.taskItem}>
-                🦷 Treatment & Procedure Management
-              </li>
+              <div className="about-logo">
+                🦷
+              </div>
 
-              <li style={styles.taskItem}>
-                💊 Prescription Management
-              </li>
+              <div className="about-logo-text">
+                DENTAL
+                <br />
+                <strong>CARE</strong>
+              </div>
 
-              <li style={styles.taskItem}>
-                🧾 Consultation & Treatment Billing
-              </li>
+            </div>
 
-              <li style={styles.taskItem}>
-                🏥 Consultant, Disease, Allergy & Investigation Masters
-              </li>
-
-              <li style={styles.taskItem}>
-                📊 Daily Collection & Clinic Reports
-              </li>
-
-              <li style={styles.taskItem}>
-                🖨️ Registration Slip & Visit Print Support
-              </li>
-
-            </ul>
           </div>
 
-          <p style={styles.paragraph}>
-            Our goal is to provide a fast, secure and user-friendly clinic
-            management solution that improves productivity and enhances
-            patient care. Thank you for using Dental Clinic Management
-            System.
-          </p>
+
+          {/* ================= SOFTWARE INFO ================= */}
+
+          <div className="about-info-grid">
+
+            <InfoCard
+              icon="⚡"
+              title="Software Version"
+              value="Version 1.0.0"
+            />
+
+            <InfoCard
+              icon="🔐"
+              title="Security"
+              value="Protected Account"
+            />
+
+            <InfoCard
+              icon="📊"
+              title="System"
+              value="Clinic Management"
+            />
+
+          </div>
+
+
+          {/* ================= ABOUT SOFTWARE ================= */}
+
+          <div className="about-section">
+
+            <div className="about-section-title">
+
+              <div className="section-icon">
+                ℹ️
+              </div>
+
+              <span>
+                About the Software
+              </span>
+
+            </div>
+
+            <p>
+              Welcome to our Dental Clinic Management System, a complete
+              solution designed to simplify patient management, visit
+              tracking, treatment records, prescriptions, billing and
+              daily clinic operations.
+            </p>
+
+            <p>
+              The application allows registration of new patients,
+              management of existing patients, recording visit history,
+              consultant details, diseases, allergies, investigations,
+              procedures, surgeries, prescriptions and treatments.
+            </p>
+
+            <p>
+              Every patient visit can be stored and accessed whenever the
+              patient returns to the clinic, helping staff maintain
+              accurate records while reducing paperwork.
+            </p>
+
+          </div>
+
+
+          {/* ================= FEATURES ================= */}
+
+          <div className="about-section">
+
+            <div className="about-section-title">
+
+              <div className="section-icon">
+                ✨
+              </div>
+
+              <span>
+                Clinic Features
+              </span>
+
+            </div>
+
+            <div className="feature-grid">
+
+              <Feature
+                icon="👤"
+                title="Patient Management"
+                text="Registration, profiles and patient records."
+              />
+
+              <Feature
+                icon="📋"
+                title="Visit History"
+                text="Complete history of patient visits."
+              />
+
+              <Feature
+                icon="🦷"
+                title="Treatment Management"
+                text="Manage treatments and dental procedures."
+              />
+
+              <Feature
+                icon="💊"
+                title="Prescription"
+                text="Manage medicines and prescriptions."
+              />
+
+              <Feature
+                icon="🧾"
+                title="Billing"
+                text="Consultation and treatment billing."
+              />
+
+              <Feature
+                icon="🏥"
+                title="Master Management"
+                text="Consultants, diseases, allergies and investigations."
+              />
+
+              <Feature
+                icon="📊"
+                title="Reports"
+                text="Daily collection and clinic reports."
+              />
+
+              <Feature
+                icon="🖨️"
+                title="Print Support"
+                text="Registration, consultation and visit printing."
+              />
+
+            </div>
+
+          </div>
+
+
+          {/* ================= SECURITY ================= */}
+
+          <div className="security-card">
+
+            <div className="security-left">
+
+              <div className="security-icon">
+                🔐
+              </div>
+
+              <div>
+
+                <div className="security-title">
+                  Account & Security
+                </div>
+
+                <div className="security-text">
+                  Keep your administrator account secure by changing
+                  your password regularly.
+                </div>
+
+              </div>
+
+            </div>
+
+            <button
+              className="password-button"
+              onClick={() => setShowPasswordModal(true)}
+            >
+              🔑 Change Password
+            </button>
+
+          </div>
+
+
+          {/* ================= LIVE LICENSE ================= */}
+
+          <div
+            className={`license-card ${
+              license?.expired ? "license-expired" : ""
+            }`}
+          >
+
+            <div
+              className={`license-icon ${
+                license?.expired ? "license-icon-expired" : ""
+              }`}
+            >
+              {license?.expired ? "⚠️" : "🛡️"}
+            </div>
+
+
+            <div className="license-content">
+
+              <div className="license-title">
+                Software License
+              </div>
+
+              <div className="license-text">
+
+                {licenseLoading
+                  ? "Checking software license..."
+                  : license?.expired
+                    ? "Your software license has expired. Please contact the software provider for renewal."
+                    : "Your software license is active and valid."
+                }
+
+              </div>
+
+
+              {!licenseLoading && license && (
+
+                <div
+                  className={`license-status ${
+                    license.expired
+                      ? "license-status-expired"
+                      : ""
+                  }`}
+                >
+
+                  <span className="status-dot"></span>
+
+                  {license.expired
+                    ? "License Expired"
+                    : "License Active"
+                  }
+
+                </div>
+
+              )}
+
+            </div>
+
+
+            <div className="valid-box">
+
+              <div className="valid-label">
+                VALID UNTIL
+              </div>
+
+              <div
+                className={`valid-date ${
+                  license?.expired ? "valid-date-expired" : ""
+                }`}
+              >
+
+                {licenseLoading
+                  ? "Checking..."
+                  : license?.expiryDate
+                    ? new Date(
+                        license.expiryDate
+                      ).toLocaleDateString("en-GB", {
+                        day: "2-digit",
+                        month: "short",
+                        year: "numeric",
+                      })
+                    : "Not Available"
+                }
+
+              </div>
+
+            </div>
+
+          </div>
+
+
+          {/* ================= FOOTER ================= */}
+
+          <div className="about-footer">
+
+            <span>
+              © 2026 Dental Clinic Management System
+            </span>
+
+            <span>
+              Secure • Reliable • Easy to Use
+            </span>
+
+          </div>
 
         </div>
       </div>
+
+
+      {/* ================= PASSWORD MODAL ================= */}
+
+      {showPasswordModal && (
+
+        <div
+          className="password-modal-overlay"
+          onClick={() => setShowPasswordModal(false)}
+        >
+
+          <div
+            className="password-modal"
+            onClick={(e) => e.stopPropagation()}
+          >
+
+            <button
+              className="password-modal-close"
+              onClick={() => setShowPasswordModal(false)}
+              aria-label="Close"
+            >
+              ×
+            </button>
+
+            <ChangePassword
+              onClose={() => setShowPasswordModal(false)}
+            />
+
+          </div>
+
+        </div>
+
+      )}
+
     </>
   );
 }
 
-const styles = {
-  container: {
-    backgroundColor: "#f4f7fa",
-    padding: "40px 20px",
-    minHeight: "100vh",
-    display: "flex",
-    justifyContent: "center",
-  },
-  contentBox: {
-    maxWidth: "900px",
-    backgroundColor: "#fff",
-    borderRadius: "12px",
-    padding: "30px 40px",
-    boxShadow: "0 4px 20px rgba(0,0,0,0.1)",
-    textAlign: "left",
-  },
-  heading: {
-    fontSize: "36px",
-    color: "#2c3e50",
-    marginBottom: "20px",
-    textAlign: "center",
-  },
-  subHeading: {
-    fontSize: "24px",
-    color: "#34495e",
-    marginTop: "30px",
-    marginBottom: "15px",
-  },
-  paragraph: {
-    fontSize: "18px",
-    color: "#555",
-    lineHeight: "1.7",
-    marginBottom: "20px",
-  },
-  taskExampleBox: {
-    backgroundColor: "#ecf0f1",
-    padding: "20px",
-    borderRadius: "10px",
-  },
-  taskList: {
-    listStyleType: "none",
-    paddingLeft: "0",
-  },
-  taskItem: {
-    fontSize: "17px",
-    padding: "8px 0",
-    borderBottom: "1px solid #dcdcdc",
-  },
-};
+
+/* ================= INFO CARD ================= */
+
+function InfoCard({ icon, title, value }) {
+  return (
+    <div className="about-info-card">
+
+      <div className="info-icon">
+        {icon}
+      </div>
+
+      <div>
+
+        <div className="info-title">
+          {title}
+        </div>
+
+        <div className="info-value">
+          {value}
+        </div>
+
+      </div>
+
+    </div>
+  );
+}
+
+
+/* ================= FEATURE ================= */
+
+function Feature({ icon, title, text }) {
+  return (
+    <div className="feature-card">
+
+      <div className="feature-icon">
+        {icon}
+      </div>
+
+      <div>
+
+        <div className="feature-title">
+          {title}
+        </div>
+
+        <div className="feature-text">
+          {text}
+        </div>
+
+      </div>
+
+    </div>
+  );
+}
+
 
 export default About;
