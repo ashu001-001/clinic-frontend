@@ -16,7 +16,6 @@ import BillPrint from "./components/BillPrint";
 import OPDPrint from "./components/OPDPrint";
 import PrescriptionPrint from "./components/PrescriptionPrint";
 import DentalCanvas from "./components/DentalCanvas"
-import DentalToothChart from "./components/DentalToothChart";
 import ChangePassword from "./components/ChangePassword"
 
 // Protected Route Component
@@ -63,8 +62,6 @@ function App() {
         <Route path="/OPD-print" element={ <ProtectedRoute> {" "} <OPDPrint /> </ProtectedRoute>} />
 
         <Route path="/DentalCanvas" element={ <ProtectedRoute> {" "} <DentalCanvas /> </ProtectedRoute>} />
-
-        <Route path="/DentalToothChart" element={ <ProtectedRoute> {" "} <DentalToothChart /> </ProtectedRoute>} />
         
 
         {/* Default Redirect to Login */}
