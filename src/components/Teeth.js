@@ -7,79 +7,149 @@ function About() {
       <Header />
 
       <div style={styles.container}> 
-        <div style={styles.futureBox}>
+      <div style={styles.futureBox}>
 
-  <h2 style={styles.subHeading}>
-    🚀 Upcoming 3D Dental Education Module
-  </h2>
+  <div style={styles.futureHeader}>
+    <div style={styles.futureIcon}>
+      🦷
+    </div>
+
+    <div>
+      <div style={styles.futureBadge}>
+        🚀 COMING SOON
+      </div>
+
+      <h2 style={styles.subHeading}>
+        3D Dental Education Module
+      </h2>
+    </div>
+  </div>
 
   <p style={styles.paragraph}>
     We are currently developing an advanced 3D Dental Education Module
-    which will help doctors explain dental problems to patients using
-    realistic interactive 3D teeth models.
+    that will help doctors explain dental conditions and treatment
+    procedures to patients using realistic and interactive 3D dental
+    models.
   </p>
+
 
   <div style={styles.featureGrid}>
 
     <div style={styles.featureCard}>
-      🦷 Full Teeth 3D Anatomy
+      <span>🦷</span>
+      <div>
+        <strong>Full Teeth 3D Anatomy</strong>
+        <small>Interactive tooth models</small>
+      </div>
     </div>
 
     <div style={styles.featureCard}>
-      😖 Dental Cavity Visualization
+      <span>😖</span>
+      <div>
+        <strong>Dental Cavity Visualization</strong>
+        <small>Highlight affected areas</small>
+      </div>
     </div>
 
     <div style={styles.featureCard}>
-      🩸 Gum Disease Simulation
+      <span>🩸</span>
+      <div>
+        <strong>Gum Disease Simulation</strong>
+        <small>Visual disease explanation</small>
+      </div>
     </div>
 
     <div style={styles.featureCard}>
-      🪥 Plaque & Tartar Build-up
+      <span>🪥</span>
+      <div>
+        <strong>Plaque & Tartar</strong>
+        <small>Build-up visualization</small>
+      </div>
     </div>
 
     <div style={styles.featureCard}>
-      🩺 Root Canal Treatment Animation
+      <span>🩺</span>
+      <div>
+        <strong>Root Canal Animation</strong>
+        <small>Step-by-step procedure</small>
+      </div>
     </div>
 
     <div style={styles.featureCard}>
-      👑 Crown Placement
+      <span>👑</span>
+      <div>
+        <strong>Crown Placement</strong>
+        <small>Interactive demonstration</small>
+      </div>
     </div>
 
     <div style={styles.featureCard}>
-      🪛 Dental Implant Procedure
+      <span>🪛</span>
+      <div>
+        <strong>Dental Implant</strong>
+        <small>Procedure visualization</small>
+      </div>
     </div>
 
     <div style={styles.featureCard}>
-      🦷 Tooth Extraction Animation
+      <span>🦷</span>
+      <div>
+        <strong>Tooth Extraction</strong>
+        <small>Procedure animation</small>
+      </div>
     </div>
 
     <div style={styles.featureCard}>
-      😬 Orthodontic Braces
+      <span>😬</span>
+      <div>
+        <strong>Orthodontic Braces</strong>
+        <small>Alignment visualization</small>
+      </div>
     </div>
 
     <div style={styles.featureCard}>
-      🌉 Dental Bridge
+      <span>🌉</span>
+      <div>
+        <strong>Dental Bridge</strong>
+        <small>Restoration explanation</small>
+      </div>
     </div>
 
     <div style={styles.featureCard}>
-      🧼 Scaling & Cleaning
+      <span>🧼</span>
+      <div>
+        <strong>Scaling & Cleaning</strong>
+        <small>Cleaning procedure</small>
+      </div>
     </div>
 
     <div style={styles.featureCard}>
-      📖 Interactive Patient Education
+      <span>📖</span>
+      <div>
+        <strong>Patient Education</strong>
+        <small>Easy visual explanation</small>
+      </div>
     </div>
 
   </div>
 
-  <div style={styles.noteBox}>
-    <h3>Future Vision</h3>
 
-    <p>
-      Doctors will be able to rotate a realistic 3D teeth model, highlight
-      affected teeth, demonstrate dental diseases, and explain treatment
-      procedures interactively. This feature is currently under development
-      and will be integrated in future versions of the application.
+  <div style={styles.noteBox}>
+
+    <div style={styles.noteTitle}>
+      💡 Future Vision
+    </div>
+
+    <p style={styles.noteText}>
+      Doctors will be able to rotate a realistic 3D teeth model,
+      select individual teeth, highlight affected areas, demonstrate
+      dental conditions and explain treatment procedures interactively.
     </p>
+
+    <div style={styles.developmentStatus}>
+      <span style={styles.statusDot}></span>
+      Currently under development
+    </div>
 
   </div>
 
@@ -90,6 +160,134 @@ function About() {
 }
 
 const styles = {
+
+  futureBox: {
+  width: "100%",
+  maxWidth: "1050px",
+  boxSizing: "border-box",
+  marginTop: "15px",
+  padding: "28px",
+  background:
+    "linear-gradient(135deg,#f8fbff,#ffffff)",
+  borderRadius: "18px",
+  border: "1px solid #dcecff",
+  boxShadow: "0 6px 22px rgba(13,110,253,.06)",
+},
+
+futureHeader: {
+  display: "flex",
+  alignItems: "center",
+  gap: "15px",
+  marginBottom: "15px",
+},
+
+futureIcon: {
+  width: "55px",
+  height: "55px",
+  minWidth: "55px",
+  borderRadius: "15px",
+  background: "#eaf4ff",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+  fontSize: "27px",
+},
+
+futureBadge: {
+  display: "inline-block",
+  fontSize: "10px",
+  fontWeight: "800",
+  letterSpacing: ".7px",
+  color: "#0d6efd",
+  background: "#eaf4ff",
+  padding: "5px 9px",
+  borderRadius: "20px",
+  marginBottom: "4px",
+},
+
+subHeading: {
+  fontSize: "24px",
+  color: "#243447",
+  margin: "0",
+  fontWeight: "800",
+},
+
+paragraph: {
+  fontSize: "15px",
+  color: "#5d6975",
+  lineHeight: "1.75",
+  marginBottom: "20px",
+},
+
+featureGrid: {
+  display: "grid",
+  gridTemplateColumns:
+    "repeat(auto-fit,minmax(240px,1fr))",
+  gap: "12px",
+  marginTop: "20px",
+},
+
+featureCard: {
+  display: "flex",
+  alignItems: "center",
+  gap: "12px",
+  padding: "14px",
+  background: "#ffffff",
+  borderRadius: "13px",
+  border: "1px solid #e5edf5",
+  boxShadow: "0 3px 12px rgba(0,0,0,.04)",
+  transition: "all .2s ease",
+  boxSizing: "border-box",
+},
+
+noteBox: {
+  marginTop: "25px",
+  padding: "18px 20px",
+  background: "#fffaf0",
+  borderRadius: "13px",
+  borderLeft: "4px solid #ffc107",
+},
+
+noteTitle: {
+  fontSize: "16px",
+  fontWeight: "800",
+  color: "#7a5b00",
+  marginBottom: "7px",
+},
+
+noteText: {
+  margin: "0 0 12px",
+  fontSize: "13px",
+  lineHeight: "1.7",
+  color: "#6f654b",
+},
+
+developmentStatus: {
+  display: "flex",
+  alignItems: "center",
+  gap: "7px",
+  fontSize: "11px",
+  fontWeight: "700",
+  color: "#a07800",
+},
+
+statusDot: {
+  width: "8px",
+  height: "8px",
+  borderRadius: "50%",
+  background: "#ffc107",
+  display: "inline-block",
+},
+
+
+
+
+
+
+
+
+
+
   container: {
     backgroundColor: "#f4f7fa",
     padding: "20px 20px",
@@ -111,18 +309,7 @@ const styles = {
     marginBottom: "20px",
     textAlign: "center",
   },
-  subHeading: {
-    fontSize: "24px",
-    color: "#34495e",
-    marginTop: "5px",
-    marginBottom: "15px",
-  },
-  paragraph: {
-    fontSize: "18px",
-    color: "#555",
-    lineHeight: "1.7",
-    marginBottom: "20px",
-  },
+
   taskExampleBox: {
     backgroundColor: "#ecf0f1",
     padding: "20px",
@@ -137,38 +324,16 @@ const styles = {
     padding: "8px 0",
     borderBottom: "1px solid #dcdcdc",
   },
-  futureBox: {
-  marginTop: "15px",
-  padding: "25px",
-  background: "#f8fbff",
-  borderRadius: "12px",
-  border: "2px solid #d9ecff",
-},
-
-featureGrid: {
-  display: "grid",
-  gridTemplateColumns: "repeat(auto-fit,minmax(230px,1fr))",
-  gap: "15px",
-  marginTop: "20px",
-},
-
-featureCard: {
-  background: "#ffffff",
-  padding: "18px",
+featureCardIcon: {
+  width: "40px",
+  height: "40px",
+  minWidth: "40px",
   borderRadius: "10px",
-  textAlign: "center",
-  fontWeight: "600",
-  fontSize: "17px",
-  boxShadow: "0 3px 10px rgba(0,0,0,.08)",
-  border: "1px solid #dce8f5",
-},
-
-noteBox: {
-  marginTop: "30px",
-  padding: "20px",
-  background: "#fff8e6",
-  borderRadius: "10px",
-  borderLeft: "5px solid #ffc107",
+  background: "#eef6ff",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+  fontSize: "20px",
 },
 };
 

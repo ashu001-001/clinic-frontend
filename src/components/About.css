@@ -1088,3 +1088,22 @@
   }
 
 }
+
+@media (max-width: 600px) {
+  .future-box {
+    padding: 20px !important;
+  }
+}
+
+@media (max-width: 420px) {
+  .future-header {
+    align-items: flex-start !important;
+  }
+
+  .future-icon {
+    width: 45px !important;
+    height: 45px !important;
+    min-width: 45px !important;
+    font-size: 22px !important;
+  }
+}
