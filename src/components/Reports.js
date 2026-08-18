@@ -1,156 +1,227 @@
-import React from "react";
+import React, { useState } from "react";
 import Header from "./Header";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import "./Reports.css";
 
 function Reports() {
-
   const navigate = useNavigate();
 
-const [fromDate, setFromDate] = useState("");
-const [toDate, setToDate] = useState("");
+  const [dateRange, setDateRange] = useState({});
 
   const reports = [
     {
       title: "Patient Report",
       icon: "👤",
       color: "#0d6efd",
-      desc: "View All Registered Patients",
+      desc: "View all registered patients",
       route: "/patient-report",
     },
     {
       title: "Consultation Report",
       icon: "🩺",
       color: "#198754",
-      desc: "Doctor Consultation Collection",
+      desc: "Doctor consultation collection",
       route: "/consultation-report",
     },
     {
       title: "Treatment Report",
       icon: "🦷",
       color: "#ff9800",
-      desc: "Treatment Collection",
+      desc: "Treatment collection and records",
       route: "/treatment-report",
     },
     {
-  title: "Sitting Report",
-  icon: "🪑",
-  color: "#8e44ad",
-  desc: "View All Dental Sitting Collection",
-  route: "/sitting-report",
-},
-
+      title: "Sitting Report",
+      icon: "🪑",
+      color: "#8e44ad",
+      desc: "View all dental sitting collection",
+      route: "/sitting-report",
+    },
   ];
+
+  const handleDateChange = (index, field, value) => {
+    setDateRange((prev) => ({
+      ...prev,
+      [index]: {
+        ...prev[index],
+        [field]: value,
+      },
+    }));
+  };
+
+  const generateReport = (item, index) => {
+    const from = dateRange[index]?.from || "";
+    const to = dateRange[index]?.to || "";
+
+    if (!from || !to) {
+      alert("Please select From Date and To Date");
+      return;
+    }
+
+    if (from > to) {
+      alert("From Date cannot be greater than To Date");
+      return;
+    }
+
+    navigate(`${item.route}?from=${from}&to=${to}`);
+  };
 
   return (
     <>
       <Header />
-      <div
-        style={{
-          padding: "40px",
-          background: "#f5f7fb",
-          minHeight: "100vh",
-        }}
-      >
-        <h2
-          style={{
-            color: "#0d6efd",
-            marginBottom: "30px",
-            marginTop: "-30px",
-            fontWeight: "700",
-          }}
-        >
-          📊 Reports
-        </h2>
-        
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fit,minmax(300px,1fr))",
-            gap: "25px",
-          }}
-        >
-          {reports.map((item, index) => (
 
-            <div
-              key={index}
-              style={{
-                background: "#fff",
-                borderRadius: "15px",
-                padding: "25px",
-                marginTop:"-12px",
-                cursor: "pointer",
-                boxShadow: "0 8px 25px rgba(0,0,0,.1)",
-                borderTop: `5px solid ${item.color}`,
-                transition: ".3s",
-              }}
-            >
-                            <h3
-                style={{
-                  marginTop: "10px",
-                  color: item.color,
-                }}
-              >
-                {item.title}
-              </h3>
+      <div className="reports-page">
+        <div className="reports-container">
 
-              <p
-                style={{
-                  color: "#666",
-                }}
-              >
-                {item.desc}
+          {/* HEADER */}
+          <div className="reports-header">
+            <div>
+              <div className="reports-badge">
+                📊 CLINIC ANALYTICS
+              </div>
+
+              <h1 className="reports-title">
+                Reports
+              </h1>
+
+              <p className="reports-subtitle">
+                Generate and view detailed clinic reports by date range.
               </p>
-              <div style={{ marginTop: "15px" }}>
-
-  <label> From </label>
-
-  <input
-    type="date"
-    className="form-control"
-    value={fromDate}
-    onChange={(e)=>setFromDate(e.target.value)}
-  />
-
-  <label style={{marginTop:"10px"}}> To </label>
-
-  <input
-    type="date"
-    className="form-control"
-    value={toDate}
-    onChange={(e)=>setToDate(e.target.value)}
-  />
-
-</div>
-
-<button
-style={{
-  marginTop:"20px",
-  background:item.color,
-  color:"#fff",
-  border:"none",
-  padding:"10px 20px",
-  borderRadius:"10px",
-  cursor:"pointer",
-  width:"100%"
-}}
-onClick={()=>
-navigate(
-`${item.route}?from=${fromDate}&to=${toDate}`
-)
-}
->
-Generate Report
-</button>
-
             </div>
 
-          ))}
+            <div className="reports-header-icon">
+              📈
+            </div>
+          </div>
+
+
+          {/* REPORT GRID */}
+          <div className="reports-grid">
+
+            {reports.map((item, index) => {
+
+              const current = dateRange[index] || {};
+
+              return (
+                <div
+                  className="report-card"
+                  key={index}
+                  style={{
+                    "--report-color": item.color,
+                  }}
+                >
+
+                  {/* CARD TOP */}
+                  <div className="report-card-top">
+
+                    <div
+                      className="report-icon"
+                      style={{
+                        background: `${item.color}15`,
+                        color: item.color,
+                      }}
+                    >
+                      {item.icon}
+                    </div>
+
+                    <div className="report-number">
+                      {String(index + 1).padStart(2, "0")}
+                    </div>
+
+                  </div>
+
+
+                  {/* TITLE */}
+                  <h2 className="report-title">
+                    {item.title}
+                  </h2>
+
+                  <p className="report-description">
+                    {item.desc}
+                  </p>
+
+
+                  {/* DATE */}
+                  <div className="date-section">
+
+                    <div className="date-field">
+
+                      <label>
+                        From Date
+                      </label>
+
+                      <input
+                        type="date"
+                        value={current.from || ""}
+                        onChange={(e) =>
+                          handleDateChange(
+                            index,
+                            "from",
+                            e.target.value
+                          )
+                        }
+                      />
+
+                    </div>
+
+
+                    <div className="date-field">
+
+                      <label>
+                        To Date
+                      </label>
+
+                      <input
+                        type="date"
+                        value={current.to || ""}
+                        onChange={(e) =>
+                          handleDateChange(
+                            index,
+                            "to",
+                            e.target.value
+                          )
+                        }
+                      />
+
+                    </div>
+
+                  </div>
+
+
+                  {/* BUTTON */}
+                  <button
+                    className="generate-button"
+                    style={{
+                      background: item.color,
+                    }}
+                    onClick={() =>
+                      generateReport(item, index)
+                    }
+                  >
+                    <span>Generate Report</span>
+                    <span className="button-arrow">
+                      →
+                    </span>
+                  </button>
+
+                </div>
+              );
+            })}
+
+          </div>
+
+
+          {/* FOOTER INFO */}
+          <div className="reports-info">
+            <span>🔒 Secure Reports</span>
+            <span>•</span>
+            <span>📅 Select Date Range</span>
+            <span>•</span>
+            <span>📄 Detailed Records</span>
+          </div>
 
         </div>
-
       </div>
-
     </>
   );
 }
