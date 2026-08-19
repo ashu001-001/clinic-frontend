@@ -20,8 +20,6 @@ import {
 
 import { ADDMARQUEE, GETMARQUEE, UPDATEMARQUEE, DELETEMARQUEE } from "./Constant"
 
-
-
 const Masters = () => {
   const [masterType, setMasterType] = useState("");
   const [name, setName] = useState("");
@@ -108,7 +106,6 @@ const Masters = () => {
     setMasterType("reference");
   };
 
-
   const loadMarquee = async () => {
     resetForm();
     const res = await axios.get(GETMARQUEE);
@@ -127,23 +124,18 @@ const Masters = () => {
     localStorage.removeItem("activeMarqueeText");
   };
 
-
   const handleClose = () => {
-  setMasterType("");
-  resetForm();
-  setData([]);
-};
-
-
+    setMasterType("");
+    resetForm();
+    setData([]);
+  };
 
   const resetForm = () => {
-
     setName("");
     setFee("");
     setamount("");
     setEditId(null);
     setStateName("");
-
   }
 
   const handleSave = async () => {
@@ -280,7 +272,6 @@ const Masters = () => {
       console.log(err);
       alert("Error");
     }
-
 
   }; const handleEdit = (item) => {
 
@@ -445,187 +436,118 @@ const Masters = () => {
 
 
   return (
-    <>
-      <Header />
+  <>
+    <Header />
 
-      <div className="container mt-4">
+    <div className="masters-page">
 
-        <div className="card shadow-sm border-0 mb-4">
-          <div
-            className="card-header text-white"
-            style={{
-              background: "linear-gradient(135deg,#0d6efd,#0dcaf0)",
-              borderRadius: "10px 10px 0 0"
-            }}
-          >
+      {/* MAIN MASTER MENU */}
+      <div className="masters-main-card">
 
-          </div>
+        <div className="masters-menu-grid">
 
-          <div className="card-body">
-
-            <div style={{
-              background: "#fff",
-              borderRadius: "20px",
-              padding: "20px",
-              boxShadow:
-                "0 4px 15px rgba(0, 0, 0, 0.1)",
-              marginBottom: "20px",
-              marginTop: "10px",
-            }}
-              className="master-menu">
-
-              <button className="master-btn" onClick={loadConsultant}>
-
-                <span>👨‍⚕️ Consultant Master</span>
-              </button>
-
-              <button className="master-btn" onClick={loadTreatment}>
-
-                <span>💰 Treatment Master</span>
-              </button>
-
-              <button className="master-btn" onClick={loadPrescription}>
-
-                <span>💊 Medicine Master</span>
-              </button>
-
-              <button className="master-btn" onClick={loadProcedure}>
-
-                <span>🦷 Procedure Master</span>
-              </button>
-
-              <button className="master-btn" onClick={loadSurgery}>
-
-                <span>🏥 Surgery Master</span>
-              </button>
-
-              <button className="master-btn" onClick={loadAllergy}>
-
-                <span>🤧 Allergy Master</span>
-              </button>
-
-              <button className="master-btn" onClick={loadComplaint}>
-
-                <span>😣 Complaint Master</span>
-              </button>
-
-              <button className="master-btn" onClick={loadInvestigation}>
-
-                <span>🔬 Investigation Master</span>
-              </button>
-
-              <button className="master-btn" onClick={loadDisease}>
-
-                <span>🩺 Disease Master</span>
-              </button>
-
-              <button className="master-btn" onClick={loadReference}>
-                <span>📍 Reference Master</span>
-              </button>
-
-              <button className="master-btn" onClick={loadCity}>
-                <span>🏙️ City Master</span>
-              </button>
-
-              <button className="master-btn" onClick={loadMarquee}>
-                <span>📢 Marquee Master</span>
-              </button>
-
-            </div>
-
-          </div>
-        </div>
-
-
-       {masterType && (
-
-         <div
-              style={{
-                position: "fixed",
-                top: 0,
-                left: 0,
-                width: "100%",
-                height: "100vh",
-                background: "rgba(0,0,0,0.5)",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                zIndex: 9999,
-              }}
-            >
-
-        <div
-  style={{
-    background: "#fff",
-    borderRadius: "20px",
-    padding: "20px",
-    boxShadow: "0 4px 15px rgba(0, 0, 0, 0.1)",
-    margin: "20px",
-    width:"90vh"
-  }}
-  className="card mt-4 shadow"
->
-            <div
-  style={{
-    display: "flex",
-    justifyContent: "flex-end",
-    marginBottom: "10px",
-  }}
->
-  <button
-    onClick={handleClose}
-    style={{
-      width: "35px",
-      height: "35px",
-      border: "none",
-      borderRadius: "50%",
-      background: "#dc3545",
-      color: "#fff",
-      fontSize: "20px",
-      fontWeight: "bold",
-      cursor: "pointer",
-    }}
-  >
-    ×
+  <button className="masters-menu-btn" onClick={loadConsultant}>
+    <span className="masters-menu-btn-text">👨‍⚕️ Consultant Master</span>
   </button>
+
+  <button className="masters-menu-btn" onClick={loadTreatment}>
+    <span className="masters-menu-btn-text">💰 Treatment Master</span>
+  </button>
+
+  <button className="masters-menu-btn" onClick={loadPrescription}>
+    <span className="masters-menu-btn-text">💊 Medicine Master</span>
+  </button>
+
+  <button className="masters-menu-btn" onClick={loadProcedure}>
+    <span className="masters-menu-btn-text">🦷 Procedure Master</span>
+  </button>
+
+  <button className="masters-menu-btn" onClick={loadSurgery}>
+    <span className="masters-menu-btn-text">🏥 Surgery Master</span>
+  </button>
+
+  <button className="masters-menu-btn" onClick={loadAllergy}>
+    <span className="masters-menu-btn-text">🤧 Allergy Master</span>
+  </button>
+
+  <button className="masters-menu-btn" onClick={loadComplaint}>
+    <span className="masters-menu-btn-text">😣 Complaint Master</span>
+  </button>
+
+  <button className="masters-menu-btn" onClick={loadInvestigation}>
+    <span className="masters-menu-btn-text">🔬 Investigation Master</span>
+  </button>
+
+  <button className="masters-menu-btn" onClick={loadDisease}>
+    <span className="masters-menu-btn-text">🩺 Disease Master</span>
+  </button>
+
+  <button className="masters-menu-btn" onClick={loadReference}>
+    <span className="masters-menu-btn-text">📍 Reference Master</span>
+  </button>
+
+  <button className="masters-menu-btn" onClick={loadCity}>
+    <span className="masters-menu-btn-text">🏙️ City Master</span>
+  </button>
+
+  <button className="masters-menu-btn" onClick={loadMarquee}>
+    <span className="masters-menu-btn-text">📢 Marquee Master</span>
+  </button>
+
 </div>
 
-             {masterType && (
-          <div style={{
-            background: "#fff",
-            borderRadius: "15px",
-          }} className="card shadow">
+      </div>
 
-            <div style={{
-              marginTop:"-50px"
-            }}>
-              <h4>{masterType.toUpperCase()} MASTER</h4>
+
+      {/* MASTER MODAL */}
+      {masterType && (
+        <div className="master-modal-overlay">
+
+          <div className="master-modal">
+
+            {/* CLOSE BUTTON */}
+            <div className="master-modal-close">
+              <button
+                onClick={handleClose}
+                aria-label="Close"
+              >
+                ×
+              </button>
             </div>
 
-            <div className="card-body">
 
-              <div className="mb-3">
-                {masterType === "city" && (
-                  <div className="mb-3">
-                    <label style={{
-                      width: "120px",
-                      display: "inline-block",
-                      fontWeight: "600"
-                    }}>State Name</label>
+            {/* TITLE */}
+            <div className="master-modal-title">
+              <h4>
+                {masterType.toUpperCase()} MASTER
+              </h4>
+            </div>
 
-                    <input
-                      type="text"
-                      className="form-control"
-                      value={stateName}
-                      onChange={(e) => setStateName(e.target.value)}
-                    />
-                  </div>
-                )}
-                <label style={{
-                  width: "120px",
-                  display: "inline-block",
-                  fontWeight: "600"
-                }}>Name</label>
+
+            {/* FORM */}
+            <div className="master-form-card">
+
+              {masterType === "city" && (
+                <div className="master-form-row">
+
+                  <label>State Name</label>
+
+                  <input
+                    type="text"
+                    className="form-control"
+                    value={stateName}
+                    onChange={(e) =>
+                      setStateName(e.target.value)
+                    }
+                  />
+
+                </div>
+              )}
+
+
+              <div className="master-form-row">
+
+                <label>Name</label>
 
                 <input
                   type="text"
@@ -638,14 +560,11 @@ const Masters = () => {
 
               </div>
 
-              {masterType === "consultant" && (
-                <div className="mb-3">
 
-                  <label style={{
-                    width: "120px",
-                    display: "inline-block",
-                    fontWeight: "600"
-                  }}>Consultant Fee</label>
+              {masterType === "consultant" && (
+                <div className="master-form-row">
+
+                  <label>Consultant Fee</label>
 
                   <input
                     type="number"
@@ -659,14 +578,11 @@ const Masters = () => {
                 </div>
               )}
 
-              {masterType === "treatment" && (
-                <div className="mb-3">
 
-                  <label style={{
-                    width: "120px",
-                    display: "inline-block",
-                    fontWeight: "600"
-                  }}>Amount</label>
+              {masterType === "treatment" && (
+                <div className="master-form-row">
+
+                  <label>Amount</label>
 
                   <input
                     type="number"
@@ -680,174 +596,205 @@ const Masters = () => {
                 </div>
               )}
 
-  
-              <button style={{
-                marginRight:"10px"
-              }}
-                className={editId ? "btn btn-warning" : "btn btn-primary"}
-                onClick={editId ? handleUpdate : handleSave}
-              >
 
-                {editId ? "✏ Update" : "💾 Save"}
+              {/* FORM BUTTONS */}
+              <div className="master-form-buttons">
 
-              </button>
-              {editId && (
+               <button
+  className={editId ? "masters-action-btn masters-update-btn" : "masters-action-btn masters-save-btn"}
+  onClick={editId ? handleUpdate : handleSave}
+>
+  {editId ? "✏ Update" : "💾 Save"}
+</button>
 
-                <button
-                  className="btn btn-secondary ms-2"
-                  onClick={resetForm}
-                >
 
-                  Cancel
+                {editId && (
+                  <button
+  className="masters-action-btn masters-cancel-btn"
+  onClick={resetForm}
+>
+  Cancel
+</button>
+                )}
 
-                </button>
-
-              )}
-
+              </div>
 
             </div>
 
-          </div>
-        )}
-        <hr></hr>
 
-          <div className="card-header">
-            <h4>Master List</h4>
-          </div>
-
-          <div className="card-body">
-
-            <div
-  style={{
-    maxHeight: "50vh",
-    overflowY: "auto",
-  }}
->
-
-            <table className="table table-hover table-striped align-middle">
-
-              <thead style={{
-                position:"sticky",
-                top:"0",
-                zindex: 10,
-                background:"rgb(31, 182, 89)",
-              }}>
-                <tr>
-                  <th>S.No</th>
-                  <th>Name</th>
-
-                  {masterType === "city" && (
-                    <th>State</th>
-                  )}
-
-                  {masterType === "consultant" && (
-                    <th>Fee</th>
-                  )}
-
-                  {masterType === "treatment" && (
-                    <th>Amount</th>
-                  )}
-                  <th>Action</th>
-                  {masterType === "marquee" && (
-                    <th>Status</th>
-                  )}
-
-                </tr>
-              </thead>
-
-              <tbody>
-
-                {data.map((item, index) => (
-                  <tr key={item._id}>
-
-                    <td>{index + 1}</td>
-
-                    <td>
-                      {masterType === "consultant" && item.consultantName}
-                      {masterType === "allergy" && item.allergyName}
-                      {masterType === "complaint" && item.complaintName}
-                      {masterType === "disease" && item.diseaseName}
-                      {masterType === "investigation" && item.investigationName}
-                      {masterType === "procedure" && item.procedureName}
-                      {masterType === "surgery" && item.surgeryName}
-                      {masterType === "treatment" && item.treatmentName}
-                      {masterType === "medicine" && item.medicine}
-                      {masterType === "reference" && item.referenceBy}
-                      {masterType === "city" && item.cityName}
-                      {masterType === "marquee" && item.message}
+            {/* MASTER LIST HEADER */}
+            <div className="master-list-header">
+              <h4>Master List</h4>
+            </div>
 
 
-                    </td>
+            {/* TABLE */}
+            <div className="master-table-wrapper">
+
+              <table className="table table-hover table-striped align-middle">
+
+                <thead>
+                  <tr>
+
+                    <th>S.No</th>
+
+                    <th>Name</th>
 
                     {masterType === "city" && (
-                      <td>{item.stateName}</td>
+                      <th>State</th>
                     )}
 
                     {masterType === "consultant" && (
-                      <td>{item.consultantFee}</td>
+                      <th>Fee</th>
                     )}
+
                     {masterType === "treatment" && (
-                      <td>{item.amount}</td>
+                      <th>Amount</th>
                     )}
 
-                    <td>
+                    <th>Action</th>
 
-                      <button
-                        className="btn btn-warning btn-sm"
-                        onClick={() => handleEdit(item)}
-                      >
-                        Edit
-                      </button>
-
-                    </td>
                     {masterType === "marquee" && (
-                      <td>
-                        {localStorage.getItem("activeMarqueeId") === item._id ?
-                          (
-                            <button
-                              className="btn btn-success btn-sm"
-                              onClick={() => handleDeactivate()}
-                            >
-                              Running
-                            </button>
-                          ) :
-                          (
-                            <button
-                              className="btn btn-primary btn-sm"
-                              onClick={() =>
-                                handleActivate(item._id, item.message)
-                              }
-                            >
-                              Start
-                            </button>
-                          )}
-                      </td>)}
+                      <th>Status</th>
+                    )}
 
                   </tr>
-                ))}
+                </thead>
 
-              </tbody>
 
-             
+                <tbody>
 
-            </table>
+                  {data.map((item, index) => (
+
+                    <tr key={item._id}>
+
+                      <td>
+                        {index + 1}
+                      </td>
+
+
+                      <td>
+
+                        {masterType === "consultant" &&
+                          item.consultantName}
+
+                        {masterType === "allergy" &&
+                          item.allergyName}
+
+                        {masterType === "complaint" &&
+                          item.complaintName}
+
+                        {masterType === "disease" &&
+                          item.diseaseName}
+
+                        {masterType === "investigation" &&
+                          item.investigationName}
+
+                        {masterType === "procedure" &&
+                          item.procedureName}
+
+                        {masterType === "surgery" &&
+                          item.surgeryName}
+
+                        {masterType === "treatment" &&
+                          item.treatmentName}
+
+                        {masterType === "medicine" &&
+                          item.medicine}
+
+                        {masterType === "reference" &&
+                          item.referenceBy}
+
+                        {masterType === "city" &&
+                          item.cityName}
+
+                        {masterType === "marquee" &&
+                          item.message}
+
+                      </td>
+
+
+                      {masterType === "city" && (
+                        <td>
+                          {item.stateName}
+                        </td>
+                      )}
+
+
+                      {masterType === "consultant" && (
+                        <td>
+                          ₹ {item.consultantFee}
+                        </td>
+                      )}
+
+
+                      {masterType === "treatment" && (
+                        <td>
+                          ₹ {item.amount}
+                        </td>
+                      )}
+
+
+                      <td>
+
+                        <button
+  className="masters-table-btn masters-edit-btn"
+  onClick={() => handleEdit(item)}
+>
+  Edit
+</button>
+
+                      </td>
+
+
+                      {masterType === "marquee" && (
+                        <td>
+
+                          {localStorage.getItem(
+                            "activeMarqueeId"
+                          ) === item._id ? (
+
+                            <button
+  className="masters-table-btn masters-running-btn"
+  onClick={handleDeactivate}
+>
+  Running
+</button>
+
+                          ) : (
+
+                           <button
+  className="masters-table-btn masters-start-btn"
+  onClick={() =>
+    handleActivate(item._id, item.message)
+  }
+>
+  Start
+</button>
+
+                          )}
+
+                        </td>
+                      )}
+
+                    </tr>
+
+                  ))}
+
+                </tbody>
+
+              </table>
 
             </div>
 
           </div>
 
         </div>
+      )}
 
-        </div>
-       )}
-
-
-
-      </div>
-    </>
-  );
+    </div>
+  </>
+);
 };
 
 export default Masters;
-
-

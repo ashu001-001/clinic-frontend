@@ -1,136 +1,1314 @@
-.master-menu{
-    display:grid;
-    grid-template-columns:repeat(6,1fr);
-    gap:10px;
-    margin-top:20px;
-    margin-left:20px;
-    margin-right:20px;
-}
-.master-btn{
-    border:none;
-    border-radius:15px;
-    background:linear-gradient(135deg,#0d6efd,#3b82f6);
-    color:#fff;
-    padding:10px 10px;
-    min-height:50px;
+/* =========================================================
+   MASTERS PAGE
+========================================================= */
 
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    align-items:center;
-
-    font-size:16px;
-    font-weight:600;
-    cursor:pointer;
-    transition:.3s;
-    box-shadow:0 8px 18px rgba(0,0,0,.15);
+.masters-page {
+    min-height: calc(100vh - 70px);
+    width: 100%;
+    background: #f4f8fc;
+    padding: 25px;
+    box-sizing: border-box;
 }
 
 
-.master-btn span{
-    
-    font-size:16px;
-    font-weight:600;
-}
-/* thead th{
-    position: sticky;
-    top: 0;
-    background: rgb(31, 182, 89);
-    z-index: 10;
-} */
-.master-btn:hover{
-    transform:translateY(-6px);
-    box-shadow:0 15px 30px rgba(0,0,0,.25);
-}
-.master-btn{
-    position: relative;
-    overflow: hidden;
-    color: #fff;
-    border: none;
-    border-radius: 18px;
-    padding: 10px 10px;
-    font-weight: 700;
-    letter-spacing: .5px;
+/* =========================================================
+   MAIN MASTER CARD
+========================================================= */
+
+.masters-main-card {
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+
+    background: #ffffff;
+
+    border-radius: 20px;
+
+    padding: 20px;
+
+    box-sizing: border-box;
 
     box-shadow:
-      0 10px 20px rgba(0,0,0,.20),
-      inset 0 2px 4px rgba(255,255,255,.35),
-      inset 0 -3px 6px rgba(0,0,0,.15);
-
-    transition: all .3s ease;
+        0 5px 20px rgba(0, 0, 0, 0.08);
 }
 
-/* Shine Effect */
-.master-btn::before{
+
+/* =========================================================
+   MASTER MENU GRID
+========================================================= */
+
+.masters-menu-grid {
+    width: 100%;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(6, minmax(0, 1fr));
+
+    gap: 12px;
+
+    box-sizing: border-box;
+}
+
+
+/* =========================================================
+   MASTER MENU BUTTON
+========================================================= */
+
+.masters-menu-btn {
+    position: relative;
+    overflow: hidden;
+
+    width: 100%;
+    min-height: 62px;
+
+    border: none;
+    border-radius: 16px;
+
+    padding: 10px 8px;
+
+    color: #ffffff;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    text-align: center;
+
+    font-family: inherit;
+
+    font-size: 14px;
+    font-weight: 700;
+
+    line-height: 1.2;
+
+    cursor: pointer;
+
+    box-sizing: border-box;
+
+    box-shadow:
+        0 8px 18px rgba(0, 0, 0, 0.16),
+        inset 0 2px 4px rgba(255, 255, 255, 0.35),
+        inset 0 -3px 6px rgba(0, 0, 0, 0.12);
+
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+
+/* =========================================================
+   BUTTON TEXT
+========================================================= */
+
+.masters-menu-btn-text {
+    position: relative;
+    z-index: 2;
+
+    display: block;
+
+    width: 100%;
+
+    color: #ffffff;
+
+    font-size: 14px;
+    font-weight: 700;
+
+    line-height: 1.25;
+
+    text-align: center;
+}
+
+
+/* =========================================================
+   BUTTON SHINE
+========================================================= */
+
+.masters-menu-btn::before {
     content: "";
+
     position: absolute;
+
     top: 0;
-    left: -120%;
-    width: 60%;
+    left: -130%;
+
+    width: 55%;
     height: 100%;
-    background: rgba(255,255,255,.25);
+
+    background: rgba(255, 255, 255, 0.25);
+
     transform: skewX(-25deg);
-    transition: .6s;
+
+    transition:
+        left 0.6s ease;
 }
 
-.master-btn:hover::before{
+
+.masters-menu-btn:hover::before {
     left: 150%;
 }
 
-.master-btn:hover{
-    transform: translateY(-6px) scale(1.03);
+
+/* =========================================================
+   BUTTON HOVER
+========================================================= */
+
+.masters-menu-btn:hover {
+    transform:
+        translateY(-5px)
+        scale(1.02);
+
     box-shadow:
-      0 18px 35px rgba(0,0,0,.28),
-      inset 0 2px 4px rgba(255,255,255,.4);
+        0 15px 30px rgba(0, 0, 0, 0.25),
+        inset 0 2px 4px rgba(255, 255, 255, 0.4);
 }
 
 
+/* =========================================================
+   BUTTON ACTIVE
+========================================================= */
 
-
-.master-btn:nth-child(1){
-    background: linear-gradient(135deg,#2563eb,#60a5fa);
+.masters-menu-btn:active {
+    transform: scale(0.97);
 }
 
-.master-btn:nth-child(2){
-    background: linear-gradient(135deg,#059669,#34d399);
+
+/* =========================================================
+   REMOVE DEFAULT BUTTON OUTLINE
+========================================================= */
+
+.masters-menu-btn:focus {
+    outline: none;
 }
 
-.master-btn:nth-child(3){
-    background: linear-gradient(135deg,#7c3aed,#c084fc);
+
+.masters-menu-btn:focus-visible {
+    outline: 3px solid rgba(13, 110, 253, 0.35);
+    outline-offset: 2px;
 }
 
-.master-btn:nth-child(4){
-    background: linear-gradient(135deg,#ea580c,#fdba74);
+
+/* =========================================================
+   MASTER BUTTON COLORS
+========================================================= */
+
+.masters-menu-btn:nth-child(1) {
+    background:
+        linear-gradient(135deg, #2563eb, #60a5fa);
 }
 
-.master-btn:nth-child(5){
-    background: linear-gradient(135deg,#dc2626,#fb7185);
+.masters-menu-btn:nth-child(2) {
+    background:
+        linear-gradient(135deg, #059669, #34d399);
 }
 
-.master-btn:nth-child(6){
-    background: linear-gradient(135deg,#0891b2,#67e8f9);
+.masters-menu-btn:nth-child(3) {
+    background:
+        linear-gradient(135deg, #7c3aed, #c084fc);
 }
 
-.master-btn:nth-child(7){
-    background: linear-gradient(135deg,#ca8a04,#fde047);
+.masters-menu-btn:nth-child(4) {
+    background:
+        linear-gradient(135deg, #ea580c, #fdba74);
 }
 
-.master-btn:nth-child(8){
-    background: linear-gradient(135deg,#334155,#94a3b8);
+.masters-menu-btn:nth-child(5) {
+    background:
+        linear-gradient(135deg, #dc2626, #fb7185);
 }
 
-.master-btn:nth-child(9){
-    background: linear-gradient(135deg,#db2777,#f9a8d4);
+.masters-menu-btn:nth-child(6) {
+    background:
+        linear-gradient(135deg, #0891b2, #67e8f9);
 }
 
-.master-btn:nth-child(10){
-    background: linear-gradient(135deg,#0f766e,#5eead4);
+.masters-menu-btn:nth-child(7) {
+    background:
+        linear-gradient(135deg, #ca8a04, #fde047);
 }
 
-.master-btn:nth-child(11){
-    background: linear-gradient(135deg,#6d28d9,#d8b4fe);
+.masters-menu-btn:nth-child(8) {
+    background:
+        linear-gradient(135deg, #334155, #94a3b8);
 }
 
-.master-btn:nth-child(12){
-    background: linear-gradient(135deg,#be123c,#fda4af);
+.masters-menu-btn:nth-child(9) {
+    background:
+        linear-gradient(135deg, #db2777, #f9a8d4);
+}
+
+.masters-menu-btn:nth-child(10) {
+    background:
+        linear-gradient(135deg, #0f766e, #5eead4);
+}
+
+.masters-menu-btn:nth-child(11) {
+    background:
+        linear-gradient(135deg, #6d28d9, #d8b4fe);
+}
+
+.masters-menu-btn:nth-child(12) {
+    background:
+        linear-gradient(135deg, #be123c, #fda4af);
+}
+
+
+/* =========================================================
+   MODAL OVERLAY
+========================================================= */
+
+.master-modal-overlay {
+    position: fixed;
+
+    inset: 0;
+
+    width: 100%;
+    height: 100dvh;
+
+    background:
+        rgba(0, 0, 0, 0.58);
+
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+
+    padding: 15px;
+
+    box-sizing: border-box;
+
+    z-index: 9999;
+
+    overflow-y: auto;
+}
+
+
+/* =========================================================
+   MASTER MODAL
+========================================================= */
+
+.master-modal {
+    position: relative;
+
+    width: min(900px, 100%);
+
+    max-width: 900px;
+
+    max-height: 92dvh;
+
+    background: #ffffff;
+
+    border-radius: 22px;
+
+    padding: 20px;
+
+    box-sizing: border-box;
+
+    box-shadow:
+        0 25px 70px rgba(0, 0, 0, 0.35);
+
+    overflow-x: hidden;
+    overflow-y: auto;
+
+    animation:
+        masterModalIn 0.2s ease-out;
+}
+
+
+/* =========================================================
+   MODAL ANIMATION
+========================================================= */
+
+@keyframes masterModalIn {
+
+    from {
+        opacity: 0;
+
+        transform:
+            scale(0.96)
+            translateY(15px);
+    }
+
+    to {
+        opacity: 1;
+
+        transform:
+            scale(1)
+            translateY(0);
+    }
+
+}
+
+
+/* =========================================================
+   CLOSE BUTTON AREA
+========================================================= */
+
+.master-modal-close {
+    width: 100%;
+
+    display: flex;
+
+    justify-content: flex-end;
+
+    margin-bottom: 3px;
+    margin-top: -3px;
+}
+
+
+/* =========================================================
+   CLOSE BUTTON
+========================================================= */
+
+.master-modal-close button {
+    width: 38px;
+    height: 38px;
+
+    padding: 0;
+
+    border: none;
+
+    border-radius: 50%;
+
+    color: #f00b0b;
+
+    font-size: 28px;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    transition:
+        background 0.2s ease,
+        transform 0.2s ease;
+}
+
+
+.master-modal-close button:hover {
+    
+
+    transform: scale(1.08);
+}
+
+
+.master-modal-close button:active {
+    transform: scale(0.94);
+}
+
+
+/* =========================================================
+   MODAL TITLE
+========================================================= */
+
+.master-modal-title {
+    background:
+        linear-gradient(
+            135deg,
+            #f4f9ff,
+            #ffffff
+        );
+
+    border:
+        1px solid #dceaf7;
+
+    border-radius: 13px;
+
+    padding: 14px 18px;
+
+    margin-bottom: 15px;
+
+    box-sizing: border-box;
+}
+
+
+.master-modal-title h4 {
+    margin: 0;
+
+    color: #0056b3;
+
+    font-size: 18px;
+
+    font-weight: 700;
+}
+
+
+/* =========================================================
+   FORM CARD
+========================================================= */
+
+.master-form-card {
+    width: 100%;
+
+    background: #ffffff;
+
+    border:
+        1px solid #e1e8ef;
+
+    border-radius: 14px;
+
+    padding: 18px;
+
+    margin-bottom: 18px;
+
+    box-shadow:
+        0 3px 10px rgba(0, 0, 0, 0.04);
+
+    box-sizing: border-box;
+}
+
+
+/* =========================================================
+   FORM ROW
+========================================================= */
+
+.master-form-row {
+    width: 100%;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 15px;
+
+    margin-bottom: 15px;
+
+    box-sizing: border-box;
+}
+
+
+.master-form-row:last-child {
+    margin-bottom: 0;
+}
+
+
+/* =========================================================
+   FORM LABEL
+========================================================= */
+
+.master-form-row label {
+    width: 125px;
+
+    min-width: 125px;
+
+    flex-shrink: 0;
+
+    color: #333333;
+
+    font-weight: 600;
+
+    font-size: 14px;
+}
+
+
+/* =========================================================
+   FORM INPUT
+========================================================= */
+
+.master-form-row input {
+    flex: 1;
+
+    min-width: 0;
+
+    box-sizing: border-box;
+}
+
+
+/* =========================================================
+   FORM BUTTONS
+========================================================= */
+
+.master-form-buttons {
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    margin-top: 5px;
+}
+
+
+.master-form-buttons button {
+    min-width: 100px;
+}
+
+
+/* =========================================================
+   MASTER LIST HEADER
+========================================================= */
+
+.master-list-header {
+    background:
+        linear-gradient(
+            135deg,
+            #f4f9ff,
+            #ffffff
+        );
+
+    border:
+        1px solid #dceaf7;
+
+    border-radius: 13px;
+
+    padding: 13px 16px;
+
+    margin-bottom: 10px;
+
+    box-sizing: border-box;
+}
+
+
+.master-list-header h4 {
+    margin: 0;
+
+    color: #333333;
+
+    font-size: 17px;
+
+    font-weight: 700;
+}
+
+
+/* =========================================================
+   TABLE WRAPPER
+========================================================= */
+
+.master-table-wrapper {
+    width: 100%;
+
+    max-height: 45vh;
+
+    overflow-x: auto;
+    overflow-y: auto;
+
+    border:
+        1px solid #e1e8ef;
+
+    border-radius: 10px;
+
+    box-sizing: border-box;
+}
+
+
+/* =========================================================
+   TABLE
+========================================================= */
+
+.master-table-wrapper table {
+    width: 100%;
+
+    min-width: 600px;
+
+    margin-bottom: 0;
+
+    white-space: nowrap;
+}
+
+
+/* =========================================================
+   TABLE HEADER
+========================================================= */
+
+.master-table-wrapper thead {
+    position: sticky;
+
+    top: 0;
+
+    z-index: 10;
+
+    background: #10b981;
+
+    color: #ffffff;
+}
+
+
+.master-table-wrapper thead th {
+    background: #10b981;
+
+    color: #ffffff;
+
+    font-weight: 700;
+
+    white-space: nowrap;
+
+    vertical-align: middle;
+}
+
+
+/* =========================================================
+   TABLE BODY
+========================================================= */
+
+.master-table-wrapper tbody td {
+    vertical-align: middle;
+
+    white-space: nowrap;
+}
+
+
+/* =========================================================
+   TABLE BUTTONS
+========================================================= */
+
+.master-table-wrapper .btn {
+    white-space: nowrap;
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 1100px) {
+
+    .masters-menu-grid {
+        grid-template-columns:
+            repeat(4, minmax(0, 1fr));
+    }
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 768px) {
+
+    .masters-page {
+        min-height: calc(100vh - 60px);
+
+        padding: 12px;
+    }
+
+
+    .masters-main-card {
+        padding: 12px;
+
+        border-radius: 16px;
+    }
+
+
+    /* 2 BUTTONS PER ROW */
+
+    .masters-menu-grid {
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+
+        gap: 9px;
+    }
+
+
+    .masters-menu-btn {
+        min-height: 58px;
+
+        padding: 8px 5px;
+
+        border-radius: 14px;
+    }
+
+
+    .masters-menu-btn-text {
+        font-size: 12px;
+
+        line-height: 1.2;
+    }
+
+
+    /* MODAL */
+
+    .master-modal-overlay {
+        align-items: center;
+
+        padding: 8px;
+    }
+
+
+    .master-modal {
+        width: 100%;
+
+        max-width: 100%;
+
+        max-height: 95dvh;
+
+        padding: 10px;
+
+        border-radius: 17px;
+    }
+
+
+    /* TITLE */
+
+    .master-modal-title {
+        padding: 12px;
+
+        margin-bottom: 10px;
+    }
+
+
+    .master-modal-title h4 {
+        font-size: 16px;
+    }
+
+
+    /* FORM */
+
+    .master-form-card {
+        padding: 12px;
+
+        border-radius: 12px;
+    }
+
+
+    /* VERTICAL FORM */
+
+    .master-form-row {
+        flex-direction: column;
+
+        align-items: stretch;
+
+        gap: 6px;
+
+        margin-bottom: 13px;
+    }
+
+
+    .master-form-row label {
+        width: 100%;
+
+        min-width: 0;
+
+        font-size: 14px;
+    }
+
+
+    .master-form-row input {
+        width: 100%;
+    }
+
+
+    /* FORM BUTTONS */
+
+    .master-form-buttons {
+        width: 100%;
+
+        display: grid;
+
+        grid-template-columns:
+            1fr 1fr;
+
+        gap: 8px;
+    }
+
+
+    .master-form-buttons button {
+        width: 100%;
+
+        min-width: 0;
+    }
+
+
+    /* TABLE */
+
+    .master-table-wrapper {
+        max-height: 43dvh;
+
+        overflow-x: auto;
+        overflow-y: auto;
+    }
+
+
+    .master-table-wrapper table {
+        min-width: 620px;
+    }
+
+
+    /* CLOSE */
+
+    .master-modal-close button {
+        width: 34px;
+        height: 34px;
+
+        font-size: 20px;
+    }
+
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media (max-width: 480px) {
+
+    .masters-page {
+        padding: 8px;
+    }
+
+
+    .masters-main-card {
+        padding: 8px;
+
+        border-radius: 14px;
+    }
+
+
+    .masters-menu-grid {
+        gap: 7px;
+    }
+
+
+    .masters-menu-btn {
+        min-height: 55px;
+
+        padding: 7px 4px;
+
+        border-radius: 13px;
+    }
+
+
+    .masters-menu-btn-text {
+        font-size: 11px;
+
+        line-height: 1.2;
+    }
+
+
+    /* MODAL */
+
+    .master-modal-overlay {
+        padding: 5px;
+    }
+
+
+    .master-modal {
+        max-height: 96dvh;
+
+        padding: 8px;
+
+        border-radius: 15px;
+    }
+
+
+    .master-modal-title {
+        padding: 11px;
+    }
+
+
+    .master-modal-title h4 {
+        font-size: 15px;
+    }
+
+
+    .master-form-card {
+        padding: 10px;
+    }
+
+
+    .master-list-header {
+        padding: 11px;
+    }
+
+
+    .master-list-header h4 {
+        font-size: 15px;
+    }
+
+
+    .master-table-wrapper table {
+        min-width: 600px;
+    }
+
+}
+
+
+/* =========================================================
+   VERY SMALL PHONES
+========================================================= */
+
+@media (max-width: 360px) {
+
+    .masters-menu-grid {
+        gap: 6px;
+    }
+
+
+    .masters-menu-btn {
+        min-height: 52px;
+
+        padding: 6px 3px;
+    }
+
+
+    .masters-menu-btn-text {
+        font-size: 10px;
+    }
+
+
+    .master-modal {
+        padding: 7px;
+    }
+
+
+    .master-form-buttons {
+        grid-template-columns: 1fr;
+    }
+
+}
+
+/* =========================================================
+   MASTER ACTION BUTTONS
+========================================================= */
+
+.masters-action-btn {
+    border: none;
+    border-radius: 9px;
+
+    min-width: 105px;
+    min-height: 42px;
+
+    padding: 9px 18px;
+
+    color: #ffffff;
+
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 5px;
+
+    box-sizing: border-box;
+
+    box-shadow:
+        0 4px 10px rgba(0,0,0,.15);
+
+    transition:
+        transform .2s ease,
+        box-shadow .2s ease,
+        filter .2s ease;
+}
+
+
+/* SAVE */
+
+.masters-save-btn {
+    background:
+        linear-gradient(135deg,#0bbef5,#2493fb);
+}
+
+
+.masters-save-btn:hover {
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 7px 16px rgba(13,110,253,.30);
+
+    filter: brightness(1.05);
+}
+
+
+/* UPDATE */
+
+.masters-update-btn {
+    background:
+        linear-gradient(135deg,#0bbef5,#2493fb);
+
+    color: #212529;
+}
+
+
+.masters-update-btn:hover {
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 7px 16px rgba(245,158,11,.30);
+
+    filter: brightness(1.05);
+}
+
+
+/* CANCEL */
+
+.masters-cancel-btn {
+    background:
+        linear-gradient(135deg,#64748b,#475569);
+}
+
+
+.masters-cancel-btn:hover {
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 7px 16px rgba(71,85,105,.30);
+
+    filter: brightness(1.05);
+}
+
+
+/* =========================================================
+   TABLE ACTION BUTTONS
+========================================================= */
+
+.masters-table-btn {
+    border: none;
+
+    border-radius: 7px;
+
+    min-width: 65px;
+
+    padding: 7px 13px;
+
+    color: #ffffff;
+
+    font-family: inherit;
+
+    font-size: 13px;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 3px 8px rgba(0,0,0,.14);
+
+    transition:
+        transform .2s ease,
+        box-shadow .2s ease;
+}
+
+
+/* EDIT */
+
+.masters-edit-btn {
+    background:linear-gradient(135deg,#0bbef5,#2493fb);
+    color: #212529;    
+}
+
+
+.masters-edit-btn:hover {
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 6px 12px rgba(11, 210, 245, 0.28);
+}
+
+
+/* START */
+
+.masters-start-btn {
+    background:
+        linear-gradient(135deg,#0d6efd,#3b82f6);
+}
+
+
+.masters-start-btn:hover {
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 6px 12px rgba(13,110,253,.28);
+}
+
+
+/* RUNNING */
+
+.masters-running-btn {
+    background:
+        linear-gradient(135deg,#198754,#20c997);
+}
+
+
+.masters-running-btn:hover {
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 6px 12px rgba(25,135,84,.28);
+}
+
+
+/* CLICK */
+
+.masters-action-btn:active,
+.masters-table-btn:active {
+    transform: scale(.96);
+}
+
+
+/* =========================================================
+   MOBILE ACTION BUTTONS
+========================================================= */
+
+@media (max-width: 768px) {
+
+    .masters-action-btn {
+        min-height: 40px;
+
+        min-width: 0;
+
+        width: 100%;
+
+        padding: 8px 12px;
+
+        font-size: 13px;
+    }
+
+
+    .masters-table-btn {
+        min-width: 60px;
+
+        padding: 7px 10px;
+
+        font-size: 12px;
+    }
+
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media (max-width: 480px) {
+
+    .masters-action-btn {
+        min-height: 39px;
+
+        padding: 7px 9px;
+
+        font-size: 12px;
+
+        border-radius: 8px;
+    }
+
+
+    .masters-table-btn {
+        min-width: 58px;
+
+        padding: 6px 9px;
+
+        font-size: 11px;
+
+        border-radius: 6px;
+    }
+
+}
+
+
+/* =========================================================
+   TOUCH DEVICES
+========================================================= */
+
+@media (hover: none) {
+
+    .masters-action-btn:hover,
+    .masters-table-btn:hover {
+        transform: none;
+    }
+
+}
+
+
+/* =========================================================
+   TOUCH DEVICES
+========================================================= */
+
+@media (hover: none) {
+
+    .masters-menu-btn:hover {
+        transform: none;
+
+        box-shadow:
+            0 8px 18px rgba(0, 0, 0, 0.16),
+            inset 0 2px 4px rgba(255,255,255,.35),
+            inset 0 -3px 6px rgba(0,0,0,.12);
+    }
+
+
+    .masters-menu-btn:hover::before {
+        left: -130%;
+    }
+
+}
+
+/* =========================================================
+   MASTER INPUTS - MOBILE COMPACT
+========================================================= */
+
+.master-form-row input {
+    width: 100%;
+    height: 40px;
+
+    padding: 7px 10px;
+
+    font-size: 14px;
+    line-height: 1.2;
+
+    border: 1px solid #ced4da;
+    border-radius: 8px;
+
+    box-sizing: border-box;
+}
+
+
+/* MOBILE */
+
+@media (max-width: 768px) {
+
+    .master-form-row {
+        gap: 4px;
+        margin-bottom: 10px;
+    }
+
+    .master-form-row label {
+        font-size: 13px;
+        line-height: 1.2;
+        margin-bottom: 0;
+    }
+
+    .master-form-row input {
+        width: 100%;
+        height: 36px;
+
+        padding: 5px 9px;
+
+        font-size: 13px;
+        line-height: 1.2;
+
+        border-radius: 7px;
+    }
+
+}
+
+
+/* SMALL PHONE */
+
+@media (max-width: 480px) {
+
+    .master-form-row {
+        gap: 3px;
+        margin-bottom: 8px;
+    }
+
+    .master-form-row label {
+        font-size: 12px;
+    }
+
+    .master-form-row input {
+        height: 34px;
+
+        padding: 4px 8px;
+
+        font-size: 12px;
+
+        border-radius: 6px;
+    }
+
 }
