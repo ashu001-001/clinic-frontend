@@ -558,8 +558,9 @@ const Home = () => {
         borderRadius: "15px",
         padding: "20px",
         marginTop: "-10px",
-
-      }} className="container mt-4">
+        marginBottom:"10px"
+      }}className="home-page container mt-4"
+      >
 
         <div
 className="home-top-section"
@@ -579,16 +580,6 @@ alignItems:"flex-start"
             }}
           >
             <h2 className="registration-title">Patient Registration</h2>
-
-            {patientId && (
-              <div className="success-box">
-                <strong style={{
-                  color: "#1eb933",
-                  marginBottom: "20px",
-                }}>Patient Registered Successfully</strong>
-                <br />
-              </div>
-            )}
 
             <form onSubmit={handleSubmit}>
               <div className="row">
@@ -748,70 +739,83 @@ alignItems:"flex-start"
 
 
 
-                <div className="col-md-6 mb-3">
+                {/* =====================================================
+    CITY / STATE / REFERENCE BY
+===================================================== */}
 
-                  <label
-                    style={{
-                      width: "90px",
-                      display: "inline-block",
-                      fontWeight: "600"
-                    }}
-                  >City</label>
+{/* CITY + STATE */}
+<div className="city-state-wrapper">
 
-                  <input
-                    list="cityList"
-                    className="form-control"
-                    value={formData.cityName}
-                    onChange={handleCityChange}
-                  />
+  {/* CITY */}
+  <div className="city-field">
+    <label>City</label>
 
-                  <datalist id="cityList">
-                    {cities.map((c) => (
-                      <option
-                        key={c._id}
-                        value={c.cityName}
-                      />
-                    ))}
-                  </datalist>
+    <input
+      list="cityList"
+      className="form-control"
+      value={formData.cityName}
+      onChange={handleCityChange}
+    />
+
+    <datalist id="cityList">
+      {cities.map((c) => (
+        <option
+          key={c._id}
+          value={c.cityName}
+        />
+      ))}
+    </datalist>
+  </div>
+
+  {/* STATE */}
+  <div className="state-field">
+    <label>State</label>
+
+    <input
+      type="text"
+      className="form-control"
+      value={formData.stateName}
+      onChange={(e) =>
+        setFormData({
+          ...formData,
+          stateName: e.target.value
+        })
+      }
+    />
+  </div>
+
+</div>
 
 
-                  <label>State</label>
+{/* REFERENCE BY */}
+<div className="reference-field">
 
-                  <input
-                    type="text"
-                    className="form-control"
-                    value={formData.stateName}
-                    onChange={(e) => setFormData({
-                      ...formData,
-                      stateName: e.target.value
-                    })}
-                  />
-                </div>
+  <label>Reference By</label>
 
-                <div className="col-md-6 mb-3">
-                  <label
+  <select
+    name="referenceBy"
+    className="form-control"
+    value={formData.referenceBy}
+    onChange={handleChange}
+  >
+    <option value="">Select</option>
 
-                  >Reference By</label>
-                  <select
-                    name="referenceBy"
-                    className="form-control"
-                    value={formData.referenceBy}
-                    onChange={handleChange}
-                  >
+    {references.map((item) => (
+      <option
+        key={item._id}
+        value={item._id}
+      >
+        {item.referenceBy}
+      </option>
+    ))}
+  </select>
 
-                    <option defaultValue="Self">Select</option>
+</div>
 
-                    {references.map((item) => (
-                      <option
-                        key={item._id}
-                        value={item._id}
-                      >
-                        {item.referenceBy}
-                      </option>
-                    ))}
 
-                  </select>
-                </div>
+
+
+
 
 
 
@@ -895,7 +899,7 @@ alignItems:"flex-start"
 
 
 
-          <div className="marquee-box">
+          <div className="marquee-box network-panel">
 
             {/* Marquee Section */}
             {marqueeText && (
@@ -939,7 +943,7 @@ alignItems:"flex-start"
                   borderRadius: "18px",
                   padding: "20px",
                   boxShadow: "0 10px 20px rgba(0,0,0,.15)",
-                  height: "20vh",
+                 
                   boxShadow: "0 8px 18px rgb(255, 255, 255), inset 0 2px 2px rgba(255,255,255,0.25)",
                   transition: "all .3s ease",
                 }}
@@ -962,7 +966,7 @@ alignItems:"flex-start"
                   borderRadius: "18px",
                   padding: "20px",
                   boxShadow: "0 10px 20px rgba(0,0,0,.15)",
-                  height: "20vh",
+              
                   boxShadow: "0 8px 18px rgb(255, 255, 255), inset 0 2px 2px rgba(255,255,255,0.25)",
                   transition: "all .3s ease",
                 }}
@@ -985,7 +989,7 @@ alignItems:"flex-start"
                   borderRadius: "18px",
                   padding: "20px",
                   boxShadow: "0 10px 20px rgba(0,0,0,.15)",
-                  height: "20vh",
+                 
                   boxShadow: "0 8px 18px rgb(255, 255, 255), inset 0 2px 2px rgba(255,255,255,0.25)",
                   transition: "all .3s ease",
                 }}
@@ -1007,7 +1011,7 @@ alignItems:"flex-start"
                   borderRadius: "18px",
                   padding: "20px",
                   boxShadow: "0 10px 20px rgba(0,0,0,.15)",
-                  height: "20vh",
+                
                   boxShadow: "0 8px 18px rgb(255, 255, 255), inset 0 2px 2px rgba(255,255,255,0.25)",
                   transition: "all .3s ease",
                 }}
@@ -1035,7 +1039,7 @@ alignItems:"flex-start"
                   borderRadius: "18px",
                   padding: "20px",
                   boxShadow: "0 10px 20px rgba(0,0,0,.15)",
-                  height: "20vh",
+             
                   boxShadow: "0 8px 18px rgb(255, 255, 255), inset 0 2px 2px rgba(255,255,255,0.25)",
                   transition: "all .3s ease",
                 }}
@@ -1057,7 +1061,7 @@ alignItems:"flex-start"
                   borderRadius: "18px",
                   padding: "20px",
                   boxShadow: "0 10px 20px rgba(0,0,0,.15)",
-                  height: "20vh",
+                
                   display: "flex",
                   flexDirection: "column",
                   justifyContent: "center",
@@ -1099,6 +1103,27 @@ alignItems:"flex-start"
 
         </div>
 
+        {/* <div className="medical-design-strip">
+    <div className="medical-node node-1"></div>
+    <div className="medical-node node-2"></div>
+    <div className="medical-node node-3"></div>
+    <div className="medical-node node-4"></div>
+
+    <div className="medical-wave wave-1"></div>
+    <div className="medical-wave wave-2"></div>
+
+    <div className="medical-cross cross-1">+</div>
+    <div className="medical-cross cross-2">+</div>
+
+    <div className="medical-heart">♥</div>
+
+    <div className="medical-pulse">
+        <span></span>
+    </div>
+
+    <div className="medical-tooth">🦷</div>
+</div> */}
+
 
 
 
@@ -1107,7 +1132,7 @@ alignItems:"flex-start"
           borderRadius: "15px",
           padding: "25px",
           boxShadow: "0 4px 15px rgba(0,0,0,0.1)",
-          marginBottom: "20px",
+         
         }}
           className="card shadow">
 
