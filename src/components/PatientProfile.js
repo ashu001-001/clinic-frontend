@@ -51,6 +51,7 @@ const PatientProfile = () => {
   const [sittingId, setSittingId] = useState(null);
   const [sittingHistory, setSittingHistory] = useState([]);
 
+
   const [sittingData, setSittingData] = useState({
     sittingNo: "",
     sittingDate: new Date().toISOString().split("T")[0],
@@ -815,22 +816,8 @@ const PatientProfile = () => {
           minHeight: "100vh",
         }}>
 
-        <div style={{
-          marginBottom: "-15px",
-          display: "flex",
-          justifyContent: "space-between"
-        }}>
-          <div
-            style={{
-              background: "#fff",
-              borderRadius: "15px",
-              padding: "25px",
-              boxShadow: "0 4px 15px rgba(0,0,0,0.1)",
-              marginBottom: "20px",
-              width: "35%",
-              height: "51vh",
-            }}
-          >
+        <div className="patient-top-layout">
+          <div className="patient-profile-card">
             <h2
               style={{
                 color: "#0d6efd",
@@ -914,16 +901,7 @@ const PatientProfile = () => {
 
 
 
-          <div
-            style={{
-              background: "#fff",
-              borderRadius: "15px",
-              padding: "20px",
-              boxShadow: "0 4px 15px rgba(0,0,0,.08)",
-              width: "55%",
-              height: "52vh"
-            }}
-          >
+          <div className="patient-summary-card">
 
             <h4
               style={{
@@ -1142,524 +1120,461 @@ const PatientProfile = () => {
 
 
 
-        {
-          activeCard === "complaint" && (
 
-            <div
-              style={{
-                position: "fixed",
-                top: 0,
-                left: 0,
-                width: "100%",
-                height: "100vh",
-                background: "rgba(0,0,0,0.5)",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                zIndex: 9999,
-              }}
-            >
 
-              <div
-                style={{
-                  width: "900px",
-                  maxWidth: "40%",
-                  maxHeight: "90vh",
-                  overflowY: "auto",
-                  background: "#fff",
-                  borderRadius: "15px",
-                  padding: "25px",
-                  boxShadow: "0 15px 40px rgba(0,0,0,.35)",
-                  position: "relative",
-                }}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{
+  activeCard === "complaint" && (
+
+    <div
+      className="complaint-modal-overlay"
+      style={{
+        position: "fixed",
+        top: 0,
+        left: 0,
+        width: "100%",
+        height: "100vh",
+        background: "rgba(0,0,0,0.5)",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        zIndex: 9999,
+        padding: "15px",
+      }}
+    >
+
+      <div
+        className="complaint-modal"
+        style={{
+          width: "900px",
+          maxWidth: "100%",
+          maxHeight: "90vh",
+          overflowY: "auto",
+          background: "#fff",
+          borderRadius: "15px",
+          padding: "25px",
+          boxShadow: "0 15px 40px rgba(0,0,0,.35)",
+          position: "relative",
+        }}
+      >
+
+        {/* Close Button */}
+        <button
+          onClick={() => setActiveCard(null)}
+          style={{
+            position: "absolute",
+            top: "12px",
+            right: "18px",
+            border: "none",
+            background: "transparent",
+            fontSize: "28px",
+            cursor: "pointer",
+            color: "#dc3545",
+            fontWeight: "bold",
+            lineHeight: "1",
+          }}
+        >
+          ×
+        </button>
+
+        <h3
+          style={{
+            color: "#0d6efd",
+            margin: "8px 35px 20px 8px",
+            borderBottom: "2px solid #eee",
+            paddingBottom: "10px",
+          }}
+        >
+          🩺 Complaint
+        </h3>
+
+        {/* Complaint Input Section */}
+        <div className="complaint-input-row">
+
+          <select
+            className="form-control"
+            value={visitData.complaint}
+            onChange={(e) =>
+              setVisitData({
+                ...visitData,
+                complaint: e.target.value,
+              })
+            }
+          >
+            <option value="">Select Complaint</option>
+
+            {complaints.map((c) => (
+              <option
+                key={c._id}
+                value={c._id}
               >
+                {c.complaintName}
+              </option>
+            ))}
+          </select>
 
-                {/* Close Button */}
-                <button
-                  onClick={() => setActiveCard(null)}
-                  style={{
-                    position: "absolute",
-                    top: "12px",
-                    right: "18px",
-                    border: "none",
-                    background: "transparent",
-                    fontSize: "28px",
-                    cursor: "pointer",
-                    color: "#dc3545",
-                    fontWeight: "bold",
-                  }}
-                >
-                  ×
-                </button>
+          <input
+            type="number"
+            className="form-control"
+            placeholder="Days"
+            value={visitData.complaintDays}
+            onChange={(e) =>
+              setVisitData({
+                ...visitData,
+                complaintDays: e.target.value,
+              })
+            }
+          />
 
-                <h3
-                  style={{
-                    color: "#0d6efd",
-                    margin: "8px",
-                    borderBottom: "2px solid #eee",
-                    paddingBottom: "10px",
-                  }}
-                >
-                  🩺 Complaint
-                </h3>
+          <select
+            className="form-control"
+            value={visitData.complaintDuration}
+            onChange={(e) =>
+              setVisitData({
+                ...visitData,
+                complaintDuration: e.target.value,
+              })
+            }
+          >
+            <option value="Days">Days</option>
+            <option value="Months">Months</option>
+            <option value="Years">Years</option>
+          </select>
 
-                <div className="row">
+          <button
+            className="btn btn-success complaint-add-btn"
+            onClick={addComplaint}
+          >
+            Add
+          </button>
 
-                  <div
-                    className="col-md-8"
-                    style={{
-                      display: "flex",
-                      gap: "10px",
-                      marginBottom: "20px",
-                    }}
+        </div>
+
+        <hr />
+
+        {/* Complaint Table */}
+        <div className="complaint-table-wrapper">
+
+          <table className="table table-bordered table-hover complaint-table">
+
+            <thead className="table-primary">
+              <tr>
+                <th>Complaint</th>
+                <th>Days</th>
+                <th>Duration</th>
+                <th width="100">Action</th>
+              </tr>
+            </thead>
+
+            <tbody>
+
+              {complaintRows.length === 0 ? (
+
+                <tr>
+                  <td
+                    colSpan="4"
+                    className="text-center text-muted"
                   >
+                    No Complaint Added
+                  </td>
+                </tr>
 
-                    <select
-                      className="form-control"
-                      value={visitData.complaint}
-                      onChange={(e) =>
-                        setVisitData({
-                          ...visitData,
-                          complaint: e.target.value,
-                        })
-                      }
-                    >
-                      <option value="">Select Complaint</option>
+              ) : (
 
-                      {complaints.map((c) => (
-                        <option
-                          key={c._id}
-                          value={c._id}
-                        >
-                          {c.complaintName}
-                        </option>
-                      ))}
-                    </select>
+                complaintRows.map((row, index) => (
+
+                  <tr key={index}>
+
+                    <td>
+                      {row.complaint?.complaintName || row.complaintName}
+                    </td>
+
+                    <td>{row.days}</td>
+
+                    <td>{row.duration}</td>
+
+                    <td>
+                      <button
+                        className="btn btn-danger btn-sm"
+                        onClick={() =>
+                          setComplaintRows(
+                            complaintRows.filter(
+                              (_, i) => i !== index
+                            )
+                          )
+                        }
+                      >
+                        ❌
+                      </button>
+                    </td>
+
+                  </tr>
+
+                ))
+
+              )}
+
+            </tbody>
+
+          </table>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  )
+}
 
 
-                    <input
-                      type="number"
-                      className="form-control"
-                      placeholder="Days"
-                      value={visitData.complaintDays}
-                      onChange={(e) =>
-                        setVisitData({
-                          ...visitData,
-                          complaintDays: e.target.value,
-                        })
-                      }
-                    />
 
-                    <select
-                      className="form-control"
-                      value={visitData.complaintDuration}
-                      onChange={(e) =>
-                        setVisitData({
-                          ...visitData,
-                          complaintDuration: e.target.value,
-                        })
-                      }
-                    >
-                      <option value="Days">Days</option>
-                      <option value="Months">Months</option>
-                      <option value="Years">Years</option>
-                    </select>
+
+
+       
+
+
+
+
+
+
+
+
+      {activeCard === "consultant" && (
+  <div className="consultant-modal-overlay">
+
+    <div className="consultant-modal">
+
+      {/* Close Button */}
+      <button
+        className="consultant-close-btn"
+        onClick={() => setActiveCard(null)}
+      >
+        ×
+      </button>
+
+      <h3 className="consultant-modal-title">
+        👨‍⚕️ Consultant
+      </h3>
+
+      <div className="consultant-input-row">
+
+        <select
+          className="form-control"
+          value={visitData.consultant}
+          onChange={(e) => {
+            const selected = consultants.find(
+              (c) => c._id === e.target.value
+            );
+
+            setVisitData({
+              ...visitData,
+              consultant: e.target.value,
+              consultantCharge: selected?.consultantFee || 0,
+            });
+          }}
+        >
+          <option value="">Select Consultant</option>
+
+          {consultants.map((c) => (
+            <option key={c._id} value={c._id}>
+              {c.consultantName}
+            </option>
+          ))}
+        </select>
+
+        <input
+          className="form-control"
+          value={visitData.consultantCharge}
+          placeholder="Consultant Fee"
+          onChange={(e) =>
+            setVisitData({
+              ...visitData,
+              consultantCharge: e.target.value,
+            })
+          }
+        />
+
+      </div>
+
+    </div>
+  </div>
+)}
+
+
+
+
+
+
+
+
+
+
+
+      {activeCard === "allergy" && (
+  <div className="allergy-modal-overlay">
+
+    <div className="allergy-modal">
+
+      {/* Close Button */}
+      <button
+        className="allergy-close-btn"
+        onClick={() => setActiveCard(null)}
+      >
+        ×
+      </button>
+
+      <h3 className="allergy-modal-title">
+        🤧 Allergy
+      </h3>
+
+      {/* Input Section */}
+      <div className="allergy-input-row">
+
+        <select
+          className="form-control"
+          value={visitData.allergy}
+          onChange={(e) =>
+            setVisitData({
+              ...visitData,
+              allergy: e.target.value,
+            })
+          }
+        >
+          <option value="">Select Allergy</option>
+
+          {allergies.map((c) => (
+            <option
+              key={c._id}
+              value={c._id}
+            >
+              {c.allergyName}
+            </option>
+          ))}
+        </select>
+
+        <button
+          className="allergy-add-btn"
+          onClick={() =>
+            addRow(
+              allergies,
+              visitData.allergy,
+              allergyRows,
+              setAllergyRows,
+              "allergy"
+            )
+          }
+        >
+          Add
+        </button>
+
+      </div>
+
+      <hr />
+
+      {/* Allergy Table */}
+      <div className="allergy-table-wrapper">
+
+        <table className="allergy-table">
+
+          <thead>
+            <tr>
+              <th>Allergy</th>
+              <th className="allergy-action-column">
+                Action
+              </th>
+            </tr>
+          </thead>
+
+          <tbody>
+
+            {allergyRows.length === 0 ? (
+
+              <tr>
+                <td
+                  colSpan="2"
+                  className="allergy-empty"
+                >
+                  No Allergy Added
+                </td>
+              </tr>
+
+            ) : (
+
+              allergyRows.map((row, index) => (
+
+                <tr key={index}>
+
+                  <td>
+                    {row.allergyName}
+                  </td>
+
+                  <td className="allergy-action-cell">
 
                     <button
-                      className="btn btn-success"
-                      onClick={addComplaint}
-                    >
-                      Add
-                    </button>
-
-                  </div>
-
-                </div>
-
-                <hr />
-
-                <table className="table table-bordered table-hover">
-
-                  <thead className="table-primary">
-                    <tr>
-                      <th>Complaint</th>
-                      <th>Days</th>
-                      <th>Duration</th>
-                      <th width="100">Action</th>
-                    </tr>
-                  </thead>
-
-                  <tbody>
-
-                    {complaintRows.length === 0 ? (
-
-                      <tr>
-                        <td
-                          colSpan="4"
-                          className="text-center text-muted"
-                        >
-                          No Complaint Added
-                        </td>
-                      </tr>
-
-                    ) : (
-
-                      complaintRows.map((row, index) => (
-
-                        <tr key={index}>
-
-                          <td>
-                            {row.complaint?.complaintName || row.complaintName}
-                          </td>
-
-                          <td>{row.days}</td>
-
-                          <td>{row.duration}</td>
-
-                          <td>
-                            <button
-                              className="btn btn-danger btn-sm"
-                              onClick={() =>
-                                setComplaintRows(
-                                  complaintRows.filter(
-                                    (_, i) => i !== index
-                                  )
-                                )
-                              }
-                            >
-                              ❌
-                            </button>
-                          </td>
-
-                        </tr>
-
-                      ))
-
-                    )}
-
-                  </tbody>
-
-                </table>
-
-              </div>
-
-            </div>
-
-          )
-        }
-
-
-
-
-
-
-
-
-        {
-          activeCard === "consultant" && (
-
-            <div
-              style={{
-                position: "fixed",
-                top: 0,
-                left: 0,
-                width: "100%",
-                height: "100vh",
-                background: "rgba(0,0,0,0.5)",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                zIndex: 9999,
-              }}
-            >
-              <div
-                style={{
-                  width: "900px",
-                  maxWidth: "35%",
-                  maxHeight: "90vh",
-                  overflowY: "auto",
-                  background: "#fff",
-                  borderRadius: "15px",
-                  padding: "25px",
-                  boxShadow: "0 15px 40px rgba(0,0,0,.35)",
-                  position: "relative",
-                }}
-              >
-                {/* Close Button */}
-                <button
-                  onClick={() => setActiveCard(null)}
-                  style={{
-                    position: "absolute",
-                    top: "12px",
-                    right: "18px",
-                    border: "none",
-                    background: "transparent",
-                    fontSize: "28px",
-                    cursor: "pointer",
-                    color: "#dc3545",
-                    fontWeight: "bold",
-                  }}
-                >
-                  ×
-                </button>
-
-                <h3
-                  style={{
-                    color: "#0d6efd",
-                    margin: "8px",
-                    borderBottom: "2px solid #eee",
-                    paddingBottom: "10px",
-                  }}
-                >
-                  👨‍⚕️ Consultant
-                </h3>
-
-                <div className="row">
-                  <div
-                    className="col-md-12"
-                    style={{
-                      display: "flex",
-                      gap: "10px",
-                      marginBottom: "20px",
-                    }}
-                  >
-                    <select
-                      className="form-control"
-                      value={visitData.consultant}
-                      onChange={(e) => {
-                        const selected = consultants.find(
-                          (c) => c._id === e.target.value
-                        );
-
-                        setVisitData({
-                          ...visitData,
-                          consultant: e.target.value,
-                          consultantCharge: selected?.consultantFee || 0,
-                        });
-                      }}
-                    >
-                      <option value="">Select Consultant</option>
-
-                      {consultants.map((c) => (
-                        <option key={c._id} value={c._id}>
-                          {c.consultantName}
-                        </option>
-                      ))}
-                    </select>
-
-                    <input
-                      className="form-control"
-                      value={visitData.consultantCharge}
-
-                      placeholder="Consultant Fee"
-                      onChange={(e) =>
-                        setVisitData({
-                          ...visitData,
-                          consultantCharge: e.target.value,
-                        })
-                      }
-                    />
-                  </div>
-                </div>
-
-              </div>
-            </div>
-
-          )
-        }
-
-
-
-
-
-
-
-
-
-
-
-        {
-          activeCard === "allergy" && (
-
-            <div
-              style={{
-                position: "fixed",
-                top: 0,
-                left: 0,
-                width: "100%",
-                height: "100vh",
-                background: "rgba(0,0,0,0.5)",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                zIndex: 9999,
-              }}
-            >
-
-              <div
-                style={{
-                  width: "900px",
-                  maxWidth: "35%",
-                  maxHeight: "90vh",
-                  overflowY: "auto",
-                  background: "#fff",
-                  borderRadius: "15px",
-                  padding: "25px",
-                  boxShadow: "0 15px 40px rgba(0,0,0,.35)",
-                  position: "relative",
-                }}
-              >
-
-                {/* Close Button */}
-                <button
-                  onClick={() => setActiveCard(null)}
-                  style={{
-                    position: "absolute",
-                    top: "12px",
-                    right: "18px",
-                    border: "none",
-                    background: "transparent",
-                    fontSize: "28px",
-                    cursor: "pointer",
-                    color: "#dc3545",
-                    fontWeight: "bold",
-                  }}
-                >
-                  ×
-                </button>
-
-                <h3
-                  style={{
-                    color: "#0d6efd",
-                    margin: "8px",
-                    borderBottom: "2px solid #eee",
-                    paddingBottom: "10px",
-                  }}
-                >
-                  🤧 Allergy
-                </h3>
-
-                <div className="row">
-
-                  <div
-                    className="col-md-8"
-                    style={{
-                      display: "flex",
-                      gap: "10px",
-                      marginBottom: "20px",
-                    }}
-                  >
-
-                    <select
-                      className="form-control"
-                      value={visitData.allergy}
-                      onChange={(e) =>
-                        setVisitData({
-                          ...visitData,
-                          allergy: e.target.value,
-                        })
-                      }
-                    >
-                      <option value="">Select Allergy</option>
-
-                      {allergies.map((c) => (
-                        <option
-                          key={c._id}
-                          value={c._id}
-                        >
-                          {c.allergyName}
-                        </option>
-                      ))}
-                    </select>
-
-                    <button
-                      className="btn btn-success"
+                      className="allergy-delete-btn"
                       onClick={() =>
-                        addRow(
-                          allergies,
-                          visitData.allergy,
-                          allergyRows,
-                          setAllergyRows,
-                          "allergy"
+                        setAllergyRows(
+                          allergyRows.filter(
+                            (_, i) => i !== index
+                          )
                         )
                       }
                     >
-                      Add
+                      ❌
                     </button>
 
-                  </div>
+                  </td>
 
-                </div>
+                </tr>
 
-                <hr />
+              ))
 
-                <table className="table table-bordered table-hover">
+            )}
 
-                  <thead className="table-primary">
+          </tbody>
 
-                    <tr>
-                      <th>Allergy</th>
-                      <th width="100">Action</th>
-                    </tr>
+        </table>
 
-                  </thead>
+      </div>
 
-                  <tbody>
+    </div>
 
-                    {allergyRows.length === 0 ? (
-
-                      <tr>
-
-                        <td
-                          colSpan="2"
-                          className="text-center text-muted"
-                        >
-                          No Allergy Added
-                        </td>
-
-                      </tr>
-
-                    ) : (
-
-                      allergyRows.map((row, index) => (
-
-                        <tr key={index}>
-
-                          <td>{row.allergyName}</td>
-
-                          <td>
-
-                            <button
-                              className="btn btn-danger btn-sm"
-                              onClick={() =>
-                                setAllergyRows(
-                                  allergyRows.filter(
-                                    (_, i) => i !== index
-                                  )
-                                )
-                              }
-                            >
-                              ❌
-                            </button>
-
-                          </td>
-
-                        </tr>
-
-                      ))
-
-                    )}
-
-                  </tbody>
-
-                </table>
-
-              </div>
-
-            </div>
-
-          )
-        }
+  </div>
+)}
 
 
 
@@ -1671,400 +1586,310 @@ const PatientProfile = () => {
 
 
 
-        {
-          activeCard === "disease" && (
+      {
+  activeCard === "disease" && (
 
-            <div
-              style={{
-                position: "fixed",
-                top: 0,
-                left: 0,
-                width: "100%",
-                height: "100vh",
-                background: "rgba(0,0,0,0.5)",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                zIndex: 9999,
-              }}
-            >
+    <div className="visit-modal-overlay">
 
-              <div
-                style={{
-                  width: "900px",
-                  maxWidth: "35%",
-                  maxHeight: "90vh",
-                  overflowY: "auto",
-                  background: "#fff",
-                  borderRadius: "15px",
-                  padding: "25px",
-                  boxShadow: "0 15px 40px rgba(0,0,0,.35)",
-                  position: "relative",
-                }}
+      <div className="visit-modal-card">
+
+        {/* Close Button */}
+        <button
+          onClick={() => setActiveCard(null)}
+          className="visit-modal-close"
+        >
+          ×
+        </button>
+
+        {/* Header */}
+        <div className="visit-modal-header">
+          <h3>🩺 Disease</h3>
+        </div>
+
+        {/* Input Section */}
+        <div className="visit-input-row">
+
+          <select
+            className="visit-form-control"
+            value={visitData.disease}
+            onChange={(e) =>
+              setVisitData({
+                ...visitData,
+                disease: e.target.value,
+              })
+            }
+          >
+            <option value="">Select Disease</option>
+
+            {diseases.map((c) => (
+              <option
+                key={c._id}
+                value={c._id}
               >
+                {c.diseaseName}
+              </option>
+            ))}
+          </select>
 
-                <button
-                  onClick={() => setActiveCard(null)}
-                  style={{
-                    position: "absolute",
-                    top: "12px",
-                    right: "18px",
-                    border: "none",
-                    background: "transparent",
-                    fontSize: "28px",
-                    cursor: "pointer",
-                    color: "#dc3545",
-                    fontWeight: "bold",
-                  }}
-                >
-                  ×
-                </button>
+          <input
+            type="number"
+            className="visit-form-control"
+            placeholder="Days"
+            value={visitData.diseaseDays}
+            onChange={(e) =>
+              setVisitData({
+                ...visitData,
+                diseaseDays: e.target.value,
+              })
+            }
+          />
 
-                <h3
-                  style={{
-                    color: "#0d6efd",
-                    margin: "8px",
-                    borderBottom: "2px solid #eee",
-                    paddingBottom: "10px",
-                  }}
-                >
-                  🩺 Disease
-                </h3>
+          <select
+            className="visit-form-control"
+            value={visitData.diseaseDuration}
+            onChange={(e) =>
+              setVisitData({
+                ...visitData,
+                diseaseDuration: e.target.value,
+              })
+            }
+          >
+            <option value="Days">Days</option>
+            <option value="Months">Months</option>
+            <option value="Years">Years</option>
+          </select>
 
-                <div className="row">
+          <button
+            className="visit-add-btn"
+            onClick={addDisease}
+          >
+            + Add
+          </button>
 
-                  <div
-                    className="col-md-12"
-                    style={{
-                      display: "flex",
-                      gap: "10px",
-                      marginBottom: "20px",
-                    }}
+        </div>
+
+        {/* Divider */}
+        <div className="visit-modal-divider"></div>
+
+        {/* Table */}
+        <div className="visit-table-wrapper">
+
+          <table className="visit-modal-table">
+
+            <thead>
+              <tr>
+                <th>Disease</th>
+                <th>Days</th>
+                <th>Duration</th>
+                <th className="action-column">
+                  Action
+                </th>
+              </tr>
+            </thead>
+
+            <tbody>
+
+              {diseaseRows.length === 0 ? (
+
+                <tr>
+                  <td
+                    colSpan="4"
+                    className="no-data-row"
                   >
+                    No Disease Added
+                  </td>
+                </tr>
 
-                    <select
-                      className="form-control"
-                      value={visitData.disease}
-                      onChange={(e) =>
-                        setVisitData({
-                          ...visitData,
-                          disease: e.target.value,
-                        })
-                      }
-                    >
-                      <option value="">Select Disease</option>
+              ) : (
 
-                      {diseases.map((c) => (
-                        <option
-                          key={c._id}
-                          value={c._id}
-                        >
-                          {c.diseaseName}
-                        </option>
-                      ))}
-                    </select>
+                diseaseRows.map((row, index) => (
 
-                    <input
-                      type="number"
-                      className="form-control"
-                      placeholder="Days"
-                      value={visitData.diseaseDays}
-                      onChange={(e) =>
-                        setVisitData({
-                          ...visitData,
-                          diseaseDays: e.target.value,
-                        })
-                      }
-                    />
+                  <tr key={index}>
 
-                    <select
-                      className="form-control"
-                      value={visitData.diseaseDuration}
-                      onChange={(e) =>
-                        setVisitData({
-                          ...visitData,
-                          diseaseDuration: e.target.value,
-                        })
-                      }
-                    >
-                      <option value="Days">Days</option>
-                      <option value="Months">Months</option>
-                      <option value="Years">Years</option>
-                    </select>
+                    <td>
+                      {row.disease?.diseaseName ||
+                        row.diseaseName}
+                    </td>
+
+                    <td>
+                      {row.days}
+                    </td>
+
+                    <td>
+                      {row.duration}
+                    </td>
+
+                    <td className="action-column">
+
+                      <button
+                        className="visit-delete-btn"
+                        onClick={() =>
+                          setDiseaseRows(
+                            diseaseRows.filter(
+                              (_, i) => i !== index
+                            )
+                          )
+                        }
+                      >
+                        ❌
+                      </button>
+
+                    </td>
+
+                  </tr>
+
+                ))
+
+              )}
+
+            </tbody>
+
+          </table>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  )
+}
+
+
+
+
+
+
+
+
+
+
+        {activeCard === "investigation" && (
+  <div className="visit-modal-overlay">
+    <div className="visit-modal">
+
+      {/* Close Button */}
+      <button
+        onClick={() => setActiveCard(null)}
+        className="visit-modal-close"
+      >
+        ×
+      </button>
+
+      {/* Header */}
+      <h3 className="visit-modal-title">
+        🔬 Investigation
+      </h3>
+
+      {/* Input Section */}
+      <div className="visit-modal-form">
+
+        <select
+          className="visit-modal-input"
+          value={visitData.investigation}
+          onChange={(e) =>
+            setVisitData({
+              ...visitData,
+              investigation: e.target.value,
+            })
+          }
+        >
+          <option value="">Select Investigation</option>
+
+          {investigations.map((c) => (
+            <option
+              key={c._id}
+              value={c._id}
+            >
+              {c.investigationName}
+            </option>
+          ))}
+        </select>
+
+        <button
+          className="visit-modal-add"
+          onClick={() =>
+            addRow(
+              investigations,
+              visitData.investigation,
+              investigationRows,
+              setInvestigationRows,
+              "investigation"
+            )
+          }
+        >
+          Add
+        </button>
+
+      </div>
+
+      <hr className="visit-modal-divider" />
+
+      {/* Table */}
+      <div className="visit-modal-table-wrapper">
+        <table className="visit-modal-table">
+
+          <thead>
+            <tr>
+              <th>Investigation</th>
+              <th className="action-column">Action</th>
+            </tr>
+          </thead>
+
+          <tbody>
+
+            {investigationRows.length === 0 ? (
+
+              <tr>
+                <td
+                  colSpan="2"
+                  className="visit-modal-empty"
+                >
+                  No Investigation Added
+                </td>
+              </tr>
+
+            ) : (
+
+              investigationRows.map((row, index) => (
+
+                <tr key={index}>
+
+                  <td>
+                    {row.investigationName}
+                  </td>
+
+                  <td className="action-column">
 
                     <button
-                      className="btn btn-success"
-                      onClick={addDisease}
-                    >
-                      Add
-                    </button>
-
-                  </div>
-
-                </div>
-
-                <hr />
-
-                <table className="table table-bordered table-hover">
-
-                  <thead className="table-primary">
-                    <tr>
-                      <th>Disease</th>
-                      <th>Days</th>
-                      <th>Duration</th>
-                      <th width="100">Action</th>
-                    </tr>
-                  </thead>
-
-                  <tbody>
-
-                    {diseaseRows.length === 0 ? (
-
-                      <tr>
-                        <td
-                          colSpan="4"
-                          className="text-center text-muted"
-                        >
-                          No Disease Added
-                        </td>
-                      </tr>
-
-                    ) : (
-
-                      diseaseRows.map((row, index) => (
-
-                        <tr key={index}>
-
-                          <td>
-                            {row.disease?.diseaseName || row.diseaseName}
-                          </td>
-
-                          <td>{row.days}</td>
-
-                          <td>{row.duration}</td>
-
-                          <td>
-
-                            <button
-                              className="btn btn-danger btn-sm"
-                              onClick={() =>
-                                setDiseaseRows(
-                                  diseaseRows.filter(
-                                    (_, i) => i !== index
-                                  )
-                                )
-                              }
-                            >
-                              ❌
-                            </button>
-
-                          </td>
-
-                        </tr>
-
-                      ))
-
-                    )}
-
-                  </tbody>
-
-                </table>
-
-              </div>
-
-            </div>
-
-          )
-        }
-
-
-
-
-
-
-
-
-
-
-
-        {
-          activeCard === "investigation" && (
-
-            <div
-              style={{
-                position: "fixed",
-                top: 0,
-                left: 0,
-                width: "100%",
-                height: "100vh",
-                background: "rgba(0,0,0,0.5)",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                zIndex: 9999,
-              }}
-            >
-
-              <div
-                style={{
-                  width: "900px",
-                  maxWidth: "35%",
-                  maxHeight: "90vh",
-                  overflowY: "auto",
-                  background: "#fff",
-                  borderRadius: "15px",
-                  padding: "25px",
-                  boxShadow: "0 15px 40px rgba(0,0,0,.35)",
-                  position: "relative",
-                }}
-              >
-
-                {/* Close Button */}
-                <button
-                  onClick={() => setActiveCard(null)}
-                  style={{
-                    position: "absolute",
-                    top: "12px",
-                    right: "18px",
-                    border: "none",
-                    background: "transparent",
-                    fontSize: "28px",
-                    cursor: "pointer",
-                    color: "#dc3545",
-                    fontWeight: "bold",
-                  }}
-                >
-                  ×
-                </button>
-
-                <h3
-                  style={{
-                    color: "#0d6efd",
-                    margin: "8px",
-                    borderBottom: "2px solid #eee",
-                    paddingBottom: "10px",
-                  }}
-                >
-                  🔬 Investigation
-                </h3>
-
-                <div className="row">
-
-                  <div
-                    className="col-md-8"
-                    style={{
-                      display: "flex",
-                      gap: "10px",
-                      marginBottom: "20px",
-                    }}
-                  >
-
-                    <select
-                      className="form-control"
-                      value={visitData.investigation}
-                      onChange={(e) =>
-                        setVisitData({
-                          ...visitData,
-                          investigation: e.target.value,
-                        })
-                      }
-                    >
-                      <option value="">Select Investigation</option>
-
-                      {investigations.map((c) => (
-                        <option
-                          key={c._id}
-                          value={c._id}
-                        >
-                          {c.investigationName}
-                        </option>
-                      ))}
-                    </select>
-
-                    <button
-                      className="btn btn-success"
+                      className="visit-modal-delete"
                       onClick={() =>
-                        addRow(
-                          investigations,
-                          visitData.investigation,
-                          investigationRows,
-                          setInvestigationRows,
-                          "investigation"
+                        setInvestigationRows(
+                          investigationRows.filter(
+                            (_, i) => i !== index
+                          )
                         )
                       }
                     >
-                      Add
+                      ❌
                     </button>
 
-                  </div>
+                  </td>
 
-                </div>
+                </tr>
 
-                <hr />
+              ))
 
-                <table className="table table-bordered table-hover">
+            )}
 
-                  <thead className="table-primary">
-                    <tr>
-                      <th>Investigation</th>
-                      <th width="100">Action</th>
-                    </tr>
-                  </thead>
+          </tbody>
 
-                  <tbody>
+        </table>
+      </div>
 
-                    {investigationRows.length === 0 ? (
-
-                      <tr>
-                        <td
-                          colSpan="2"
-                          className="text-center text-muted"
-                        >
-                          No Investigation Added
-                        </td>
-                      </tr>
-
-                    ) : (
-
-                      investigationRows.map((row, index) => (
-
-                        <tr key={index}>
-
-                          <td>{row.investigationName}</td>
-
-                          <td>
-
-                            <button
-                              className="btn btn-danger btn-sm"
-                              onClick={() =>
-                                setInvestigationRows(
-                                  investigationRows.filter(
-                                    (_, i) => i !== index
-                                  )
-                                )
-                              }
-                            >
-                              ❌
-                            </button>
-
-                          </td>
-
-                        </tr>
-
-                      ))
-
-                    )}
-
-                  </tbody>
-
-                </table>
-
-              </div>
-
-            </div>
-
-          )
-        }
+    </div>
+  </div>
+)}
 
 
 
@@ -2076,184 +1901,137 @@ const PatientProfile = () => {
 
 
 
-        {
-          activeCard === "procedure" && (
+       {
+  activeCard === "procedure" && (
 
-            <div
-              style={{
-                position: "fixed",
-                top: 0,
-                left: 0,
-                width: "100%",
-                height: "100vh",
-                background: "rgba(0,0,0,0.5)",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                zIndex: 9999,
-              }}
-            >
+    <div className="visit-modal-overlay">
 
-              <div
-                style={{
-                  width: "900px",
-                  maxWidth: "35%",
-                  maxHeight: "90vh",
-                  overflowY: "auto",
-                  background: "#fff",
-                  borderRadius: "15px",
-                  padding: "25px",
-                  boxShadow: "0 15px 40px rgba(0,0,0,.35)",
-                  position: "relative",
-                }}
+      <div className="visit-modal">
+
+        {/* Close Button */}
+        <button
+          onClick={() => setActiveCard(null)}
+          className="visit-modal-close"
+        >
+          ×
+        </button>
+
+        <h3 className="visit-modal-title">
+          ⚙️ Procedure
+        </h3>
+
+        <div className="visit-modal-form">
+
+          <select
+            className="visit-modal-input"
+            value={visitData.procedure}
+            onChange={(e) =>
+              setVisitData({
+                ...visitData,
+                procedure: e.target.value,
+              })
+            }
+          >
+            <option value="">Select Procedure</option>
+
+            {procedures.map((c) => (
+              <option
+                key={c._id}
+                value={c._id}
               >
+                {c.procedureName}
+              </option>
+            ))}
+          </select>
 
-                {/* Close Button */}
-                <button
-                  onClick={() => setActiveCard(null)}
-                  style={{
-                    position: "absolute",
-                    top: "12px",
-                    right: "18px",
-                    border: "none",
-                    background: "transparent",
-                    fontSize: "28px",
-                    cursor: "pointer",
-                    color: "#dc3545",
-                    fontWeight: "bold",
-                  }}
-                >
-                  ×
-                </button>
+          <button
+            className="visit-modal-add"
+            onClick={() =>
+              addRow(
+                procedures,
+                visitData.procedure,
+                procedureRows,
+                setProcedureRows,
+                "procedure"
+              )
+            }
+          >
+            Add
+          </button>
 
-                <h3
-                  style={{
-                    color: "#0d6efd",
-                    margin: "8px",
-                    borderBottom: "2px solid #eee",
-                    paddingBottom: "10px",
-                  }}
-                >
-                  ⚙️ Procedure
-                </h3>
+        </div>
 
-                <div className="row">
+        <hr className="visit-modal-divider" />
 
-                  <div
-                    className="col-md-8"
-                    style={{
-                      display: "flex",
-                      gap: "10px",
-                      marginBottom: "20px",
-                    }}
+        <div className="visit-table-wrapper">
+
+          <table className="visit-modal-table">
+
+            <thead>
+              <tr>
+                <th>Procedure</th>
+                <th className="action-column">Action</th>
+              </tr>
+            </thead>
+
+            <tbody>
+
+              {procedureRows.length === 0 ? (
+
+                <tr>
+                  <td
+                    colSpan="2"
+                    className="visit-empty-row"
                   >
+                    No Procedure Added
+                  </td>
+                </tr>
 
-                    <select
-                      className="form-control"
-                      value={visitData.procedure}
-                      onChange={(e) =>
-                        setVisitData({
-                          ...visitData,
-                          procedure: e.target.value,
-                        })
-                      }
-                    >
-                      <option value="">Select Procedure</option>
+              ) : (
 
-                      {procedures.map((c) => (
-                        <option
-                          key={c._id}
-                          value={c._id}
-                        >
-                          {c.procedureName}
-                        </option>
-                      ))}
-                    </select>
+                procedureRows.map((row, index) => (
 
-                    <button
-                      className="btn btn-success"
-                      onClick={() =>
-                        addRow(
-                          procedures,
-                          visitData.procedure,
-                          procedureRows,
-                          setProcedureRows,
-                          "procedure"
-                        )
-                      }
-                    >
-                      Add
-                    </button>
+                  <tr key={index}>
 
-                  </div>
+                    <td>
+                      {row.procedureName}
+                    </td>
 
-                </div>
+                    <td className="action-column">
 
-                <hr />
+                      <button
+                        className="visit-delete-btn"
+                        onClick={() =>
+                          setProcedureRows(
+                            procedureRows.filter(
+                              (_, i) => i !== index
+                            )
+                          )
+                        }
+                      >
+                        ❌
+                      </button>
 
-                <table className="table table-bordered table-hover">
+                    </td>
 
-                  <thead className="table-primary">
-                    <tr>
-                      <th>Procedure</th>
-                      <th width="100">Action</th>
-                    </tr>
-                  </thead>
+                  </tr>
 
-                  <tbody>
+                ))
 
-                    {procedureRows.length === 0 ? (
+              )}
 
-                      <tr>
-                        <td
-                          colSpan="2"
-                          className="text-center text-muted"
-                        >
-                          No Procedure Added
-                        </td>
-                      </tr>
+            </tbody>
 
-                    ) : (
+          </table>
 
-                      procedureRows.map((row, index) => (
+        </div>
 
-                        <tr key={index}>
+      </div>
 
-                          <td>{row.procedureName}</td>
+    </div>
 
-                          <td>
-
-                            <button
-                              className="btn btn-danger btn-sm"
-                              onClick={() =>
-                                setProcedureRows(
-                                  procedureRows.filter(
-                                    (_, i) => i !== index
-                                  )
-                                )
-                              }
-                            >
-                              ❌
-                            </button>
-
-                          </td>
-
-                        </tr>
-
-                      ))
-
-                    )}
-
-                  </tbody>
-
-                </table>
-
-              </div>
-
-            </div>
-
-          )
-        }
+  )
+}
 
 
 
@@ -2264,218 +2042,172 @@ const PatientProfile = () => {
 
 
 
+       {
+  activeCard === "surgery" && (
 
-        {
-          activeCard === "surgery" && (
+    <div className="visit-modal-overlay">
 
-            <div
-              style={{
-                position: "fixed",
-                top: 0,
-                left: 0,
-                width: "100%",
-                height: "100vh",
-                background: "rgba(0,0,0,0.5)",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                zIndex: 9999,
-              }}
-            >
+      <div className="visit-modal">
 
-              <div
-                style={{
-                  width: "900px",
-                  maxWidth: "35%",
-                  maxHeight: "90vh",
-                  overflowY: "auto",
-                  background: "#fff",
-                  borderRadius: "15px",
-                  padding: "25px",
-                  boxShadow: "0 15px 40px rgba(0,0,0,.35)",
-                  position: "relative",
-                }}
+        {/* Close Button */}
+        <button
+          onClick={() => setActiveCard(null)}
+          className="visit-modal-close"
+        >
+          ×
+        </button>
+
+        <h3 className="visit-modal-title">
+          🏥 Surgery
+        </h3>
+
+        <div className="visit-modal-form">
+
+          <select
+            className="visit-modal-input"
+            value={visitData.surgery}
+            onChange={(e) =>
+              setVisitData({
+                ...visitData,
+                surgery: e.target.value,
+              })
+            }
+          >
+            <option value="">
+              Select Surgery
+            </option>
+
+            {surgeries.map((c) => (
+              <option
+                key={c._id}
+                value={c._id}
               >
+                {c.surgeryName}
+              </option>
+            ))}
+          </select>
 
-                <button
-                  onClick={() => setActiveCard(null)}
-                  style={{
-                    position: "absolute",
-                    top: "12px",
-                    right: "18px",
-                    border: "none",
-                    background: "transparent",
-                    fontSize: "28px",
-                    cursor: "pointer",
-                    color: "#dc3545",
-                    fontWeight: "bold",
-                  }}
-                >
-                  ×
-                </button>
+          <input
+            type="number"
+            className="visit-modal-input"
+            placeholder="Days"
+            value={visitData.surgeryDays}
+            onChange={(e) =>
+              setVisitData({
+                ...visitData,
+                surgeryDays: e.target.value,
+              })
+            }
+          />
 
-                <h3
-                  style={{
-                    color: "#0d6efd",
-                    margin: "8px",
-                    borderBottom: "2px solid #eee",
-                    paddingBottom: "10px",
-                  }}
-                >
-                  🏥 Surgery
-                </h3>
+          <select
+            className="visit-modal-input"
+            value={visitData.surgeryDuration}
+            onChange={(e) =>
+              setVisitData({
+                ...visitData,
+                surgeryDuration: e.target.value,
+              })
+            }
+          >
+            <option value="Days">Days</option>
+            <option value="Months">Months</option>
+            <option value="Years">Years</option>
+          </select>
 
-                <div className="row">
+          <button
+            className="visit-modal-add"
+            onClick={addSurgery}
+          >
+            Add
+          </button>
 
-                  <div
-                    className="col-md-12"
-                    style={{
-                      display: "flex",
-                      gap: "10px",
-                      marginBottom: "20px",
-                    }}
+        </div>
+
+        <hr className="visit-modal-divider" />
+
+        <div className="visit-table-wrapper">
+
+          <table className="visit-modal-table">
+
+            <thead>
+              <tr>
+                <th>Surgery</th>
+                <th>Days</th>
+                <th>Duration</th>
+                <th className="action-column">
+                  Action
+                </th>
+              </tr>
+            </thead>
+
+            <tbody>
+
+              {surgeryRows.length === 0 ? (
+
+                <tr>
+                  <td
+                    colSpan="4"
+                    className="visit-empty-row"
                   >
+                    No Surgery Added
+                  </td>
+                </tr>
 
-                    <select
-                      className="form-control"
-                      value={visitData.surgery}
-                      onChange={(e) =>
-                        setVisitData({
-                          ...visitData,
-                          surgery: e.target.value,
-                        })
-                      }
-                    >
-                      <option value="">
-                        Select Surgery
-                      </option>
+              ) : (
 
-                      {surgeries.map((c) => (
-                        <option
-                          key={c._id}
-                          value={c._id}
-                        >
-                          {c.surgeryName}
-                        </option>
-                      ))}
-                    </select>
+                surgeryRows.map((row, index) => (
 
-                    <input
-                      type="number"
-                      className="form-control"
-                      placeholder="Days"
-                      value={visitData.surgeryDays}
-                      onChange={(e) =>
-                        setVisitData({
-                          ...visitData,
-                          surgeryDays: e.target.value,
-                        })
-                      }
-                    />
+                  <tr key={index}>
 
-                    <select
-                      className="form-control"
-                      value={visitData.surgeryDuration}
-                      onChange={(e) =>
-                        setVisitData({
-                          ...visitData,
-                          surgeryDuration: e.target.value,
-                        })
-                      }
-                    >
-                      <option value="Days">Days</option>
-                      <option value="Months">Months</option>
-                      <option value="Years">Years</option>
-                    </select>
+                    <td>
+                      {row.surgery?.surgeryName ||
+                        row.surgeryName}
+                    </td>
 
-                    <button
-                      className="btn btn-success"
-                      onClick={addSurgery}
-                    >
-                      Add
-                    </button>
+                    <td>
+                      {row.days}
+                    </td>
 
-                  </div>
+                    <td>
+                      {row.duration}
+                    </td>
 
-                </div>
+                    <td className="action-column">
 
-                <hr />
+                      <button
+                        className="visit-delete-btn"
+                        onClick={() =>
+                          setSurgeryRows(
+                            surgeryRows.filter(
+                              (_, i) => i !== index
+                            )
+                          )
+                        }
+                      >
+                        ❌
+                      </button>
 
-                <table className="table table-bordered table-hover">
+                    </td>
 
-                  <thead className="table-primary">
-                    <tr>
-                      <th>Surgery</th>
-                      <th>Days</th>
-                      <th>Duration</th>
-                      <th width="100">Action</th>
-                    </tr>
-                  </thead>
+                  </tr>
 
-                  <tbody>
+                ))
 
-                    {
-                      surgeryRows.length === 0 ? (
+              )}
 
-                        <tr>
+            </tbody>
 
-                          <td
-                            colSpan="4"
-                            className="text-center text-muted"
-                          >
-                            No Surgery Added
-                          </td>
+          </table>
 
-                        </tr>
+        </div>
 
-                      ) : (
+      </div>
 
-                        surgeryRows.map((row, index) => (
+    </div>
 
-                          <tr key={index}>
-
-                            <td>
-                              {row.surgery?.surgeryName || row.surgeryName}
-                            </td>
-
-                            <td>{row.days}</td>
-
-                            <td>{row.duration}</td>
-
-                            <td>
-
-                              <button
-                                className="btn btn-danger btn-sm"
-                                onClick={() =>
-                                  setSurgeryRows(
-                                    surgeryRows.filter(
-                                      (_, i) => i !== index
-                                    )
-                                  )
-                                }
-                              >
-                                ❌
-                              </button>
-
-                            </td>
-
-                          </tr>
-
-                        ))
-
-                      )
-                    }
-
-                  </tbody>
-
-                </table>
-
-              </div>
-
-            </div>
-
-          )
-        }
+  )
+}
 
 
 
@@ -3603,238 +3335,170 @@ const PatientProfile = () => {
 
 
 
-        {showVisitForm && (
+      {showVisitForm && (
+  <div className="visit-action-buttons">
 
-          <div
-            style={{
-              display: "flex",
-              gap: "8px",
-              margin: "10px",
-            }}
-          >
-            <button style={{
-              background: "#198754",
-              color: "#fff",
-              border: "none",
-              padding: "10px 15px",
-              borderRadius: "10px",
-              marginBottom: "10px",
-            }}
-              className="btn btn-secondary"
-              onClick={() => {
-                setShowVisitForm(false);
-                setActiveCard("");
-              }}
-            >
-              Cancel
-            </button>
+    {/* Cancel */}
+    <button
+      type="button"
+      className="visit-action-btn"
+      onClick={() => {
+        setShowVisitForm(false);
+        setActiveCard("");
+      }}
+    >
+      Cancel
+    </button>
 
-            <button
-              style={{
-                background: selectedVisit ? "#14cefd" : "#198754",
-                color: "#fff",
-                border: "none",
-                padding: "10px 15px",
-                borderRadius: "10px",
-                marginBottom: "10px",
-              }}
-              className="btn"
-              onClick={() => {
-                if (selectedVisit) {
-                  handleVisitUpdate(selectedVisit._id);
-                } else {
-                  handleVisitSave();
-                }
-              }}
-            >
-              {selectedVisit ? "✏️ Update Visit" : "💾 Save Visit"}
-            </button>
+    {/* Save / Update */}
+    <button
+      type="button"
+      className="visit-action-btn"
+      onClick={() => {
+        if (selectedVisit) {
+          handleVisitUpdate(selectedVisit._id);
+        } else {
+          handleVisitSave();
+        }
+      }}
+    >
+      {selectedVisit ? "✏️ Update Visit" : "💾 Save Visit"}
+    </button>
 
-            <button
-              type="button"
-              className="btn btn-info"
-              onClick={() => setShowDetail(!showDetail)}
-              style={{
-                background: "#198754",
-                color: "#fff",
-                border: "none",
-                padding: "10px 15px",
-                borderRadius: "10px",
-                marginBottom: "10px",
-              }}
-            >
-              📋 Detail View
-            </button>
-            <button
-              style={{
-                background: "#198754",
-                color: "#fff",
-                border: "none",
-                padding: "10px 15px",
-                borderRadius: "10px",
-                marginBottom: "10px",
-              }}
-              className="btn btn-success"
-              onClick={() => setActiveCard("prescriptionView")}
-            >
-              💊 Prescription
-            </button>
+    {/* Detail View */}
+    <button
+      type="button"
+      className="visit-action-btn"
+      onClick={() => setShowDetail(!showDetail)}
+    >
+      📋 Detail View
+    </button>
 
-            <button
-              style={{
-                background: "#198754",
-                color: "#fff",
-                border: "none",
-                padding: "10px 15px",
-                borderRadius: "10px",
-                marginBottom: "10px",
-              }}
-              className="btn btn-warning"
-              onClick={() => setActiveCard("treatmentView")}
-            >
-              🦷 Treatment
-            </button>
+    {/* Prescription */}
+    <button
+      type="button"
+      className="visit-action-btn"
+      onClick={() => setActiveCard("prescriptionView")}
+    >
+      💊 Prescription
+    </button>
 
-            <button
-              className="btn"
-              style={{
-                background: "#198754",
-                color: "#fff",
-                border: "none",
-                padding: "10px 15px",
-                borderRadius: "10px",
-                marginBottom: "10px",
-              }}
-              onClick={() => setActiveCard("bill")}
-            >
-              💰 Bill
-            </button>
+    {/* Treatment */}
+    <button
+      type="button"
+      className="visit-action-btn"
+      onClick={() => setActiveCard("treatmentView")}
+    >
+      🦷 Treatment
+    </button>
 
-            <button
-              className="btn"
-              style={{
-                background: "#198754",
-                color: "#fff",
-                border: "none",
-                padding: "10px 15px",
-                borderRadius: "10px",
-                marginBottom: "10px",
-              }}
-              onClick={() => {
+    {/* Bill */}
+    <button
+      type="button"
+      className="visit-action-btn"
+      onClick={() => setActiveCard("bill")}
+    >
+      💰 Bill
+    </button>
 
-                if (!selectedVisit) {
-                  alert("⚠️ Please select a patient visit first.");
-                  return;
-                }
+    {/* Print Receipt */}
+    <button
+      type="button"
+      className="visit-action-btn"
+      onClick={() => {
 
-                localStorage.setItem(
-                  "consultationData",
-                  JSON.stringify({
-                    patient,
-                    visit: selectedVisit,
-                    complaintRows,
-                    diseaseRows,
-                    allergyRows,
-                    investigationRows,
-                    procedureRows,
-                    surgeryRows,
-                    prescriptionRows,
-                    vitals: visitData.vitals,
-                  })
-                );
+        if (!selectedVisit) {
+          alert("⚠️ Please select a patient visit first.");
+          return;
+        }
 
-                navigate("/consultation-print");
-              }}
-            >
-              🩺 PRINT RECEIPT
-            </button>
+        localStorage.setItem(
+          "consultationData",
+          JSON.stringify({
+            patient,
+            visit: selectedVisit,
+            complaintRows,
+            diseaseRows,
+            allergyRows,
+            investigationRows,
+            procedureRows,
+            surgeryRows,
+            prescriptionRows,
+            vitals: visitData.vitals,
+          })
+        );
 
-            <button
-              className="btn"
-              style={{
-                background: "#198754",
-                color: "#fff",
-                border: "none",
-                padding: "10px 15px",
-                borderRadius: "10px",
-                marginBottom: "10px",
-              }}
-              onClick={() => {
+        navigate("/consultation-print");
+      }}
+    >
+      🩺 PRINT RECEIPT
+    </button>
 
-                setSittingId(null);
+    {/* Sitting */}
+    <button
+      type="button"
+      className="visit-action-btn"
+      onClick={() => {
 
-                const nextNo = sittingHistory.length + 1;
+        setSittingId(null);
 
-                setSittingData({
-                  sittingNo: nextNo,
-                  sittingDate: new Date().toISOString().split("T")[0],
-                  paidAmount: "",
-                  paymentMode: "Cash",
-                  nextVisitDate: "",
-                });
+        const nextNo = sittingHistory.length + 1;
 
-                setWorkDone({
-                  treatment: "",
-                  remark: "",
-                });
+        setSittingData({
+          sittingNo: nextNo,
+          sittingDate: new Date().toISOString().split("T")[0],
+          paidAmount: "",
+          paymentMode: "Cash",
+          nextVisitDate: "",
+        });
 
-                setActiveCard("sitting");
+        setWorkDone({
+          treatment: "",
+          remark: "",
+        });
 
-              }}
-            >
-              🦷 Sitting
-            </button>
+        setActiveCard("sitting");
+      }}
+    >
+      🦷 Sitting
+    </button>
 
+    {/* Sitting History */}
+    <button
+      type="button"
+      className="visit-action-btn"
+      onClick={() => setActiveCard("sittingHistory")}
+    >
+      📋 Sitting History
+    </button>
 
-            <button
-              className="btn"
-              style={{
-                background: "#198754",
-                color: "#fff",
-                border: "none",
-                padding: "10px 20px",
-                borderRadius: "10px",
-                marginBottom: "10px",
-              }}
-              onClick={() => setActiveCard("sittingHistory")}
-            >
-              📋 Sitting History
-            </button>
+    {/* OPD Blank */}
+    <button
+      type="button"
+      className="visit-action-btn"
+      onClick={() => {
 
-            <button
-              className="btn"
-              style={{
-                background: "#198754",
-                color: "#fff",
-                border: "none",
-                padding: "10px 15px",
-                borderRadius: "10px",
-                marginBottom: "10px",
-              }}
-              onClick={() => {
+        if (!selectedVisit) {
+          alert("⚠️ Please select a patient visit first.");
+          return;
+        }
 
-                if (!selectedVisit) {
-                  alert("⚠️ Please select a patient visit first.");
-                  return;
-                }
+        localStorage.setItem(
+          "consultationData",
+          JSON.stringify({
+            patient,
+            visit: selectedVisit,
+          })
+        );
 
-                localStorage.setItem(
-                  "consultationData",
-                  JSON.stringify({
-                    patient,
-                    visit: selectedVisit,
-                  })
-                );
+        navigate("/OPD-print");
+      }}
+    >
+      🖨 OPD Blank
+    </button>
 
-                navigate("/OPD-print");
-              }}
-            >
-              🖨 OPD Blank
-            </button>
-
-          </div>
-        )}
-
+  </div>
+)}
 
 
 
@@ -5408,6 +5072,8 @@ const PatientProfile = () => {
 
         )}
 
+
+
         {showFullHistory && (
 
           <div
@@ -5536,59 +5202,72 @@ const PatientProfile = () => {
 
         )}
 
-        <div
-          style={{
-            background: "#fff",
-            borderRadius: "15px",
-            padding: "20px",
-            boxShadow:
-              "0 4px 15px rgba(0,0,0,0.1)",
-          }}
-        >
-          <h2 style={{
-            color: "#0d6efd",
-            marginBottom: "20px",
-          }}>Visit History</h2>
 
-          <table className="table table-bordered">
 
-            <thead>
-              <tr>
-                <th>Visit No</th>
-                <th>Date</th>
-                <th>Doctor</th>
-              </tr>
-            </thead>
+   <div className="visit-history-card">
 
-            <tbody>
+  <div className="visit-history-header">
+    <div>
+      <h2>Visit History</h2>
+      <p>Patient's previous visit records</p>
+    </div>
 
-              {visitHistory.map((visit) => (
-                <tr
-                  key={visit._id}
-                  style={{ cursor: "pointer" }}
-                  onClick={() => loadVisit(visit)}
-                >
+    <div className="visit-history-count">
+      {visitHistory.length} Visits
+    </div>
+  </div>
 
-                  <td>{visit.visitno}</td>
+  <div className="visit-history-table-wrapper">
 
-                  <td>
-                    {new Date(
-                      visit.visitDate
-                    ).toLocaleDateString()}
-                  </td>
+    <table className="visit-history-table">
 
-                  <td>
-                    {visit.consultant?.consultantName}
-                  </td>
+      <thead>
+        <tr>
+          <th>Visit No</th>
+          <th>Date</th>
+          <th>Doctor</th>
+        </tr>
+      </thead>
 
-                </tr>
-              ))}
+      <tbody>
 
-            </tbody>
+        {visitHistory.map((visit) => (
 
-          </table>
+          <tr
+            key={visit._id}
+            onClick={() => loadVisit(visit)}
+            style={{ cursor: "pointer" }}
+          >
 
-        </div>
+            <td>
+              <span className="visit-number">
+                #{visit.visitno}
+              </span>
+            </td>
+
+            <td>
+              {new Date(
+                visit.visitDate
+              ).toLocaleDateString()}
+            </td>
+
+            <td>
+              <span className="doctor-name">
+                👨‍⚕️ {visit.consultant?.consultantName}
+              </span>
+            </td>
+
+          </tr>
+
+        ))}
+
+      </tbody>
+
+    </table>
+
+  </div>
+
+</div>
 
       </div>
     </>

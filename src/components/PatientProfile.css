@@ -1,158 +1,3563 @@
-.visit-menu{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(170px,1fr));
-    gap:15px;
-    margin-bottom:25px;
+/* =========================================================
+   PATIENT PROFILE - GLOBAL
+========================================================= */
+
+* {
+    box-sizing: border-box;
 }
 
-.visit-btn{
-    border:none;
-    border-radius:15px;
-    padding:18px 15px;
-    background:linear-gradient(135deg,#0d6efd,#4f8cff);
-    color:#fff;
-    font-size:16px;
-    font-weight:600;
-    cursor:pointer;
-   letter-spacing: .5px;
+.patient-top-layout {
+    width: 100%;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 24px;
+    margin-bottom: 18px;
+    align-items: stretch;
+}
+
+/* =========================================================
+   PROFILE + SUMMARY CARDS
+========================================================= */
+
+.patient-profile-card,
+.patient-summary-card {
+    width: 100%;
+    min-width: 0;
+    background: #fff;
+    border-radius: 16px;
+    padding: 22px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, .08);
+    border: 1px solid #e8edf5;
+}
+
+.patient-profile-card {
+    min-height: 330px;
+}
+
+.patient-summary-card {
+    min-height: 330px;
+}
+
+/* =========================================================
+   PATIENT PROFILE CONTENT
+========================================================= */
+
+.patient-profile-card p {
+    display: flex;
+    align-items: flex-start;
+    width: 100%;
+    margin: 0 0 12px;
+}
+
+.patient-profile-card p strong {
+    width: 120px;
+    min-width: 120px;
+    font-weight: 700;
+}
+
+.patient-profile-card p > span:nth-child(2) {
+    width: 18px;
+    min-width: 18px;
+}
+
+.patient-profile-card textarea {
+    width: 100%;
+    min-width: 0;
+    resize: vertical;
+}
+
+/* =========================================================
+   SUMMARY
+========================================================= */
+
+.patient-summary-card .row {
+    margin: 0;
+}
+
+.patient-summary-card .col-md-3 {
+    width: 100%;
+    max-width: 100%;
+}
+
+.patient-summary-card h4 {
+    margin-bottom: 18px;
+}
+
+/* =========================================================
+   NEW VISIT MENU
+========================================================= */
+
+.visit-menu {
+    width: 100%;
+    display: grid;
+
+    /* Desktop / PC = 6 */
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+
+    gap: 14px;
+    margin-bottom: 22px;
+}
+
+/* =========================================================
+   VISIT BUTTON
+========================================================= */
+
+.visit-btn {
+    width: 100%;
+    min-width: 0;
+    min-height: 56px;
+
+    border: none;
+    border-radius: 13px;
+
+    padding: 11px 8px;
+
+    color: #fff;
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: .2px;
+
+    cursor: pointer;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    text-align: center;
+    line-height: 1.2;
+
+    white-space: normal;
 
     box-shadow:
-      0 10px 20px rgba(0,0,0,.20),
-      inset 0 2px 4px rgba(255,255,255,.35),
-      inset 0 -3px 6px rgba(0,0,0,.15);
+        0 7px 16px rgba(0, 0, 0, .16),
+        inset 0 2px 4px rgba(255, 255, 255, .25),
+        inset 0 -3px 5px rgba(0, 0, 0, .10);
 
-    transition: all .3s ease;
+    transition:
+        transform .2s ease,
+        box-shadow .2s ease;
 }
 
-.visit-btn:hover{
-    transform:translateY(-4px);
-    box-shadow:0 12px 25px rgba(0,0,0,.25);
+.visit-btn:hover {
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 10px 20px rgba(0, 0, 0, .20),
+        inset 0 2px 4px rgba(255, 255, 255, .25);
 }
 
-.visit-btn.active{
-    background:linear-gradient(135deg,#198754,#20c997);
+.visit-btn:active {
+    transform: scale(.98);
 }
 
-.visit-btn:nth-child(2){
-    background:linear-gradient(135deg,#ff9800,#ff5722);
+/* =========================================================
+   VISIT BUTTON COLORS
+========================================================= */
+/* 
+.visit-btn.active {
+    background: linear-gradient(135deg, #14cf78, #14ca94);
+}
+.visit-btn:nth-child(1) {
+    background: linear-gradient(135deg, #55dac8, #ff5722);
 }
 
-.visit-btn:nth-child(3){
-    background:linear-gradient(135deg,#00bcd4,#009688);
+.visit-btn:nth-child(2) {
+    background: linear-gradient(135deg, #ff9800, #ff5722);
 }
 
-.visit-btn:nth-child(4){
-    background:linear-gradient(135deg,#e91e63,#9c27b0);
+.visit-btn:nth-child(3) {
+    background: linear-gradient(135deg, #00bcd4, #009688);
 }
 
-.visit-btn:nth-child(5){
-    background:linear-gradient(135deg,#4caf50,#2e7d32);
+.visit-btn:nth-child(4) {
+    background: linear-gradient(135deg, #e91e63, #9c27b0);
 }
 
-.visit-btn:nth-child(6){
-    background:linear-gradient(135deg,#673ab7,#3f51b5);
+.visit-btn:nth-child(5) {
+    background: linear-gradient(135deg, #4caf50, #2e7d32);
 }
 
-.visit-btn:nth-child(7){
-    background:linear-gradient(135deg,#607d8b,#37474f);
+.visit-btn:nth-child(6) {
+    background: linear-gradient(135deg, #673ab7, #3f51b5);
 }
 
-.visit-btn:nth-child(8){
-    background:linear-gradient(135deg,#2196f3,#1565c0);
+.visit-btn:nth-child(7) {
+    background: linear-gradient(135deg, #607d8b, #37474f);
 }
 
-.visit-btn:nth-child(9){
-    background:linear-gradient(135deg,#ff7043,#bf360c);
+.visit-btn:nth-child(8) {
+    background: linear-gradient(135deg, #2196f3, #1565c0);
 }
 
-
-.history-container{
-    
-    max-width:98%;
-    background:#fff;
-    border-radius:15px;
-    padding:20px;
-    box-shadow:0 15px 35px rgba(0,0,0,.35);
-    animation:popup .25s;
+.visit-btn:nth-child(9) {
+    background: linear-gradient(135deg, #ff7043, #bf360c);
 }
 
-@keyframes popup{
+.visit-btn:nth-child(10) {
+    background: linear-gradient(135deg, #b967a8, #d1c342);
+} */
 
-from{
-transform:scale(.9);
-opacity:0;
+.visit-btn.active {
+    background: linear-gradient(135deg, #0f9d76, #16b98a);
 }
 
-to{
-transform:scale(1);
-opacity:1;
+.visit-btn:nth-child(1) {
+    background: linear-gradient(135deg, #0f9d76, #16b98a);
 }
 
+.visit-btn:nth-child(2) {
+    background: linear-gradient(135deg, #d97706, #f59e0b);
 }
 
-.history-top{
-display:flex;
-justify-content:space-between;
-align-items:center;
-margin-bottom:18px;
+.visit-btn:nth-child(3) {
+    background: linear-gradient(135deg, #078fa3, #12b8c9);
 }
 
-.history-title{
-margin:0;
-font-size:26px;
-font-weight:700;
-color:#0d6efd;
+.visit-btn:nth-child(4) {
+    background: linear-gradient(135deg, #b83280, #d14d9b);
 }
 
-.history-close{
-    width:40px;
-    height:40px;
-    border:none;
-    border-radius:50%;
-    background:#ffffff;
-    color:#fd0000;
-    font-size:18px;
+.visit-btn:nth-child(5) {
+    background: linear-gradient(135deg, #328653, #4cae6b);
+}
+
+.visit-btn:nth-child(6) {
+    background: linear-gradient(135deg, #5541a5, #705bc5);
+}
+
+.visit-btn:nth-child(7) {
+    background: linear-gradient(135deg, #526675, #6f8492);
+}
+
+.visit-btn:nth-child(8) {
+    background: linear-gradient(135deg, #2563a6, #3b82d0);
+}
+
+.visit-btn:nth-child(9) {
+    background: linear-gradient(135deg, #c45b32, #df7045);
+}
+
+.visit-btn:nth-child(10) {
+    background: linear-gradient(135deg, #76558d, #9a72ae);
+}
+
+/* =========================================================
+   VISIT ACTION BUTTONS
+   PC / LAPTOP = SINGLE ROW
+========================================================= */
+
+.visit-action-buttons {
+    width: 100%;
+
+    display: grid;
+
+    /* 10 buttons = one row on desktop */
+    grid-template-columns: repeat(10, minmax(0, 1fr));
+
+    gap: 8px;
+
+    margin: 10px 0 18px;
+}
+
+/* =========================================================
+   ACTION BUTTON
+========================================================= */
+
+.visit-action-buttons .visit-action-btn {
+    width: 100%;
+    min-width: 0;
+
+    height: 48px;
+
+    padding: 7px 6px !important;
+    margin: 0 !important;
+
+    border: none !important;
+    border-radius: 10px !important;
+
+    background: #008f5a !important;
+    color: #fff !important;
+
+    font-size: 13px !important;
+    font-weight: 600 !important;
+
+    line-height: 1.15;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    text-align: center;
+
+    white-space: normal;
+
+    box-shadow: 0 5px 12px rgba(0, 0, 0, .12);
+
+    cursor: pointer;
+
+    transition:
+        transform .2s ease,
+        box-shadow .2s ease;
+}
+
+.visit-action-buttons .visit-action-btn:hover {
+    transform: translateY(-2px);
+
+    box-shadow: 0 8px 16px rgba(0, 0, 0, .17);
+}
+
+.visit-action-buttons .visit-action-btn:active {
+    transform: scale(.98);
+}
+
+/* =========================================================
+   VISIT HISTORY CARD
+========================================================= */
+
+.visit-history-card {
+    width: 100%;
+    min-width: 0;
+
+    margin-top: 20px;
+
+    background: #fff;
+
+    border-radius: 16px;
+
+    padding: 22px 24px;
+
+    border: 1px solid #e8edf5;
+
+    box-shadow:
+        0 7px 22px rgba(0, 0, 0, .08);
+
+    overflow: hidden;
+}
+
+/* =========================================================
+   HISTORY HEADER
+========================================================= */
+
+.visit-history-header {
+    display: flex;
+
+    justify-content: space-between;
+    align-items: center;
+
+    gap: 15px;
+
+    padding-bottom: 14px;
+    margin-bottom: 15px;
+
+    border-bottom: 2px solid #eef2f7;
+}
+
+.visit-history-header h2 {
+    margin: 0;
+
+    color: #0d6efd;
+
+    font-size: 24px;
+    font-weight: 700;
+}
+
+.visit-history-header p {
+    margin: 4px 0 0;
+
+    color: #7b8794;
+
+    font-size: 13px;
+}
+
+.visit-history-count {
+    flex-shrink: 0;
+
+    background: #eaf3ff;
+
+    color: #0d6efd;
+
+    padding: 7px 14px;
+
+    border-radius: 20px;
+
+    font-size: 13px;
+    font-weight: 700;
+
+    white-space: nowrap;
+}
+
+/* =========================================================
+   HISTORY TABLE WRAPPER
+========================================================= */
+
+.visit-history-table-wrapper {
+    width: 100%;
+
+    overflow-x: auto;
+
+    -webkit-overflow-scrolling: touch;
+}
+
+/* =========================================================
+   HISTORY TABLE
+========================================================= */
+
+.visit-history-table {
+    width: 100%;
+
+    min-width: 500px;
+
+    border-collapse: separate;
+    border-spacing: 0;
+
+    font-size: 14px;
+}
+
+/* =========================================================
+   TABLE HEADER
+========================================================= */
+
+.visit-history-table thead th {
+    background: #0d6efd;
+
+    color: #fff;
+
+    padding: 12px 14px;
+
+    font-weight: 600;
+
+    text-align: left;
+
+    white-space: nowrap;
+}
+
+.visit-history-table thead th:first-child {
+    border-radius: 8px 0 0 8px;
+}
+
+.visit-history-table thead th:last-child {
+    border-radius: 0 8px 8px 0;
+}
+
+/* =========================================================
+   TABLE BODY
+========================================================= */
+
+.visit-history-table tbody td {
+    padding: 13px 14px;
+
+    border-bottom: 1px solid #edf0f4;
+
+    color: #334155;
+
+    vertical-align: middle;
+}
+
+.visit-history-table tbody tr {
+    cursor: pointer;
+
+    transition:
+        background .2s ease,
+        transform .15s ease;
+}
+
+.visit-history-table tbody tr:hover {
+    background: #f7fbff;
+}
+
+/* =========================================================
+   VISIT NUMBER
+========================================================= */
+
+.visit-number {
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    min-width: 42px;
+    height: 28px;
+
+    padding: 0 9px;
+
+    border-radius: 7px;
+
+    background: #e8f2ff;
+
+    color: #0d6efd;
+
+    font-weight: 700;
+}
+
+/* =========================================================
+   DOCTOR
+========================================================= */
+
+.doctor-name {
+    font-weight: 600;
+    color: #334155;
+}
+
+/* =========================================================
+   NO VISIT
+========================================================= */
+
+.no-visit {
+    text-align: center !important;
+
+    padding: 30px !important;
+
+    color: #94a3b8 !important;
+
+    font-weight: 600;
+}
+
+/* =========================================================
+   HISTORY POPUP
+========================================================= */
+
+.history-container {
+    width: min(95%, 1200px);
+
+    max-width: 1200px;
+
+    max-height: 90vh;
+
+    background: #fff;
+
+    border-radius: 15px;
+
+    padding: 20px;
+
+    box-shadow: 0 15px 35px rgba(0, 0, 0, .25);
+
+    overflow-x: hidden;
+    overflow-y: auto;
+
+    animation: popup .25s ease;
+
+    box-sizing: border-box;
+}
+
+@keyframes popup {
+
+    from {
+        transform: scale(.95);
+        opacity: 0;
+    }
+
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.history-top {
+    width: 100%;
+
+    display: flex;
+
+    justify-content: space-between;
+    align-items: center;
+
+    gap: 15px;
+
+    margin-bottom: 18px;
+}
+
+.history-title {
+    margin: 0;
+
+    font-size: 26px;
+    font-weight: 700;
+
+    color: #0d6efd;
+}
+
+.history-close {
+    flex: 0 0 auto;
+
+    width: 40px;
+    height: 40px;
+
+    border: none;
+
+    border-radius: 50%;
+
+    background: #fff;
+
+    color: #fd0000;
+
+    font-size: 18px;
     font-weight: bold;
-    cursor:pointer;
+
+    cursor: pointer;
+}
+
+.history-grid {
+    width: 100%;
+
+    display: grid;
+
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+
+    gap: 18px;
+}
+
+.history-box {
+    width: 100%;
+    min-width: 0;
+
+    background: #fff;
+
+    border: 2px solid #6c63ff;
+
+    border-radius: 10px;
+
+    overflow: hidden;
+}
+
+.history-header {
+    background: #6c63ff;
+
+    color: #fff;
+
+    padding: 10px 14px;
+
+    font-size: 17px;
+    font-weight: 600;
+
+    white-space: nowrap;
+
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+}
+
+.history-body {
+    padding: 12px;
+
+    min-height: 90px;
+
+    font-size: 15px;
+
+    line-height: 24px;
+
+    overflow-x: auto;
+    overflow-y: auto;
+
+    word-break: break-word;
+    overflow-wrap: anywhere;
+}
+
+.history-body::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+}
+
+.history-body::-webkit-scrollbar-thumb {
+    background: #6c63ff;
+
+    border-radius: 10px;
+}
+
+
+/* =========================================================
+   LARGE LAPTOP
+   1200px - 1399px
+   Visit = 5
+========================================================= */
+
+@media (max-width: 1399px) {
+
+    .visit-menu {
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+    }
+
+    .visit-action-buttons {
+        grid-template-columns: repeat(10, minmax(0, 1fr));
+    }
+
+    .visit-action-buttons .visit-action-btn {
+        font-size: 12px !important;
+    }
+}
+
+
+/* =========================================================
+   LAPTOP / SMALL DESKTOP
+   992px - 1199px
+   Visit = 5
+   Actions = 5
+========================================================= */
+
+@media (max-width: 1199px) {
+
+    .patient-top-layout {
+        gap: 16px;
+    }
+
+    .visit-menu {
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+        gap: 11px;
+    }
+
+    .visit-btn {
+        min-height: 53px;
+        font-size: 14px;
+    }
+
+    .visit-action-buttons {
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+        gap: 8px;
+    }
+
+    .visit-action-buttons .visit-action-btn {
+        height: 54px;
+        font-size: 12px !important;
+    }
+}
+
+
+/* =========================================================
+   TABLET
+   768px - 991px
+   Visit = 4
+   Actions = 4
+========================================================= */
+
+@media (max-width: 991px) {
+
+    .patient-top-layout {
+        grid-template-columns: 1fr;
+
+        gap: 15px;
+    }
+
+    .patient-profile-card,
+    .patient-summary-card {
+        min-height: auto;
+    }
+
+    .visit-menu {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+
+        gap: 10px;
+    }
+
+    .visit-btn {
+        min-height: 52px;
+
+        padding: 10px 7px;
+
+        font-size: 13px;
+    }
+
+    .visit-action-buttons {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+
+        gap: 8px;
+    }
+
+    .visit-action-buttons .visit-action-btn {
+        height: 54px;
+
+        font-size: 12px !important;
+    }
+
+    .history-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+
+        gap: 14px;
+    }
+}
+
+
+/* =========================================================
+   SMALL TABLET
+   576px - 767px
+   Visit = 3
+   Actions = 3
+========================================================= */
+
+@media (max-width: 767px) {
+
+    .patient-top-layout {
+        grid-template-columns: 1fr;
+
+        gap: 12px;
+    }
+
+    .patient-profile-card,
+    .patient-summary-card {
+        padding: 16px;
+
+        min-height: auto;
+
+        border-radius: 13px;
+    }
+
+    .patient-profile-card p {
+        margin-bottom: 9px;
+    }
+
+    .patient-profile-card p strong {
+        width: 100px;
+
+        min-width: 100px;
+    }
+
+    .patient-profile-card p > span:nth-child(2) {
+        width: 12px;
+
+        min-width: 12px;
+    }
+
+    /* Visit = 3 */
+
+    .visit-menu {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+
+        gap: 9px;
+    }
+
+    .visit-btn {
+        min-height: 50px;
+
+        padding: 9px 5px;
+
+        font-size: 12px;
+    }
+
+    /* Action = 3 */
+
+    .visit-action-buttons {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+
+        gap: 8px;
+    }
+
+    .visit-action-buttons .visit-action-btn {
+        height: 50px;
+
+        padding: 6px 4px !important;
+
+        font-size: 11px !important;
+    }
+
+    /* History */
+
+    .visit-history-card {
+        padding: 16px;
+
+        border-radius: 13px;
+    }
+
+    .visit-history-header h2 {
+        font-size: 20px;
+    }
+
+    .visit-history-count {
+        font-size: 11px;
+
+        padding: 6px 10px;
+    }
+
+    .history-grid {
+        grid-template-columns: 1fr;
+
+        gap: 12px;
+    }
+}
+
+
+/* =========================================================
+   PHONE
+   <= 575px
+   Visit = 2
+   Actions = 2
+========================================================= */
+
+@media (max-width: 575px) {
+
+    .patient-profile-card,
+    .patient-summary-card {
+        padding: 13px;
+
+        border-radius: 12px;
+    }
+
+    .patient-profile-card h2 {
+        font-size: 22px;
+    }
+
+    .patient-profile-card p {
+        font-size: 14px;
+    }
+
+    .patient-profile-card p strong {
+        width: 90px;
+
+        min-width: 90px;
+    }
+
+    .patient-profile-card textarea {
+        font-size: 13px;
+    }
+
+    /* Visit = 2 */
+
+    .visit-menu {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+
+        gap: 8px;
+    }
+
+    .visit-btn {
+        min-height: 48px;
+
+        padding: 8px 4px;
+
+        font-size: 12px;
+
+        border-radius: 11px;
+    }
+
+    /* Action = 2 */
+
+    .visit-action-buttons {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+
+        gap: 7px;
+    }
+
+    .visit-action-buttons .visit-action-btn {
+        height: 48px;
+
+        padding: 6px 4px !important;
+
+        font-size: 11px !important;
+
+        border-radius: 9px !important;
+    }
+
+    /* Visit History */
+
+    .visit-history-card {
+        padding: 13px;
+
+        border-radius: 12px;
+    }
+
+    .visit-history-header {
+        align-items: flex-start;
+
+        margin-bottom: 12px;
+    }
+
+    .visit-history-header h2 {
+        font-size: 19px;
+    }
+
+    .visit-history-header p {
+        font-size: 11px;
+    }
+
+    .visit-history-count {
+        font-size: 10px;
+
+        padding: 5px 8px;
+    }
+
+    .visit-history-table {
+        min-width: 430px;
+
+        font-size: 12px;
+    }
+
+    .visit-history-table thead th,
+    .visit-history-table tbody td {
+        padding: 9px 10px;
+    }
+
+    /* Popup */
+
+    .history-container {
+        width: 94%;
+
+        max-width: 94%;
+
+        padding: 13px;
+
+        border-radius: 12px;
+    }
+
+    .history-title {
+        font-size: 19px;
+    }
+
+    .history-close {
+        width: 34px;
+
+        height: 34px;
+
+        font-size: 15px;
+    }
+
+    .history-header {
+        padding: 9px 11px;
+
+        font-size: 14px;
+    }
+
+    .history-body {
+        min-height: 65px;
+
+        padding: 9px;
+
+        font-size: 13px;
+
+        line-height: 20px;
+    }
+}
+
+
+/* =========================================================
+   VERY SMALL PHONE
+   <= 380px
+========================================================= */
+
+@media (max-width: 380px) {
+
+    .patient-profile-card p strong {
+        width: 82px;
+
+        min-width: 82px;
+    }
+
+    .visit-btn {
+        min-height: 45px;
+
+        font-size: 11px;
+
+        padding: 7px 3px;
+    }
+
+    .visit-action-buttons .visit-action-btn {
+        height: 45px;
+
+        font-size: 10px !important;
+    }
+
+    .history-container {
+        width: 96%;
+
+        max-width: 96%;
+
+        padding: 10px;
+    }
+
+    .history-title {
+        font-size: 17px;
+    }
+
+    .history-header {
+        font-size: 13px;
+
+        padding: 8px 10px;
+    }
+
+    .history-body {
+        font-size: 12px;
+
+        line-height: 18px;
+
+        padding: 8px;
+    }
+}
+
+/* ================================
+   COMPLAINT POPUP
+================================ */
+
+.complaint-modal-overlay {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100vh;
+
+    background: rgba(15, 23, 42, 0.55);
+    backdrop-filter: blur(4px);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 20px;
+    z-index: 9999;
+}
+
+/* Popup */
+.complaint-modal {
+    width: 900px;
+    max-width: 100%;
+
+    max-height: 90vh;
+    overflow-y: auto;
+
+    background: #fff;
+    border-radius: 18px;
+
+    padding: 24px;
+
+    box-shadow:
+        0 20px 50px rgba(0, 0, 0, 0.25);
+
+    position: relative;
+
+    animation: complaintPopup .2s ease;
+}
+
+@keyframes complaintPopup {
+    from {
+        opacity: 0;
+        transform: translateY(15px) scale(.97);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+
+/* ================================
+   HEADER
+================================ */
+
+.complaint-modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    border-bottom: 1px solid #e5e7eb;
+
+    padding-bottom: 14px;
+    margin-bottom: 20px;
+}
+
+.complaint-modal-title {
+    margin: 0;
+
+    color: #0d6efd;
+
+    font-size: 22px;
+    font-weight: 700;
+}
+
+.complaint-close-btn {
+    width: 36px;
+    height: 36px;
+
+    border: none;
+    border-radius: 50%;
+
+    background: #fff1f2;
+    color: #dc3545;
+
+    font-size: 25px;
+    font-weight: 700;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    cursor: pointer;
+
+    transition: .2s ease;
+}
+
+.complaint-close-btn:hover {
+    background: #dc3545;
+    color: #fff;
+
+    transform: rotate(90deg);
+}
+
+
+/* ================================
+   INPUT AREA
+================================ */
+
+.complaint-input-row {
+    display: grid;
+
+    grid-template-columns:
+        minmax(220px, 1fr)
+        100px
+        140px
+        80px;
+
+    gap: 10px;
+
+    align-items: center;
+
+    margin-bottom: 20px;
+}
+
+
+/* INPUT / SELECT */
+
+.complaint-input-row .form-control {
+    width: 100%;
+
+    height: 42px;
+
+    border: 1px solid #ced4da;
+    border-radius: 9px;
+
+    padding: 8px 12px;
+
+    font-size: 14px;
+
+    background: #fff;
+
+    box-shadow: none;
+
+    transition:
+        border-color .2s ease,
+        box-shadow .2s ease;
+}
+
+
+/* Focus */
+
+.complaint-input-row .form-control:focus {
+    border-color: #0d6efd;
+
+    box-shadow:
+        0 0 0 3px rgba(13, 110, 253, .12);
+
+    outline: none;
+}
+
+
+/* Placeholder */
+
+.complaint-input-row .form-control::placeholder {
+    color: #9aa4b2;
+}
+
+
+/* Add button */
+
+.complaint-add-btn {
+    height: 42px;
+
+    border: none;
+    border-radius: 9px;
+
+    background: linear-gradient(
+        135deg,
+        #198754,
+        #20c997
+    );
+
+    color: #fff;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: .2s ease;
+}
+
+.complaint-add-btn:hover {
+    transform: translateY(-1px);
+
+    box-shadow:
+        0 5px 12px rgba(25, 135, 84, .25);
+}
+
+
+/* ================================
+   TABLE
+================================ */
+
+.complaint-table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.complaint-table {
+    width: 100%;
+
+    min-width: 550px;
+
+    border-collapse: separate;
+    border-spacing: 0;
+
+    overflow: hidden;
+
+    border: 1px solid #e5e7eb;
+    border-radius: 10px;
+}
+
+.complaint-table thead th {
+    background: #eaf3ff;
+    color: #0d6efd;
+
+    padding: 11px 12px;
+
+    font-size: 14px;
+    font-weight: 700;
+
+    white-space: nowrap;
+}
+
+.complaint-table tbody td {
+    padding: 11px 12px;
+
+    border-top: 1px solid #edf0f4;
+
+    color: #334155;
+
+    font-size: 14px;
+
+    vertical-align: middle;
+}
+
+.complaint-table tbody tr:hover {
+    background: #f8fbff;
+}
+
+
+/* Delete button */
+
+.complaint-delete-btn {
+    width: 32px;
+    height: 32px;
+
+    border: none;
+    border-radius: 7px;
+
+    background: #fff1f2;
+    color: #dc3545;
+
+    cursor: pointer;
+
+    transition: .2s ease;
+}
+
+.complaint-delete-btn:hover {
+    background: #dc3545;
+    color: #fff;
+}
+
+
+/* ================================
+   TABLET
+================================ */
+
+@media (max-width: 900px) {
+
+    .complaint-modal {
+        width: 95%;
+        padding: 20px;
+    }
+
+    .complaint-input-row {
+        grid-template-columns:
+            minmax(200px, 1fr)
+            90px
+            120px
+            75px;
+    }
+}
+
+
+/* ================================
+   MOBILE
+================================ */
+
+@media (max-width: 650px) {
+
+    .complaint-modal-overlay {
+        padding: 10px;
+        align-items: center;
+    }
+
+    .complaint-modal {
+        width: 100%;
+        max-height: 92vh;
+
+        padding: 16px;
+
+        border-radius: 14px;
+    }
+
+    .complaint-modal-title {
+        font-size: 19px;
+    }
+
+    /*
+       Mobile:
+       Complaint
+       Days
+       Duration
+       Add
+       sab proper responsive
+    */
+
+    .complaint-input-row {
+        grid-template-columns: 1fr 1fr;
+
+        gap: 10px;
+    }
+
+    .complaint-input-row .form-control {
+        height: 40px;
+        font-size: 13px;
+    }
+
+    .complaint-input-row .form-control:first-child {
+        grid-column: 1 / -1;
+    }
+
+    .complaint-add-btn {
+        height: 40px;
+    }
+
+    .complaint-table {
+        min-width: 500px;
+    }
+}
+
+
+/* ================================
+   SMALL PHONE
+================================ */
+
+@media (max-width: 400px) {
+
+    .complaint-modal {
+        padding: 13px;
+    }
+
+    .complaint-input-row {
+        grid-template-columns: 1fr;
+    }
+
+    .complaint-input-row .form-control:first-child {
+        grid-column: auto;
+    }
+
+    .complaint-add-btn {
+        width: 100%;
+    }
 }
 
 
 
 
-.history-grid{
-display:grid;
-grid-template-columns:repeat(2,1fr);
-gap:18px;
+
+/* =========================================
+   CONSULTANT MODAL
+========================================= */
+
+.consultant-modal-overlay {
+    position: fixed;
+    inset: 0;
+
+    width: 100%;
+    height: 100vh;
+
+    background: rgba(15, 23, 42, 0.55);
+    backdrop-filter: blur(4px);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 20px;
+
+    z-index: 9999;
 }
 
-.history-box{
-background:#fff;
-border:2px solid #6c63ff;
-border-radius:10px;
-overflow:hidden;
+
+/* =========================================
+   MODAL
+========================================= */
+
+.consultant-modal {
+    position: relative;
+
+    width: 900px;
+    max-width: 100%;
+
+    max-height: 90vh;
+    overflow-y: auto;
+
+    background: #fff;
+
+    border-radius: 18px;
+
+    padding: 24px;
+
+    box-shadow:
+        0 20px 50px rgba(0, 0, 0, 0.25);
+
+    animation: consultantPopup .2s ease;
 }
 
-.history-header{
-background:#6c63ff;
-color:#fff;
-padding:10px 14px;
-font-size:17px;
-font-weight:600;
+@keyframes consultantPopup {
+    from {
+        opacity: 0;
+        transform: translateY(15px) scale(.97);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
 }
 
-.history-body{
-padding:12px;
-min-height:90px;
-font-size:15px;
-line-height:24px;
-overflow:auto;
+
+/* =========================================
+   CLOSE BUTTON
+========================================= */
+
+.consultant-close-btn {
+    position: absolute;
+
+    top: 12px;
+    right: 15px;
+
+    width: 36px;
+    height: 36px;
+
+    border: none;
+    border-radius: 50%;
+
+    background: #fff1f2;
+    color: #dc3545;
+
+    font-size: 25px;
+    font-weight: 700;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    cursor: pointer;
+
+    transition: .2s ease;
 }
 
-.history-body::-webkit-scrollbar{
-width:5px;
+.consultant-close-btn:hover {
+    background: #dc3545;
+    color: #fff;
+
+    transform: rotate(90deg);
 }
 
-.history-body::-webkit-scrollbar-thumb{
-background:#6c63ff;
-border-radius:10px;
+
+/* =========================================
+   TITLE
+========================================= */
+
+.consultant-modal-title {
+    margin: 8px 0 20px;
+
+    padding-bottom: 12px;
+
+    border-bottom: 2px solid #eef2f7;
+
+    color: #0d6efd;
+
+    font-size: 22px;
+    font-weight: 700;
+}
+
+
+/* =========================================
+   INPUT ROW
+========================================= */
+
+.consultant-input-row {
+    width: 100%;
+
+    display: grid;
+
+    grid-template-columns:
+        minmax(0, 1fr)
+        180px;
+
+    gap: 10px;
+
+    align-items: center;
+}
+
+
+/* =========================================
+   INPUT + SELECT
+========================================= */
+
+.consultant-input-row .form-control {
+    width: 100%;
+
+    height: 42px;
+
+    border: 1px solid #ced4da;
+
+    border-radius: 9px;
+
+    padding: 8px 12px;
+
+    font-size: 14px;
+
+    box-shadow: none;
+
+    transition:
+        border-color .2s ease,
+        box-shadow .2s ease;
+}
+
+.consultant-input-row .form-control:focus {
+    border-color: #0d6efd;
+
+    box-shadow:
+        0 0 0 3px rgba(13, 110, 253, .12);
+
+    outline: none;
+}
+
+
+/* =========================================
+   TABLET
+========================================= */
+
+@media (max-width: 768px) {
+
+    .consultant-modal-overlay {
+        padding: 15px;
+    }
+
+    .consultant-modal {
+        width: 100%;
+        padding: 20px;
+    }
+
+    .consultant-input-row {
+        grid-template-columns:
+            minmax(0, 1fr)
+            150px;
+    }
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 600px) {
+
+    .consultant-modal-overlay {
+        padding: 10px;
+    }
+
+    .consultant-modal {
+        width: 100%;
+        max-height: 92vh;
+
+        padding: 16px;
+
+        border-radius: 14px;
+    }
+
+    .consultant-modal-title {
+        font-size: 19px;
+    }
+
+    .consultant-input-row {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+
+    .consultant-input-row .form-control {
+        height: 40px;
+        font-size: 13px;
+    }
+}
+
+
+/* =========================================
+   ALLERGY MODAL
+========================================= */
+
+.allergy-modal-overlay {
+    position: fixed;
+    inset: 0;
+
+    width: 100%;
+    height: 100vh;
+
+    background: rgba(15, 23, 42, 0.55);
+    backdrop-filter: blur(4px);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 20px;
+
+    z-index: 9999;
+}
+
+
+/* =========================================
+   MODAL
+========================================= */
+
+.allergy-modal {
+    position: relative;
+
+    width: 900px;
+    max-width: 100%;
+
+    max-height: 90vh;
+    overflow-y: auto;
+
+    background: #fff;
+
+    border-radius: 18px;
+
+    padding: 24px;
+
+    box-shadow:
+        0 20px 50px rgba(0, 0, 0, .25);
+
+    animation: allergyPopup .2s ease;
+}
+
+@keyframes allergyPopup {
+
+    from {
+        opacity: 0;
+        transform: translateY(15px) scale(.97);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+
+/* =========================================
+   CLOSE BUTTON
+========================================= */
+
+.allergy-close-btn {
+    position: absolute;
+
+    top: 12px;
+    right: 15px;
+
+    width: 36px;
+    height: 36px;
+
+    border: none;
+    border-radius: 50%;
+
+    background: #fff1f2;
+    color: #dc3545;
+
+    font-size: 25px;
+    font-weight: 700;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    cursor: pointer;
+
+    transition: .2s ease;
+}
+
+.allergy-close-btn:hover {
+    background: #dc3545;
+    color: #fff;
+
+    transform: rotate(90deg);
+}
+
+
+/* =========================================
+   TITLE
+========================================= */
+
+.allergy-modal-title {
+    margin: 8px 0 20px;
+
+    padding-bottom: 12px;
+
+    border-bottom: 2px solid #eef2f7;
+
+    color: #0d6efd;
+
+    font-size: 22px;
+    font-weight: 700;
+}
+
+
+/* =========================================
+   INPUT ROW
+========================================= */
+
+.allergy-input-row {
+    width: 100%;
+
+    display: grid;
+
+    grid-template-columns:
+        minmax(0, 1fr)
+        80px;
+
+    gap: 10px;
+
+    align-items: center;
+
+    margin-bottom: 20px;
+}
+
+
+/* =========================================
+   SELECT
+========================================= */
+
+.allergy-input-row .form-control {
+    width: 100%;
+
+    height: 42px;
+
+    border: 1px solid #ced4da;
+
+    border-radius: 9px;
+
+    padding: 8px 12px;
+
+    font-size: 14px;
+
+    background: #fff;
+
+    box-shadow: none;
+
+    transition:
+        border-color .2s ease,
+        box-shadow .2s ease;
+}
+
+.allergy-input-row .form-control:focus {
+    border-color: #0d6efd;
+
+    box-shadow:
+        0 0 0 3px rgba(13, 110, 253, .12);
+
+    outline: none;
+}
+
+
+/* =========================================
+   ADD BUTTON
+========================================= */
+
+.allergy-add-btn {
+    height: 42px;
+
+    border: none;
+    border-radius: 9px;
+
+    background: linear-gradient(
+        135deg,
+        #198754,
+        #20c997
+    );
+
+    color: #fff;
+
+    font-size: 14px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: .2s ease;
+}
+
+.allergy-add-btn:hover {
+    transform: translateY(-1px);
+
+    box-shadow:
+        0 5px 12px rgba(25, 135, 84, .25);
+}
+
+
+/* =========================================
+   TABLE
+========================================= */
+
+.allergy-table-wrapper {
+    width: 100%;
+
+    overflow-x: auto;
+}
+
+.allergy-table {
+    width: 100%;
+
+    min-width: 400px;
+
+    border-collapse: separate;
+    border-spacing: 0;
+
+    border: 1px solid #e5e7eb;
+
+    border-radius: 10px;
+
+    overflow: hidden;
+
+    font-size: 14px;
+}
+
+.allergy-table thead th {
+    background: #eaf3ff;
+
+    color: #0d6efd;
+
+    padding: 11px 14px;
+
+    font-weight: 700;
+
+    text-align: left;
+
+    white-space: nowrap;
+}
+
+.allergy-table tbody td {
+    padding: 11px 14px;
+
+    border-top: 1px solid #edf0f4;
+
+    color: #334155;
+
+    vertical-align: middle;
+}
+
+.allergy-table tbody tr {
+    transition: background .2s ease;
+}
+
+.allergy-table tbody tr:hover {
+    background: #f8fbff;
+}
+
+
+/* =========================================
+   ACTION
+========================================= */
+
+.allergy-action-column {
+    width: 90px;
+
+    text-align: center !important;
+}
+
+.allergy-action-cell {
+    text-align: center;
+}
+
+.allergy-delete-btn {
+    width: 32px;
+    height: 32px;
+
+    border: none;
+    border-radius: 7px;
+
+    background: #fff1f2;
+
+    cursor: pointer;
+
+    transition: .2s ease;
+}
+
+.allergy-delete-btn:hover {
+    background: #dc3545;
+
+    transform: scale(1.05);
+}
+
+
+/* =========================================
+   EMPTY
+========================================= */
+
+.allergy-empty {
+    text-align: center !important;
+
+    padding: 25px !important;
+
+    color: #94a3b8 !important;
+
+    font-weight: 600;
+}
+
+
+/* =========================================
+   TABLET
+========================================= */
+
+@media (max-width: 768px) {
+
+    .allergy-modal-overlay {
+        padding: 15px;
+    }
+
+    .allergy-modal {
+        width: 100%;
+        padding: 20px;
+    }
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 600px) {
+
+    .allergy-modal-overlay {
+        padding: 10px;
+    }
+
+    .allergy-modal {
+        width: 100%;
+
+        max-height: 92vh;
+
+        padding: 16px;
+
+        border-radius: 14px;
+    }
+
+    .allergy-modal-title {
+        font-size: 19px;
+    }
+
+    .allergy-input-row {
+        grid-template-columns: 1fr 70px;
+
+        gap: 8px;
+    }
+
+    .allergy-input-row .form-control {
+        height: 40px;
+        font-size: 13px;
+    }
+
+    .allergy-add-btn {
+        height: 40px;
+    }
+
+    .allergy-table {
+        min-width: 350px;
+    }
+
+    .allergy-table thead th,
+    .allergy-table tbody td {
+        padding: 9px 10px;
+    }
+}
+
+
+/* =========================================
+   VERY SMALL PHONE
+========================================= */
+
+@media (max-width: 380px) {
+
+    .allergy-modal {
+        padding: 13px;
+    }
+
+    .allergy-input-row {
+        grid-template-columns: 1fr;
+    }
+
+    .allergy-add-btn {
+        width: 100%;
+    }
+
+    .allergy-table {
+        font-size: 13px;
+    }
+}
+
+/* =========================================================
+   COMMON VISIT MODAL
+========================================================= */
+
+.visit-modal-overlay {
+    position: fixed;
+    inset: 0;
+
+    width: 100%;
+    height: 100vh;
+
+    background: rgba(15, 23, 42, 0.55);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 20px;
+
+    z-index: 9999;
+
+    overflow-y: auto;
+}
+
+
+/* =========================================================
+   MODAL CARD
+========================================================= */
+
+.visit-modal-card {
+    position: relative;
+
+    width: 100%;
+    max-width: 850px;
+
+    max-height: 90vh;
+
+    overflow-y: auto;
+
+    background: #ffffff;
+
+    border-radius: 16px;
+
+    padding: 24px;
+
+    box-shadow:
+        0 20px 50px rgba(0, 0, 0, 0.25);
+
+    animation: visitModalPopup 0.2s ease;
+
+    box-sizing: border-box;
+}
+
+
+@keyframes visitModalPopup {
+
+    from {
+        opacity: 0;
+        transform: translateY(15px) scale(.97);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+
+}
+
+
+/* =========================================================
+   CLOSE
+========================================================= */
+
+.visit-modal-close {
+    position: absolute;
+
+    top: 12px;
+    right: 14px;
+
+    width: 36px;
+    height: 36px;
+
+    border: none;
+    border-radius: 50%;
+
+    background: #fff;
+
+    color: #dc3545;
+
+    font-size: 27px;
+    font-weight: 600;
+
+    line-height: 30px;
+
+    cursor: pointer;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    transition: .2s ease;
+}
+
+
+.visit-modal-close:hover {
+    background: #fff0f0;
+    transform: rotate(90deg);
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.visit-modal-header {
+    padding-right: 45px;
+
+    border-bottom: 1px solid #e9eef5;
+
+    padding-bottom: 13px;
+
+    margin-bottom: 20px;
+}
+
+
+.visit-modal-header h3 {
+    margin: 0;
+
+    color: #0d6efd;
+
+    font-size: 23px;
+    font-weight: 700;
+}
+
+
+/* =========================================================
+   INPUT ROW
+========================================================= */
+
+.visit-input-row {
+    width: 100%;
+
+    display: grid;
+
+    grid-template-columns:
+        minmax(0, 2fr)
+        minmax(90px, .8fr)
+        minmax(120px, 1fr)
+        auto;
+
+    gap: 10px;
+
+    align-items: center;
+}
+
+
+/* =========================================================
+   INPUT / SELECT
+========================================================= */
+
+.visit-form-control {
+    width: 100%;
+    min-width: 0;
+
+    height: 44px;
+
+    padding: 8px 12px;
+
+    border: 1px solid #d9e1ec;
+
+    border-radius: 9px;
+
+    background: #fff;
+
+    color: #334155;
+
+    font-size: 14px;
+
+    outline: none;
+
+    transition:
+        border-color .2s ease,
+        box-shadow .2s ease;
+}
+
+
+.visit-form-control:focus {
+    border-color: #0d6efd;
+
+    box-shadow:
+        0 0 0 3px rgba(13, 110, 253, .10);
+}
+
+
+/* =========================================================
+   ADD BUTTON
+========================================================= */
+
+.visit-add-btn {
+    height: 44px;
+
+    padding: 0 18px;
+
+    border: none;
+
+    border-radius: 9px;
+
+    background: linear-gradient(
+        135deg,
+        #198754,
+        #20c997
+    );
+
+    color: #fff;
+
+    font-size: 14px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    white-space: nowrap;
+
+    transition: .2s ease;
+
+    box-shadow:
+        0 4px 10px rgba(25, 135, 84, .20);
+}
+
+
+.visit-add-btn:hover {
+    transform: translateY(-1px);
+
+    box-shadow:
+        0 6px 14px rgba(25, 135, 84, .25);
+}
+
+
+/* =========================================================
+   DIVIDER
+========================================================= */
+
+.visit-modal-divider {
+    height: 1px;
+
+    background: #e9eef5;
+
+    margin: 20px 0;
+}
+
+
+/* =========================================================
+   TABLE
+========================================================= */
+
+.visit-table-wrapper {
+    width: 100%;
+
+    overflow-x: auto;
+}
+
+
+.visit-modal-table {
+    width: 100%;
+
+    border-collapse: separate;
+    border-spacing: 0;
+
+    font-size: 14px;
+
+    min-width: 500px;
+}
+
+
+.visit-modal-table thead th {
+    background: #eef5ff;
+
+    color: #0d6efd;
+
+    font-weight: 700;
+
+    padding: 11px 13px;
+
+    text-align: left;
+
+    white-space: nowrap;
+
+    border-bottom: 1px solid #dbe7f5;
+}
+
+
+.visit-modal-table thead th:first-child {
+    border-radius: 8px 0 0 0;
+}
+
+
+.visit-modal-table thead th:last-child {
+    border-radius: 0 8px 0 0;
+}
+
+
+.visit-modal-table tbody td {
+    padding: 11px 13px;
+
+    color: #334155;
+
+    border-bottom: 1px solid #edf1f5;
+
+    vertical-align: middle;
+}
+
+
+.visit-modal-table tbody tr:hover {
+    background: #f8fbff;
+}
+
+
+/* =========================================================
+   ACTION
+========================================================= */
+
+.action-column {
+    width: 90px;
+
+    text-align: center !important;
+}
+
+
+.visit-delete-btn {
+    width: 34px;
+    height: 34px;
+
+    border: none;
+
+    border-radius: 7px;
+
+    background: #fff1f1;
+
+    cursor: pointer;
+
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    transition: .2s ease;
+}
+
+
+.visit-delete-btn:hover {
+    background: #ffe0e0;
+
+    transform: scale(1.05);
+}
+
+
+/* =========================================================
+   NO DATA
+========================================================= */
+
+.no-data-row {
+    text-align: center !important;
+
+    padding: 28px !important;
+
+    color: #94a3b8 !important;
+
+    font-weight: 500;
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 900px) {
+
+    .visit-modal-card {
+        max-width: 94%;
+
+        padding: 20px;
+    }
+
+    .visit-input-row {
+        grid-template-columns:
+            1fr 100px 130px auto;
+    }
+
+}
+
+
+/* =========================================================
+   SMALL TABLET / MOBILE
+========================================================= */
+
+@media (max-width: 700px) {
+
+    .visit-modal-overlay {
+        padding: 12px;
+        align-items: center;
+    }
+
+    .visit-modal-card {
+        width: 100%;
+        max-width: 100%;
+
+        max-height: 92vh;
+
+        padding: 17px;
+
+        border-radius: 13px;
+    }
+
+    .visit-modal-header h3 {
+        font-size: 20px;
+    }
+
+    .visit-input-row {
+        grid-template-columns: 1fr 1fr;
+
+        gap: 9px;
+    }
+
+    .visit-input-row .visit-form-control:first-child {
+        grid-column: 1 / -1;
+    }
+
+    .visit-add-btn {
+        width: 100%;
+    }
+
+}
+
+
+/* =========================================================
+   PHONE
+========================================================= */
+
+@media (max-width: 480px) {
+
+    .visit-modal-overlay {
+        padding: 8px;
+    }
+
+    .visit-modal-card {
+        padding: 14px;
+
+        max-height: 94vh;
+    }
+
+    .visit-modal-close {
+        top: 8px;
+        right: 9px;
+
+        width: 32px;
+        height: 32px;
+
+        font-size: 24px;
+    }
+
+    .visit-modal-header {
+        margin-bottom: 15px;
+        padding-bottom: 10px;
+    }
+
+    .visit-modal-header h3 {
+        font-size: 18px;
+    }
+
+    .visit-input-row {
+        grid-template-columns: 1fr 1fr;
+
+        gap: 8px;
+    }
+
+    .visit-form-control {
+        height: 42px;
+
+        font-size: 13px;
+
+        padding: 7px 9px;
+    }
+
+    .visit-add-btn {
+        height: 42px;
+
+        font-size: 13px;
+
+        padding: 0 10px;
+    }
+
+    .visit-modal-table {
+        font-size: 12px;
+
+        min-width: 460px;
+    }
+
+    .visit-modal-table thead th,
+    .visit-modal-table tbody td {
+        padding: 9px 8px;
+    }
+
+}
+
+/* =========================================================
+   VISIT MODAL - COMMON RESPONSIVE
+========================================================= */
+
+.visit-modal-overlay {
+    position: fixed;
+    inset: 0;
+
+    width: 100%;
+    height: 100vh;
+
+    background: rgba(15, 23, 42, 0.55);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 20px;
+
+    z-index: 9999;
+
+    backdrop-filter: blur(3px);
+}
+
+
+/* =========================
+   MODAL CARD
+========================= */
+
+.visit-modal {
+    position: relative;
+
+    width: 900px;
+    max-width: 100%;
+
+    max-height: 90vh;
+
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    background: #fff;
+
+    border-radius: 16px;
+
+    padding: 24px;
+
+    box-shadow:
+        0 20px 50px rgba(0, 0, 0, .25);
+
+    animation: visitModalPopup .2s ease;
+
+    box-sizing: border-box;
+}
+
+
+@keyframes visitModalPopup {
+
+    from {
+        transform: translateY(10px) scale(.97);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+    }
+
+}
+
+
+/* =========================
+   CLOSE BUTTON
+========================= */
+
+.visit-modal-close {
+    position: absolute;
+
+    top: 10px;
+    right: 14px;
+
+    width: 36px;
+    height: 36px;
+
+    border: none;
+    border-radius: 50%;
+
+    background: #fff;
+
+    color: #dc3545;
+
+    font-size: 27px;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    transition: .2s ease;
+}
+
+
+.visit-modal-close:hover {
+    background: #fff1f1;
+    transform: scale(1.08);
+}
+
+
+/* =========================
+   TITLE
+========================= */
+
+.visit-modal-title {
+    margin: 5px 35px 20px 0;
+
+    padding-bottom: 12px;
+
+    border-bottom: 2px solid #eef2f7;
+
+    color: #0d6efd;
+
+    font-size: 23px;
+    font-weight: 700;
+}
+
+
+/* =========================
+   FORM
+========================= */
+
+.visit-modal-form {
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+
+    gap: 10px;
+
+    margin-bottom: 18px;
+}
+
+
+.visit-modal-input {
+    flex: 1;
+
+    min-width: 0;
+
+    height: 44px;
+
+    padding: 8px 12px;
+
+    border: 1px solid #ced4da;
+    border-radius: 8px;
+
+    background: #fff;
+
+    color: #212529;
+
+    font-size: 14px;
+
+    outline: none;
+
+    transition: .2s ease;
+}
+
+
+.visit-modal-input:focus {
+    border-color: #0d6efd;
+
+    box-shadow:
+        0 0 0 3px rgba(13, 110, 253, .12);
+}
+
+
+/* =========================
+   ADD BUTTON
+========================= */
+
+.visit-modal-add {
+    flex: 0 0 auto;
+
+    height: 44px;
+
+    min-width: 80px;
+
+    padding: 0 18px;
+
+    border: none;
+    border-radius: 8px;
+
+    background: linear-gradient(
+        135deg,
+        #198754,
+        #20c997
+    );
+
+    color: #fff;
+
+    font-size: 14px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: .2s ease;
+}
+
+
+.visit-modal-add:hover {
+    transform: translateY(-1px);
+
+    box-shadow:
+        0 5px 12px rgba(25, 135, 84, .25);
+}
+
+
+.visit-modal-add:active {
+    transform: scale(.97);
+}
+
+
+/* =========================
+   DIVIDER
+========================= */
+
+.visit-modal-divider {
+    margin: 0 0 18px;
+
+    border: 0;
+
+    border-top: 1px solid #e9ecef;
+}
+
+
+/* =========================
+   TABLE
+========================= */
+
+.visit-modal-table-wrapper {
+    width: 100%;
+
+    overflow-x: auto;
+
+    border-radius: 9px;
+}
+
+
+.visit-modal-table {
+    width: 100%;
+
+    border-collapse: separate;
+    border-spacing: 0;
+
+    font-size: 14px;
+
+    overflow: hidden;
+}
+
+
+.visit-modal-table thead th {
+    background: #0d6efd;
+
+    color: #fff;
+
+    padding: 11px 13px;
+
+    font-weight: 600;
+
+    text-align: left;
+
+    white-space: nowrap;
+}
+
+
+.visit-modal-table thead th:first-child {
+    border-radius: 7px 0 0 0;
+}
+
+
+.visit-modal-table thead th:last-child {
+    border-radius: 0 7px 0 0;
+}
+
+
+.visit-modal-table tbody td {
+    padding: 11px 13px;
+
+    border-bottom: 1px solid #edf0f4;
+
+    color: #334155;
+
+    vertical-align: middle;
+
+    background: #fff;
+}
+
+
+.visit-modal-table tbody tr:hover td {
+    background: #f7fbff;
+}
+
+
+/* =========================
+   ACTION
+========================= */
+
+.action-column {
+    width: 90px;
+
+    text-align: center !important;
+}
+
+
+.visit-modal-delete {
+    width: 34px;
+    height: 34px;
+
+    border: none;
+    border-radius: 7px;
+
+    background: #fff0f0;
+
+    cursor: pointer;
+
+    font-size: 14px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    transition: .2s ease;
+}
+
+
+.visit-modal-delete:hover {
+    background: #ffe0e0;
+
+    transform: scale(1.05);
+}
+
+
+/* =========================
+   EMPTY
+========================= */
+
+.visit-modal-empty {
+    text-align: center !important;
+
+    padding: 25px !important;
+
+    color: #94a3b8 !important;
+
+    font-weight: 500;
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 768px) {
+
+    .visit-modal-overlay {
+        padding: 15px;
+    }
+
+    .visit-modal {
+        width: 100%;
+
+        max-height: 88vh;
+
+        padding: 20px;
+
+        border-radius: 14px;
+    }
+
+    .visit-modal-title {
+        font-size: 21px;
+
+        margin-bottom: 18px;
+    }
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 600px) {
+
+    .visit-modal-overlay {
+        padding: 10px;
+    }
+
+    .visit-modal {
+        width: 100%;
+
+        max-height: 92vh;
+
+        padding: 16px;
+
+        border-radius: 12px;
+    }
+
+
+    .visit-modal-close {
+        width: 32px;
+        height: 32px;
+
+        top: 8px;
+        right: 9px;
+
+        font-size: 24px;
+    }
+
+
+    .visit-modal-title {
+        font-size: 19px;
+
+        margin-top: 4px;
+
+        margin-bottom: 16px;
+
+        padding-bottom: 10px;
+    }
+
+
+    /* INPUT + ADD BUTTON */
+
+    .visit-modal-form {
+        flex-direction: column;
+
+        align-items: stretch;
+
+        gap: 9px;
+    }
+
+
+    .visit-modal-input {
+        width: 100%;
+
+        height: 42px;
+    }
+
+
+    .visit-modal-add {
+        width: 100%;
+
+        height: 42px;
+    }
+
+
+    /* TABLE */
+
+    .visit-modal-table {
+        min-width: 430px;
+
+        font-size: 13px;
+    }
+
+
+    .visit-modal-table thead th,
+    .visit-modal-table tbody td {
+        padding: 9px 10px;
+    }
+
+}
+
+
+/* =========================================================
+   SMALL PHONE
+========================================================= */
+
+@media (max-width: 380px) {
+
+    .visit-modal {
+        padding: 13px;
+    }
+
+
+    .visit-modal-title {
+        font-size: 18px;
+    }
+
+
+    .visit-modal-table {
+        min-width: 400px;
+
+        font-size: 12px;
+    }
+
+
+    .visit-modal-table thead th,
+    .visit-modal-table tbody td {
+        padding: 8px;
+    }
+
+}
+
+
+/* =========================================================
+   VISIT MODAL - COMMON RESPONSIVE
+========================================================= */
+
+.visit-modal-overlay {
+    position: fixed;
+    inset: 0;
+
+    width: 100%;
+    height: 100vh;
+
+    background: rgba(15, 23, 42, 0.58);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 20px;
+
+    z-index: 9999;
+
+    box-sizing: border-box;
+}
+
+
+/* =========================
+   MODAL
+========================= */
+
+.visit-modal {
+    position: relative;
+
+    width: 100%;
+    max-width: 720px;
+
+    max-height: 90vh;
+
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    background: #fff;
+
+    border-radius: 16px;
+
+    padding: 24px;
+
+    box-shadow:
+        0 20px 50px rgba(0, 0, 0, .25);
+
+    box-sizing: border-box;
+
+    animation: visitModalPopup .22s ease;
+}
+
+
+@keyframes visitModalPopup {
+
+    from {
+        transform: translateY(12px) scale(.97);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+    }
+
+}
+
+
+/* =========================
+   CLOSE
+========================= */
+
+.visit-modal-close {
+    position: absolute;
+
+    top: 12px;
+    right: 15px;
+
+    width: 36px;
+    height: 36px;
+
+    border: none;
+    border-radius: 50%;
+
+    background: #fff;
+
+    color: #dc3545;
+
+    font-size: 27px;
+    font-weight: 700;
+
+    line-height: 1;
+
+    cursor: pointer;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    transition: .2s ease;
+}
+
+.visit-modal-close:hover {
+    background: #fff0f0;
+    transform: scale(1.08);
+}
+
+
+/* =========================
+   TITLE
+========================= */
+
+.visit-modal-title {
+    margin: 4px 42px 20px 0;
+
+    padding-bottom: 12px;
+
+    color: #0d6efd;
+
+    font-size: 22px;
+    font-weight: 700;
+
+    border-bottom: 2px solid #eef2f7;
+}
+
+
+/* =========================
+   FORM
+========================= */
+
+.visit-modal-form {
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+
+    gap: 10px;
+
+    margin-bottom: 18px;
+}
+
+
+/* INPUT + SELECT */
+
+.visit-modal-input {
+    flex: 1;
+
+    width: 100%;
+    min-width: 0;
+
+    height: 44px;
+
+    padding: 8px 12px;
+
+    border: 1px solid #d9e1ec;
+    border-radius: 8px;
+
+    background: #fff;
+
+    color: #334155;
+
+    font-size: 14px;
+
+    outline: none;
+
+    transition:
+        border-color .2s ease,
+        box-shadow .2s ease;
+}
+
+.visit-modal-input:focus {
+    border-color: #0d6efd;
+
+    box-shadow:
+        0 0 0 3px rgba(13, 110, 253, .10);
+}
+
+
+/* ADD BUTTON */
+
+.visit-modal-add {
+    flex: 0 0 auto;
+
+    height: 44px;
+
+    padding: 0 22px;
+
+    border: none;
+    border-radius: 8px;
+
+    background: linear-gradient(
+        135deg,
+        #198754,
+        #20c997
+    );
+
+    color: #fff;
+
+    font-size: 14px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 4px 10px rgba(25, 135, 84, .18);
+
+    transition: .2s ease;
+}
+
+.visit-modal-add:hover {
+    transform: translateY(-1px);
+
+    box-shadow:
+        0 6px 14px rgba(25, 135, 84, .25);
+}
+
+
+/* =========================
+   DIVIDER
+========================= */
+
+.visit-modal-divider {
+    border: 0;
+
+    border-top: 1px solid #e9edf3;
+
+    margin: 18px 0;
+}
+
+
+/* =========================
+   TABLE
+========================= */
+
+.visit-table-wrapper {
+    width: 100%;
+
+    overflow-x: auto;
+}
+
+.visit-modal-table {
+    width: 100%;
+
+    border-collapse: separate;
+    border-spacing: 0;
+
+    min-width: 400px;
+
+    font-size: 14px;
+}
+
+.visit-modal-table th {
+    padding: 11px 13px;
+
+    background: #eaf3ff;
+
+    color: #0d6efd;
+
+    font-weight: 700;
+
+    text-align: left;
+
+    border-bottom: 1px solid #d9e8ff;
+
+    white-space: nowrap;
+}
+
+.visit-modal-table th:first-child {
+    border-radius: 7px 0 0 0;
+}
+
+.visit-modal-table th:last-child {
+    border-radius: 0 7px 0 0;
+}
+
+.visit-modal-table td {
+    padding: 11px 13px;
+
+    color: #334155;
+
+    border-bottom: 1px solid #edf0f4;
+
+    vertical-align: middle;
+}
+
+.visit-modal-table tbody tr:hover {
+    background: #f8fbff;
+}
+
+
+/* ACTION */
+
+.action-column {
+    width: 90px;
+
+    text-align: center !important;
+}
+
+
+/* DELETE */
+
+.visit-delete-btn {
+    width: 32px;
+    height: 32px;
+
+    border: none;
+    border-radius: 7px;
+
+    background: #fff0f0;
+
+    cursor: pointer;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    transition: .2s ease;
+}
+
+.visit-delete-btn:hover {
+    background: #ffe0e0;
+
+    transform: scale(1.05);
+}
+
+
+/* EMPTY */
+
+.visit-empty-row {
+    text-align: center !important;
+
+    padding: 25px !important;
+
+    color: #94a3b8 !important;
+
+    font-weight: 500;
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 768px) {
+
+    .visit-modal-overlay {
+        padding: 15px;
+    }
+
+    .visit-modal {
+        max-width: 650px;
+
+        padding: 20px;
+
+        border-radius: 14px;
+    }
+
+    .visit-modal-title {
+        font-size: 20px;
+    }
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 576px) {
+
+    .visit-modal-overlay {
+        padding: 10px;
+        align-items: center;
+    }
+
+    .visit-modal {
+        width: 100%;
+
+        max-width: 100%;
+
+        max-height: 92vh;
+
+        padding: 17px;
+
+        border-radius: 13px;
+    }
+
+    .visit-modal-title {
+        font-size: 19px;
+
+        margin-bottom: 17px;
+    }
+
+    .visit-modal-form {
+        flex-direction: column;
+
+        align-items: stretch;
+
+        gap: 9px;
+    }
+
+    .visit-modal-input {
+        flex: none;
+
+        width: 100%;
+
+        height: 43px;
+    }
+
+    .visit-modal-add {
+        width: 100%;
+
+        height: 43px;
+    }
+
+    .visit-modal-table {
+        font-size: 13px;
+
+        min-width: 380px;
+    }
+
+    .visit-modal-table th,
+    .visit-modal-table td {
+        padding: 9px 10px;
+    }
+
+}
+
+
+/* =========================================================
+   SMALL PHONE
+========================================================= */
+
+@media (max-width: 380px) {
+
+    .visit-modal {
+        padding: 14px;
+    }
+
+    .visit-modal-title {
+        font-size: 18px;
+    }
+
+    .visit-modal-table {
+        font-size: 12px;
+    }
+
+    .visit-modal-table th,
+    .visit-modal-table td {
+        padding: 8px;
+    }
+
 }

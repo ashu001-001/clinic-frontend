@@ -30,13 +30,13 @@ function Reports() {
       desc: "Treatment collection and records",
       route: "/treatment-report",
     },
-    {
-      title: "Sitting Report",
-      icon: "🪑",
-      color: "#8e44ad",
-      desc: "View all dental sitting collection",
-      route: "/sitting-report",
-    },
+    // {
+    //   title: "Sitting Report",
+    //   icon: "🪑",
+    //   color: "#8e44ad",
+    //   desc: "View all dental sitting collection",
+    //   route: "/sitting-report",
+    // },
   ];
 
   const handleDateChange = (index, field, value) => {
